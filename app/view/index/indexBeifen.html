@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PSAM管控平台</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=0.6, maximum-scale=1, user-scalable=no,force-device-scale-factor=1" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../public/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../public/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../public/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../../public/dist/css/skins/skin-blue-light.css">
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="../../public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!-- select2   -->
+    <link rel="stylesheet" href="../../public/bower_components/select2/dist/css/select2.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../../public/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../public/plugins/bootstrap-validator/css/bootstrapValidator.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="../../public/plugins/iCheck/all.css">
+    <!-- ztree-->
+    <link rel="stylesheet" href="../../public/plugins/zTree/css/zTreeStyle/zTreeStyle.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<!--    <link rel="icon" href="picture.ico" type="image/x-icon"/>-->
+    <style>
+        .table th{
+            background-color: #337ab7;
+            border-color: #337ab7;
+            color: white;
+            text-align: center;
+            border: none !important;
+            vertical-align: middle;
+        }
+        .table td{
+            text-align: center;
+            vertical-align: middle !important;
+        }
+        .treeview-menu li{
+            cursor: pointer;
+        }
+        .sidebar-menu>li {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            border-bottom: solid 1px #f4f4f4;
+        }
+        .sidebar-menu li{
+            cursor: pointer;
+        }
+        .skin-blue-light .wrapper, .skin-blue-light .main-sidebar, .skin-blue-light .left-side {
+            background-color: #f4f4f5;
+        }
+        .modal .modal-dialog{
+            top: 10%;
+            transform: translate(0,-50%);
+        }
+        .skin-blue-light .sidebar-menu > li {
+            background: white;
+        }
+        .skin-blue-light .sidebar-menu > li:hover > a, .skin-blue-light .sidebar-menu > li.active > a {
+            color: #3c8dbc;
+            background: #ffffff;
+        }
+        .skin-blue-light .sidebar-menu .treeview-menu > li.active > a, .skin-blue-light .sidebar-menu .treeview-menu > li > a:hover {
+            color: #3c8dbc;
+        }
+        .sidebar-menu>li:hover>a,.sidebar-menu>li.active>a {
+            border-left-color: #3c8dbc;
+        }
+        /*.skin-blue-light .sidebar-menu > li:hover > a, .skin-blue-light .sidebar-menu > li.active > a {*/
+        /*    color: #000000;*/
+        /*    background-color:#3c8dbc40 ;*/
+        /*}*/
+        /*.skin-blue-light .sidebar-menu .treeview-menu > li.active > a, .skin-blue-light .sidebar-menu .treeview-menu > li > a:hover{*/
+        /*    background-color:#fff;*/
+        /*}*/
+        .box{
+            margin-bottom: 0;
+        }
+        .ztree li{
+            line-height: 28px;
+        }
+        .ztree li a {
+            height: 28px;
+        }
+        .ztree li a.curSelectedNode{
+            height: 28px;
+        }
+        .select2-container .select2-selection--single .select2-selection__rendered{
+            padding-left: 0;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice{
+            color: #333333;
+        }
+        .form-control-feedback{
+            right: -35px;
+        }
+        @media only screen and (min-device-width: 768px){
+            body{
+                font-size: 12px;
+            }
+            .treeview-menu>li>a{
+                font-size: 12px;
+            }
+            .form-control{
+                font-size: 12px;
+            }
+            .form-group {
+                margin-bottom: 10px;
+            }
+            .tab-pane {
+                padding-top: 20px !important;
+            }
+            .content-header>h1 {
+                margin: 0;
+                font-size: 18px;
+            }
+            .content-header{
+                padding: 10px;
+            }
+            .content{
+                padding: 10px;
+                padding-top: 0;
+            }
+            .btn{
+                font-size: 12px;
+            }
+            .h4, h4{
+                font-size: 14px;
+            }
+            .content-header>.breadcrumb{
+                top: 50%;
+                transform: translate(0,-50%);
+            }
+            .table-cont{
+                padding-top: 0 !important;
+            }
+        }
+
+    </style>
+</head>
+<body class="hold-transition skin-blue-light sidebar-mini">
+<div class="wrapper">
+    <input type="hidden"  value="{{userName}}">
+    <input type="hidden" id="hideUserId" value="{{userId}}">
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>PSAM</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>PSAM</b>管控平台</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">{{ userName }}</span>
+                        </a>
+                    </li>
+                    <!-- Control Sidebar Toggle Button -->
+                    <li style="padding-right: 20px">
+                        <a href="/loginOut" class="" style="font-size: 12px" > 注销 <i class="fa fa-fw fa-power-off"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" id="menubar" data-widget="tree">
+<!--                <li class="treeview" data-url="/detail/chanelIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>车道授权流水</span></a>-->
+<!--                </li>-->
+
+<!--                <li class="treeview" data-url="/line/psamSignDetailIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>PSAM签到流水</span></a>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/detail/chanelInstallIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>车道安装情况表</span></a>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/detail/sqqzInstallIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>授权前置安装情况表</span></a>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/detail/installDoneIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>工程完成情况</span></a>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/detail/sqzdIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>授权终端流水</span></a>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/terminal/listIn">-->
+<!--                    <a><i class="fa fa-code-fork"></i> <span>授权终端明细（路公司）</span></a>-->
+<!--                </li>-->
+<!--                <li class="treeview active">-->
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-database"></i>-->
+<!--                        <span>物料管理</span>-->
+<!--                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>-->
+<!--                    </a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--                        <li data-url="/ware/factoryAdd"><a><i class="fa fa-circle-o"></i>新增厂家</a></li>-->
+<!--                        <li data-url="/ware/factoryManage"><a><i class="fa fa-circle-o"></i>厂家管理</a></li>-->
+<!--                        <li data-url="/ware/supplierAdd"><a><i class="fa fa-circle-o"></i>新增物料</a></li>-->
+<!--                        <li data-url="/ware/supplierDetail"><a><i class="fa fa-circle-o"></i>物料明细</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--                <li class="treeview">-->
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-building-o"></i>-->
+<!--                        <span>合同管理</span>-->
+<!--                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>-->
+<!--                    </a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--                        <li data-url="/ware/purchase"><a><i class="fa fa-circle-o"></i>合同提交</a></li>-->
+<!--                        <li data-url="/publish/inventory"><a><i class="fa fa-circle-o"></i>合同入库</a></li>-->
+<!--                        <li data-url="/publish/inventoryList"><a><i class="fa fa-circle-o"></i>合同明细</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--                <li class="treeview">-->
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-cubes"></i>-->
+<!--                        <span>授权终端</span>-->
+<!--                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>-->
+<!--                    </a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--                        <li data-url="/terminal/applyIn"><a><i class="fa fa-circle-o"></i>添加终端</a></li>-->
+<!--                        <li data-url="/terminal/eqmentIn"><a><i class="fa fa-circle-o"></i>终端管理</a></li>-->
+<!--                        <li data-url="/terminal/listIn"><a><i class="fa fa-circle-o"></i>终端明细</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--                <li class="treeview">-->
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-credit-card"></i> <span>发行管理</span>-->
+<!--                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>-->
+<!--                    </a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--                        <li data-url="/publish/cardApply"><a><i class="fa fa-circle-o"></i>发行申请</a></li>-->
+<!--                        <li data-url="/publish/cardApprove"><a><i class="fa fa-circle-o"></i>发行审批</a></li>-->
+<!--                        <li data-url="/publish/issueList"><a ><i class="fa fa-circle-o"></i>发行任务</a></li>-->
+<!--                        <li data-url="/publish/receiveList"><a><i class="fa fa-circle-o"></i>成品清单</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/netnode/netManage">-->
+<!--                    <a>-->
+<!--                        <i class="fa fa-code-fork"></i> <span>组织结构</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="treeview" data-url="/monitor/monitorIn" data-type="blank">-->
+<!--                    <a>-->
+<!--                        <i class="fa fa-area-chart"></i> <span>系统监控</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--&lt;!&ndash;                <li class="treeview" data-url="/monitor/monitorInG" data-type="blank">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <i class="fa fa-area-chart"></i> <span>系统监控</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        &lt;!&ndash;<span class="pull-right-container"><small class="label pull-right bg-green">new</small></span>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--                <li class="treeview">-->
+<!--                    <a href="#"><i class="fa fa-users"></i><span>系统管理</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--&lt;!&ndash;                        <li data-url="/systeam/sysUserRoleIn"><a><i class="fa fa-circle-o"></i>角色管理</a></li>&ndash;&gt;-->
+<!--                        <li data-url="/systeam/sysUserAddIn"><a><i class="fa fa-circle-o"></i>添加用户</a></li>-->
+<!--                        <li data-url="/systeam/userManageIn"><a><i class="fa fa-circle-o"></i>用户管理</a></li>-->
+<!--                        <li data-url="/systeam/sysUserEditIn"><a><i class="fa fa-circle-o"></i>账号信息</a></li>-->
+<!--                        <li data-url="/systeam/sysUserEditPswIn"><a><i class="fa fa-circle-o"></i>密码管理</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--                <li class="treeview">-->
+<!--                    <a href="#"><i class="fa fa-file"></i><span>报表明细</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>-->
+<!--                    <ul class="treeview-menu">-->
+<!--                        <li data-url="/detail/psamIn"><a><i class="fa fa-circle-o"></i>PSAM明细</a></li>-->
+<!--&lt;!&ndash;                        <li data-url="/detail/psamIn"><a><i class="fa fa-circle-o"></i>PSAM明细(路公司)</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li data-url="/detail/chanelIn"><a><i class="fa fa-circle-o"></i>车道明细</a></li>&ndash;&gt;-->
+<!--                    </ul>-->
+<!--                </li>-->
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div id="Content" class="content-wrapper">
+
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2019 <a>Tidewater</a>.</strong> All rights
+        reserved.
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="../../public/bower_components/jquery/dist/jquery.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../public/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- bootstrap datepicker -->
+<script src="../../public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<!-- daterangepicker -->
+<script src="../../public/bower_components/moment/min/moment.min.js"></script>
+<script src="../../public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- FastClick -->
+<script src="../../public/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../public/dist/js/adminlte.min.js"></script>
+<!--&lt;!&ndash; AdminLTE dashboard demo (This is only for demo purposes) &ndash;&gt;-->
+<!--<script src="../../public/dist/js/pages/dashboard.js"></script>-->
+<!--&lt;!&ndash; AdminLTE for demo purposes &ndash;&gt;-->
+<!--<script src="../../public/dist/js/demo.js"></script>-->
+<script src="../../public/bower_components/select2/dist/js/select2.full.js"></script>
+<!-- DataTables -->
+<script src="../../public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../public/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../../public/plugins/iCheck/icheck.min.js"></script>
+<!--ztree-->
+<script src="../../public/plugins/zTree/js/jquery.ztree.core.js"></script>
+<!--sweetalert-->
+<script src="../../public/plugins/sweetalert/sweetalert.min.js"></script>
+<!--echarts-->
+<script src="../../public/plugins/echarts/echarts.min.js"></script>
+<script src="../../public/plugins/echarts/chongqing.js"></script>
+<script src="../../public/plugins/echarts/echarts-gl.js"></script>
+<script type="text/javascript" language="javascript">
+
+  (function ($) {
+    var csrftoken = getCookie('csrfToken');
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+      beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader('x-csrf-token', csrftoken);
+        }
+      },
+    });
+
+    function getCookie(c_name) {
+      if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=")
+        if (c_start != -1) {
+          c_start = c_start + c_name.length + 1
+          c_end = document.cookie.indexOf(";", c_start)
+          if (c_end == -1) c_end = document.cookie.length
+          return unescape(document.cookie.substring(c_start, c_end))
+        }
+      }
+      return ""
+    }
+
+
+    window.target = function (url, replaceLabel, form, callBack) {
+      if (url == undefined) return;
+
+      url = (url.indexOf('?') != -1 ? url + '&' : url + '?') + 'no-cache=' + Math.random();
+      // console.log(url);
+
+      if (url.indexOf('http') >= 0) {
+        $("#" + replaceLabel).html('<iframe id="iframe" style="width: 100%;"></iframe>');
+        var window_height = $(window).height();
+        $("#iframe")[0].src = url;
+        $("#iframe").css('min-height', window_height);
+      }
+      else {
+        if (replaceLabel.length > 0) {
+          $("#" + replaceLabel).load(url, form, callBack);
+        }
+        else {
+          self.location = url;
+        }
+      }
+
+    }
+    //菜单
+    function getmenu(){
+      // $("#menubar").html(' ')
+      $.ajax({
+        type: 'GET',
+        url: "/index/menulist",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          var menu = $("#menubar");
+          var html = '';
+          $.each(data.data,function(index,coment) {
+            if (coment.children.length>0){
+              html += ' <li class="treeview"><a href="#"><span>'+coment.name+'</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>'
+                + '<ul class="treeview-menu">';
+              $.each(coment.children,function(index,p) {
+                html+='<li data-url="'+p.url+'"><a><i class="fa fa-circle-o"></i>'+p.name+'</a></li>'
+              })
+              html += '</ul></li>'
+
+            } else {
+              if(coment.name=='系统监控'){
+                html += '<li class="treeview" data-url="'+coment.url+'" data-type="blank"><a></i> <span>'+coment.name+'</span></a></li>';
+              }else {
+                html += '<li class="treeview" data-url="'+coment.url+'"><a></i> <span>'+coment.name+'</span></a></li>';
+              }
+            }
+          })
+          menu.append(html);
+          menu.find('.treeview').eq(0).addClass('active');
+          menu.find('li .treeview-menu li').first().click();
+        }
+      });
+    }
+    getmenu();
+
+    $('.sidebar-menu,.treeview-menu').on("click","li",function (e) {
+      // alert(123);
+      var url = e.currentTarget.dataset.url;
+      if(e.currentTarget.dataset.type){
+        window.open(url);
+        $.ajax({
+          type: 'GET',
+          url: url,
+          data: {},
+          dataType: "json",
+          success: function (data) {
+
+          }
+        });
+      }else {
+        var self = $(e.currentTarget);
+        self.siblings().removeClass('active');
+        if (self.parent().hasClass("treeview-menu")){
+          $(".sidebar-menu").find(".treeview.active").siblings().find("li").removeClass('active');
+        } ;
+        if (!self.hasClass())
+          self.addClass('active');
+
+        target(url, 'Content');
+      }
+      e.stopPropagation();
+    });
+
+
+    $('.sidebar-menu li .treeview-menu li').first().click();
+
+  })(jQuery);
+
+</script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>-->
+<script src="../../public/plugins/socket.io-client/dist/socket.io.js"></script>
+<script>
+
+  const log = console.log;
+
+  // window.onload = function() {
+  //   // init
+  //   const socket = io('/exchange', {
+  //
+  //     // 实际使用中可以在这里传递参数
+  //     query: {
+  //       room: 'demo',
+  //       userId: `client_${Math.random()}`,
+  //     },
+  //
+  //     transports: ['websocket']
+  //   });
+  //
+  //   socket.on('connect', () => {
+  //     const id = socket.id;
+  //
+  //     log('#connect,', id, socket);
+  //
+  //     // 监听自身 id 以实现 p2p 通讯
+  //     socket.on(id, msg => {
+  //       log('#receive,', msg);
+  //     });
+  //   });
+  //
+  //   // 接收在线用户信息
+  //   socket.on('message', msg => {
+  //     log('#online,', msg);
+  //   });
+  //   // ceshi
+  //   socket.on('res', function(data){
+  //     log('#res', data);
+  //   });
+  //   // setInterval(function() {
+  //   //   socket.emit('exchange','张三');
+  //   // },1000)
+  //   socket.emit('exchange','张三');
+  //   socket.on('exchange', function(data){
+  //     log('#resRoute', data);
+  //   });
+  //   // 系统事件
+  //   socket.on('disconnect', msg => {
+  //     log('#disconnect', msg);
+  //   });
+  //
+  //   socket.on('disconnecting', () => {
+  //     log('#disconnecting');
+  //   });
+  //
+  //   socket.on('error', () => {
+  //     log('#error');
+  //   });
+  //
+  //   window.socket = socket;
+  // };
+
+</script>
+</body>
+</html>

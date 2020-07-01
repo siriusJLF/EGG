@@ -1,0 +1,700 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>PSAM明细</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 报表明细</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+    <input type="hidden" value="{{type}}" id="hideType">
+    <input type="hidden" value="{{lever}}" id="hideLevel">
+    <input type="hidden" value="{{netnode}}" id="hideNetNode">
+    <input type="hidden" id="hideSelectedPsam" value="">
+    <input type="hidden" id="hideSelectedLength" value="0">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-3 form-group " >
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>PSAM卡号：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="samSerialNo" id="samSerialNo" placeholder="输入PSAM卡号查询" >
+                </div>
+            </div>
+            {% if lever == 1 %}
+                <div class="form-group col-md-3">
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>归属公司：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <input type="text" class="form-control" autocomplete="off" name="samSerialNo" disabled id="companycode" placeholder="" value="{{netNodeName}}" >
+                    </div>
+                </div>
+            {% endif %}
+            {% if lever <= 2 %}
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>归属路段：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    {% if lever < 2 %}
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="roadcode"></select>
+                    {% else %}
+                    <input type="text" class="form-control" autocomplete="off" name="netNodeName" disabled  placeholder="" value="{{netNodeName}}" >
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>归属站点：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    {% if lever < 3 %}
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="stationcode"></select>
+                    {% else %}
+                    <input type="text" class="form-control" autocomplete="off" name="netNodeName" disabled  placeholder="" value="{{netNodeName}}" >
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>状态：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control" name="status" id="status">
+                        <option value="">请选择状态</option>
+                        <option value="PSAM_STATUS_IMP" >入库</option>
+                        <option value="PSAM_STATUS_ISSUEING" >发行中</option>
+                        <option value="PSAM_STATUS_ISSUED" >发行完成</option>
+                        <option value="PSAM_STATUS_RECV" >领用</option>
+                        <option value="PSAM_STATUS_BIND" >绑定</option>
+                        <option value="PSAM_STATUS_INUSED" >使用中</option>
+                        <option value="PSAM_STATUS_RECOVERY" >回收</option>
+                        <option value="PSAM_STATUS_EXCEPT" >异常</option>
+                        <option value="PSAM_STATUS_DESTORY" >销毁</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>应用子状态：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control" name="status" id="substatus">
+                        <option value="">请选择状态</option>
+                        <option value="PSAM_SUBSTATUS_NORMAL" >正常</option>
+                        <option value="PSAM_SUBSTATUS_INSTALLED" >安装</option>
+                        <option value="PSAM_SUBSTATUS_DOUBTFUL" >可疑</option>
+                        <option value="PSAM_SUBSTATUS_TIMEOUT" >超时</option>
+                        <option value="PSAM_SUBSTATUS_UNISSUE" >未发行</option>
+                        <option value="PSAM_SUBSTATUS_RECVED" >ITSC拒绝</option>
+                        <option value="PSAM_SUBSTATUS_LOSTED" >挂失</option>
+                        <option value="PSAM_SUBSTATUS_AUTHFAIL" >授权失败</option>
+                        <option value="PSAM_SUBSTATUS_SIGNFAIL" >签到失败</option>
+                        <option value="PSAM_SUBSTATUS_LOCKED" >锁定</option>
+                        <option value="PSAM_SUBSTATUS_SLEEP" >睡眠</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <button id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+                <button id="btnHandover" style="width: 180px; height: 42px;" class="btn btn-warning pull-right">移&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+            </div>
+        </div>
+        <!-- 记录-->
+        <div class="table-cont" style="padding: 0">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 移交确认-->
+<div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 670px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="moveModallLabel">移交信息确认</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font class="text-red">*</font>公司：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="moveCompanyCode" id="moveCompanyCode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>路段：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="moveRoadCode" id="moveRoadCode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>站点：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="moveStationCode" id="moveStationCode"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>目标责任人：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="moveMantPerson" autocomplete="off" id="moveMantPerson" placeholder="请输入目标责任人姓名">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>转移数量：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="moveNum" autocomplete="off" id="moveNum" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>备注：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="moveRemark" autocomplete="off" id="moveRemark" placeholder="请输入备注">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="moveSubmit" onclick="psamMoveDo(this)">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(function() {
+    const parentcode = $("#hideNetNode").val();
+    switch ($("#hideLevel").val()) {
+      case '1':
+        getslect(2,parentcode);
+        setTimeout(function() {
+          getslect(3);
+        },0)
+        break;
+      case '2':
+        $('#roadcode').attr("disabled","disabled");
+        getslect(3,parentcode);
+        break;
+      case '3':
+        $('#stationcode').attr("disabled","disabled");
+        break;
+      default:
+        break;
+    }
+    $('#status').select2({
+      placeholder:'请选择状态',
+      allowClear : true,
+    });
+    $('#substatus').select2({
+      placeholder:'请选择应用子状态',
+      allowClear : true,
+    });
+
+    //下拉框
+    function getslect(level,parent){
+      var placholder = '';
+      var searchLevel = '';
+      var dom = '';
+      switch (level) {
+        case 1:
+          placholder = '请选择公司';
+          searchLevel = 'NETNODE_LEVEL_1';
+          dom = $("#companycode")
+          break;
+        case 2:
+          placholder = '请选择路段';
+          searchLevel = 'NETNODE_LEVEL_2';
+          dom = $("#roadcode");
+          break;
+        case 3:
+          placholder = '请选择收费站';
+          searchLevel = 'NETNODE_LEVEL_3';
+          dom = $("#stationcode");
+          break;
+      }
+      function getNetNode() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            level:searchLevel,
+            parentId:parent,
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            dom.empty();
+            var html = '';
+            html += '<option value="">'+placholder+'</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            dom.html(html);
+            dom.select2({
+              placeholder:placholder,
+              allowClear : true,
+            });
+          }
+        });
+      }
+      getNetNode();
+    }
+    selectInit();
+    function selectInit() {
+      $("#roadcode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#roadcode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#stationcode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#stationcode').html(html);
+            $('#stationcode').select2({
+              placeholder:'请选择站点',
+              allowClear : true,
+            });
+          }
+        });
+      })
+    }
+
+    function nodeSelect() {
+      $('#moveRoadCode').select2({
+        placeholder: '请先选择公司',
+        allowClear:true,
+      });
+      $('#moveStationCode').select2({
+        placeholder:'请先选择路段',
+        allowClear:true,
+      });
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page: 0,
+          pageSize: 1000,
+          level: 'NETNODE_LEVEL_1'
+        },
+        dataType: "json",
+        success: function(data) {
+          if (!data.result)
+            return;
+          $('#moveCompanyCode').empty();   //清空resText里面的所有内容
+          var html = '';
+          html += '<option value="">请选择公司</option>';
+          $.each(data.data.data, function(commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '" >' + comment.nodeName + '</option>';
+          });
+          $('#moveCompanyCode').html(html);
+          $('#moveCompanyCode').select2({
+            placeholder: '请选择公司',
+            allowClear:true,
+          });
+        }
+      });
+      $("#moveCompanyCode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page: 0,
+            pageSize: 1000,
+            parentId: $('#moveCompanyCode').val(),
+          },
+          dataType: "json",
+          success: function(data) {
+            if (!data.result)
+              return;
+            $('#moveRoadCode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择路段</option>';
+            $.each(data.data.data, function(commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#moveRoadCode').html(html);
+            $('#moveRoadCode').select2({
+              placeholder: '请选择路段',
+              allowClear:true,
+            });
+          }
+        });
+      })
+      $("#moveRoadCode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#moveRoadCode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#moveStationCode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#moveStationCode').html(html);
+            $('#moveStationCode').select2({
+              placeholder: '请选择站点',
+              allowClear:true,
+            });
+          }
+        });
+      })
+    }
+    //表格
+    if ($('#example2')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/detail/queryPsamCard',
+          data: {
+            // applyuser: 1, //0查询当前用户的记录，1查询所有人
+            // level:'NETNODE_LEVEL_1'
+            // status: $("#status").val(),
+          },
+        },
+        "columnDefs": [
+          { "width": "2%", "targets": 0 }
+        ],
+        "columns": [
+          {"data": "samSerialNo", "title": "<input type='checkbox' style='vertical-align: middle;' name='taskAll' >"},
+          {"data": "samSerialNo", "title": "卡号"},
+          {"data": "currRoadName", "title": "归属路段"},
+          {"data": "currStationName", "title": "归属站点"},
+          {"data": "currChanelCode", "title": "车道"},
+          {"data": "status", "title": "状态"},
+          {"data": "subStatus", "title": "应用子状态"},
+          {"data": "chanelIp", "title": "IP"},
+          {"data": "installTime", "title": "安装时间"},
+          {"data": "lastSignTime", "title": "最近签到时间"},
+          {"data": "lastAuthTime", "title": "最近授权时间"},
+          {"data": "samSerialNo", "title": "操作"}],
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sLengthMenu" : "显示 _MENU_ 项结果",
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          $('td', row).eq(0).html('<input type="checkbox" style="vertical-align: middle;" name="task"  value="'+ data.samSerialNo + '">');
+          $('td', row).eq(8).html(''+data.installTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          $('td', row).eq(9).html(''+data.lastSignTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          $('td', row).eq(10).html(''+data.lastAuthTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          var welldata = JSON.stringify(data);
+          switch (data.status) {
+            case 'RECV':
+              $('td', row).eq(5).html('<span class="text-aqua">领用</span>');
+              $('td', row).eq(11).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-warning' style='margin-left: 10px' name='lost'>挂失</a>");
+              break;
+            case 'LOST':
+              $('td', row).eq(5).html('<span class="text-yellow">挂失</span>');
+              $('td', row).eq(11).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-warning' style='margin-left: 10px' name='unLost'>解挂</a>");
+              break;
+            case 'BIND':
+              $('td', row).eq(5).html('<span class="text-aqua">绑定</span>');
+              $('td', row).eq(11).html("<input type='hidden' value='"+welldata+"' >");
+              break;
+            case 'INUSED':
+              $('td', row).eq(5).html('<span class="text-green">应用中</span>');
+              $('td', row).eq(11).html("<input type='hidden' value='"+welldata+"' >");
+              break;
+            case 'STOP':
+              $('td', row).eq(5).html('<span class="text-red">停用</span>');
+              $('td', row).eq(11).html("<input type='hidden' value='"+welldata+"' >");
+              break;
+            case 'CHANGEING':
+              $('td', row).eq(5).html('<span class="text-yellow">转移中</span>');
+              $('td', row).eq(11).html('<span class="text-yellow">查看详情请前往PSAM转移管理</span>');
+              break;
+            case 'EXCEPT':
+              $('td', row).eq(5).html('<span class="text-red">异常</span>');
+              $('td', row).eq(11).html("<input type='hidden' value='"+welldata+"' >");
+              break;
+            default:
+              $('td', row).eq(5).html('<span class="text-red">未知状态('+data.status+')</span>');
+              break;
+          }
+          switch (data.subStatus) {
+            case 'NORMAL':
+              $('td', row).eq(6).html('<span class="text-green">正常</span>');
+              break;
+            case '00':
+              $('td', row).eq(6).html('<span class="text-green">正常</span>');
+              break;
+            case 'INSTALLED':
+              $('td', row).eq(6).html('<span class="text-aqua">已安装</span>');
+              break;
+            case 'DOUBTFUL':
+              $('td', row).eq(6).html('<span class="text-red">可疑</span>');
+              break;
+            case '02':
+              $('td', row).eq(6).html('<span class="text-red">可疑</span>');
+              break;
+            case 'TIMEOUT':
+              $('td', row).eq(6).html('<span class="text-red">超时</span>');
+              break;
+            case '03':
+              $('td', row).eq(6).html('<span class="text-red">超时</span>');
+              break;
+            case 'UNISSUE':
+              $('td', row).eq(6).html('<span class="text-yellow">未发行</span>');
+              break;
+            case '11':
+              $('td', row).eq(6).html('<span class="text-yellow">未发行</span>');
+              break;
+            case 'RECVED':
+              $('td', row).eq(6).html('<span class="text-yellow">ITSC拒绝</span>');
+              break;
+            case 'LOSTED':
+              $('td', row).eq(6).html('<span class="text-yellow">已挂失</span>');
+              break;
+            case '13':
+              $('td', row).eq(6).html('<span class="text-yellow">已挂失</span>');
+              break;
+            case '12':
+              $('td', row).eq(6).html('<span class="text-yellow">已回收</span>');
+              break;
+            case 'AUTHFAIL':
+              $('td', row).eq(6).html('<span class="text-yellow">授权失败</span>');
+              break;
+            case 'LOCKED':
+              $('td', row).eq(6).html('<span class="text-yellow">锁定</span>');
+              break;
+            case 'SLEEP':
+              $('td', row).eq(6).html('<span class="text-yellow">睡眠</span>');
+              break;
+            case 'RANGEINV':
+              $('td', row).eq(6).html('<span class="text-yellow">跨公司应用</span>');
+              break;
+            case '':
+              $('td', row).eq(6).html('<span class="text-yellow">--</span>');
+              break;
+            default:
+              $('td', row).eq(6).html('<span class="text-red">未知状态（'+data.subStatus+'）</span>');
+              break;
+          }
+        },
+        "drawCallback": function (settings, json) {
+          $('input[name="taskAll"]').click(checkAll);
+          // $('a[name="approve"]').click(approve);
+        }
+      };
+      netTable = $('#example2').DataTable(settings);
+
+    }
+    function checkAll(){
+      var this_ = $(this);
+      var taskArr = [];
+      this_.toggleClass("checked");
+      if(this_.hasClass("checked")){
+        $(this).parents('table').find('input[name="task"]').prop('checked',true)
+      }else {
+        $(this).parents('table').find('input[name="task"]').prop('checked',false);
+        taskArr = [];
+      }
+
+    }
+    //   校验
+    check()
+    function check(){
+      $('form').bootstrapValidator({
+        // 默认的提示消息
+        message: 'This value is not valid',
+        // 表单框里右侧的icon
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        submitHandler: function (validator, form, submitButton) {
+          // 表单提交成功时会调用此方法
+          // validator: 表单验证实例对象
+          // form  jq对象  指定表单对象
+          // submitButton  jq对象  指定提交按钮的对象
+          // applySubmit();
+        },
+        fields: {
+          moveCompanyCode: {
+            validators: {
+              notEmpty: {
+                message: '请选择要移交的公司'
+              }
+            }
+          }
+        }
+      });
+    }
+    //装移
+    $("#btnHandover").click(function() {
+      var taskArr = [];
+      $('input[name="task"]:checked').each(function() {
+        taskArr.push($(this).val());
+      })
+      console.log(taskArr);
+      $("#hideSelectedLength").val(taskArr.length);
+      $("#hideSelectedPsam").val(taskArr.join(','));
+      console.log($("#hideSelectedPsam").val())
+      const moveNum = $("#hideSelectedLength").val();
+      if (moveNum<=0){
+        swal({
+          title:'系统提示',
+          text:'请勾选需要移交的PSAM卡！',
+          icon:'info',
+          button:true
+        })
+      } else {
+        $("#moveModal").modal('show');
+        $("#moveNum").val($("#hideSelectedLength").val());
+        nodeSelect();
+      }
+
+    })
+
+    //  查询
+    $("#btnSearch").click(function() {
+      search();
+    })
+
+
+  })
+  $('#moveModal').on('hide.bs.modal', function () {
+    $('form').data('bootstrapValidator').resetForm();
+  });
+  function psamMoveDo(that){
+    $(that).attr("disabled",'disabled')
+    $('form').bootstrapValidator('validate');
+    if(!$('form').data('bootstrapValidator').isValid()){
+      $(that).removeAttr("disabled");
+    } else {
+      const company = $("#moveCompanyCode").val();
+      const road = $("#moveRoadCode").val();
+      const station = $("#moveStationCode").val();
+      var recvNetNodeCode;
+      if (station!=null||station!='') {
+        recvNetNodeCode = station;
+      }else {
+        if (road!=null||road!='') {
+          recvNetNodeCode = road;
+        }else {
+          recvNetNodeCode = company;
+        }
+      }
+      const dataJson = {
+        recvNetNodeCode:recvNetNodeCode,
+        samSerialNoList:$("#hideSelectedPsam").val(),
+      }
+      $("#moveModal").modal('hide');
+      $.ajax({
+        type: 'POST',
+        url: "/detail/responsChangeApply",
+        data: dataJson,
+        dataType: "json",
+        success: function (data) {
+          $(that).removeAttr("disabled");;
+          if (!data.result){
+            swal({
+              title:'操作失败',
+              text:data.errMsg,
+              icon:'error',
+              button:true
+            });
+          }else {
+            swal({
+              title:'操作成功',
+              text:data.msg,
+              icon:'success',
+              button:false,
+              timer: 3000
+            })
+            $('form').data('bootstrapValidator').resetForm();
+            search();
+          }
+        }
+      })
+    }
+
+  }
+  function search() {
+    netTable.clear();
+    netTable.ajax.url("/detail/queryPsamCard?" +"&companyCode="+$("#companycode").val()+"&roadCode="+$("#roadcode").val()+"&stationCode="+$("#stationcode").val()
+      +"&status="+$("#status").val()+"&samSerialNo="+$("#samSerialNo").val()+"&subStatus="+$("#substatus").val()).load();
+  }
+
+
+</script>

@@ -1,0 +1,9 @@
+2020-06-06 04:30:00,005 INFO 18400 [Job#159138900000410875454909802001] D:\new work\newEgg\node_modules\egg-multipart\app\schedule\clean_tmpdir.js executing by app
+2020-06-06 04:30:00,009 INFO 18400 [Job#159138900000410875454909802001] D:\new work\newEgg\node_modules\egg-multipart\app\schedule\clean_tmpdir.js execute succeed, used 3ms
+2020-06-06 04:30:00,008 INFO 6496 [Timer] D:\new work\newEgg\node_modules\egg-multipart\app\schedule\clean_tmpdir.js next time will execute after 86399995ms at 2020-06-07 04:30:00.003
+2020-06-07 00:00:00,005 INFO 18400 [Job#159145920000411577454909158992] D:\new work\newEgg\node_modules\egg-logrotator\app\schedule\clean_log.js executing by app
+2020-06-07 00:00:00,007 INFO 18400 [Job#159145920000411577454909158992] D:\new work\newEgg\node_modules\egg-logrotator\app\schedule\clean_log.js execute succeed, used 1ms
+2020-06-07 00:00:00,007 INFO 6496 [Timer] D:\new work\newEgg\node_modules\egg-logrotator\app\schedule\clean_log.js next time will execute after 86399996ms at 2020-06-08 00:00:00.003
+2020-06-07 00:00:01,004 INFO 18400 [Job#159145920100411577464903312992] D:\new work\newEgg\node_modules\egg-logrotator\app\schedule\rotate_by_file.js executing by app
+2020-06-07 00:00:01,008 INFO 18400 [Job#159145920100411577464903312992] D:\new work\newEgg\node_modules\egg-logrotator\app\schedule\rotate_by_file.js execute succeed, used 4ms
+2020-06-07 00:00:01,007 INFO 6496 [Timer] D:\new work\newEgg\node_modules\egg-logrotator\app\schedule\rotate_by_file.js next time will execute after 86399996ms at 2020-06-08 00:00:01.003

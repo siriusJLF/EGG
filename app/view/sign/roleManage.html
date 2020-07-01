@@ -1,0 +1,283 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>角色管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-12 form-group clearfix">
+                <button id="btnAddRole" style="width: 180px; height: 42px; " class="btn btn-primary pull-right">添加新角色</button>
+            </div>
+
+        <!-- 记录-->
+        <div class="table-cont">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="roleTable" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 厂家修改-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">角色信息</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>角色编码：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="roleId" autocomplete="off" id="roleId" placeholder="请输入角色编码" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>角色名称：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="roleName" autocomplete="off" id="roleName" placeholder="请输入角色名称"  >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>角色说明：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <textarea type="text" class="form-control" name="roleRemark" style="height: 80px" autocomplete="off" id="roleRemark" placeholder="请输入角色说明" ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit">添 加</button>
+                    <button type="button" class="btn btn-primary" id="editChange">修 改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  $(function() {
+
+      if ($('#roleTable')) {
+        var pagesize = 10;
+        var settings = {
+          "destroy": true,
+          "serverSide": true,
+          "ajax": {
+            url: '/systeam/sysRoleQuery',
+            data: {},
+          },
+          "columns": [
+            {"data": "roleId", "title": "角色编码"},
+            {"data": "roleName", "title": "角色名称"},
+            {"data": "remark", "title": "角色说明"},
+            {"data": "roleId", "title": "操作"},
+            ],
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "processing": true,
+          "pageLength": pagesize,
+          "oLanguage": {
+            "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+            "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sProcessing": "正在加载中...",
+            "oPaginate": {
+              "sFirst": "第一页",
+              "sPrevious": " 上一页 ",
+              "sNext": " 下一页 ",
+              "sLast": " 最后一页 "
+            }
+          },
+          "createdRow": function (row, data, index) {
+            $('td', row).eq(3).html('<a class="btn btn-sm btn-info" name="edit" data-name="'+data.roleName+'" data-id="'+data.roleId+'" data-remark="'+data.remark+'" >修改</a>');
+          },
+          "drawCallback": function (settings, json) {
+            $('a[name="edit"]').click(changeDialog);
+          }
+        };
+        roleTable = $('#roleTable').DataTable(settings);
+      }
+    //
+    function changeDialog(e) {
+      // $('form').data('bootstrapValidator').destroy();
+      $("#editModal").modal('show');
+      $("#editSubmit").hide();
+      $("#editChange").show();
+      const id = e.currentTarget.dataset.id;
+      const roleName = e.currentTarget.dataset.name;
+      const roleRemark = e.currentTarget.dataset.remark;
+      $("#roleId").val(id);
+      $("#roleName").val(roleName);
+      $("#roleRemark").val(roleRemark);
+      $("#editChange").click(function() {
+        const roleId = $("#roleId").val();
+        const roleName = $("#roleName").val();
+        const remark = $("#roleRemark").val();
+        check();
+        if(roleName==e.currentTarget.dataset.name&&roleId==e.currentTarget.dataset.id&&remark==e.currentTarget.dataset.remark){
+          swal({
+            title:'您没有做任何修改',
+            text:' ',
+            icon:'warning',
+            button:false
+          });
+          // $('form').data('bootstrapValidator').resetForm();
+          $("#editSubmit").removeAttr('disabled');
+          return;
+        }
+        $('form').bootstrapValidator('validate');
+        if($('form').data('bootstrapValidator').isValid()){
+          $.ajax({
+            type: 'POST',
+            url: "/systeam/sysRoleUpdate",
+            data: {
+              roleId:roleId,
+              remark:remark,
+              roleName:roleName,
+            },
+            dataType: "json",
+            success: function (data) {
+              $("#editSubmit").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+              $("#editModal").modal('hide');
+              if (!data.result){
+                swal({
+                  title:'修改失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:false
+                });
+              }else {
+                swal({
+                  title:'修改成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                roleTable.ajax.url("/systeam/sysRoleQuery").load();
+              }
+            }
+          })
+        }else {
+          $("#editSubmit").removeAttr('disabled');
+        }
+      })
+
+    }
+    $("#btnAddRole").click(function() {
+      $("#editModal").find("input,textarea").val('');
+      $("#editModal").modal('show');
+      $("#editChange").hide();
+      $("#editSubmit").show();
+      $('form').data('bootstrapValidator').destroy();
+      $("#editSubmit").click(function() {
+        check();
+        $("#editSubmit").attr('disabled','disabled');
+        const roleId = $("#roleId").val();
+        const roleName = $("#roleName").val();
+        const remark = $("#roleRemark").val();
+        $('form').bootstrapValidator('validate');
+        if($('form').data('bootstrapValidator').isValid()){
+          $.ajax({
+            type: 'POST',
+            url: "/systeam/sysRoleAdd",
+            data: {
+              roleId:roleId,
+              remark:remark,
+              roleName:roleName,
+            },
+            dataType: "json",
+            success: function (data) {
+              $("#editSubmit").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+              $("#editModal").modal('hide');
+              if (!data.result){
+                swal({
+                  title:'添加失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:false
+                });
+              }else {
+                swal({
+                  title:'添加成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                roleTable.ajax.url("/systeam/sysRoleQuery").load();
+              }
+            }
+          })
+        }else {
+          $("#editSubmit").removeAttr('disabled');
+        }
+      })
+    })
+
+    //校验
+    check()
+    function check(){
+      $('form').bootstrapValidator({
+        // 默认的提示消息
+        message: 'This value is not valid',
+        // 表单框里右侧的icon
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+          roleId: {
+            validators: {
+              notEmpty: {
+                message: '请输入角色编码'
+              }
+            }
+          },
+          roleName: {
+            validators: {
+              notEmpty: {
+                message: '请输入角色名称'
+              }
+            }
+          }
+        }
+      });
+    }
+
+  /* js last line*/
+  })
+</script>

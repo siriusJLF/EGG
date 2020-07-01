@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PSAM管控平台</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=0.6, maximum-scale=1, user-scalable=no,high-dpi-support=0 ,force-device-scale-factor=1" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../public/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../../public/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- 登录页样式   -->
+    <link rel="stylesheet" href="../../public/dist/css/login.css">
+    <link rel="stylesheet" href="../../public/plugins/bootstrap-validator/css/bootstrapValidator.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <style>
+        .form-control-feedback{
+            top:11px;
+        }
+    </style>
+</head>
+<body class="hold-transition">
+<div class="wrapper">
+
+    <header class="main-header header">
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg">PSAM管控平台</span>
+        </a>
+    </header>
+    <div class="main-content">
+        <div class="item">
+            <div class="company-img"></div>
+        </div>
+        <div class="item">
+            <div class="logo-form-cont">
+                <h5 style="text-align: center;font-size: 16px;font-weight: bold;line-height: 30px">登录</h5>
+                <form action="/login?_csrf={{ ctx.csrf | safe }}" method="post" id="loginForm">
+                    <div class="input-cont form-group">
+                        <input type="text" name="name" class="input-user form-control" placeholder="PSAM管控平台账号" data-bv-notempty="true" value="{{result.loginId}}" data-bv-notempty-message="账号不能为空">
+                    </div>
+                    <div class="input-cont form-group">
+                        <input type="password" name="password" id="pswIpt" class="input-password form-control" placeholder="登录密码" data-bv-notempty="true" value="{{result.pwd}}" data-bv-notempty-message="密码不能为空">
+                    </div>
+                    <div class="errtips">{{result.errMsg}}</div>
+                    <button href="#" id="login" type="submit" class="btn-blue">登  录</button>
+                    <div class="mgt-20" style="text-align: right">
+<!--                        <a class="forgetPsw">没有账号？点击注册</a>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="../../public/bower_components/jquery/dist/jquery.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../public/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- daterangepicker -->
+<script src="../../public/bower_components/moment/min/moment.min.js"></script>
+<script src="../../public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- FastClick -->
+<script src="../../public/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../../public/dist/js/adminlte.min.js"></script>
+<script src="../../public/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<!--&lt;!&ndash; AdminLTE dashboard demo (This is only for demo purposes) &ndash;&gt;-->
+<!--<script src="../../public/dist/js/pages/dashboard.js"></script>-->
+<!--&lt;!&ndash; AdminLTE for demo purposes &ndash;&gt;-->
+<!--<script src="../../public/dist/js/demo.js"></script>-->
+<script type="text/javascript" language="javascript">
+
+  (function ($) {
+    var csrftoken = getCookie('csrfToken');
+
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE|POST)$/.test(method));
+    }
+
+    $.ajaxSetup({
+      beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader('x-csrf-token', csrftoken);
+        }
+      },
+    });
+
+    function getCookie(c_name) {
+      if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=")
+        if (c_start != -1) {
+          c_start = c_start + c_name.length + 1
+          c_end = document.cookie.indexOf(";", c_start)
+          if (c_end == -1) c_end = document.cookie.length
+          return unescape(document.cookie.substring(c_start, c_end))
+        }
+      }
+      return ""
+    }
+
+  })(jQuery);
+
+</script>
+</body>
+</html>

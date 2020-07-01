@@ -1,0 +1,425 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>系统用户管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-4 form-group " >
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>姓名：</label>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="userName" id="userName" placeholder="请输入要查询的用户姓名" >
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>网点名称：</label>
+                </div>
+                <div class="col-md-8" style="padding: 0">
+                    <select class="form-control select2" data-live-search ="true" style="width: 100%;" name="comp" id="netNodeCode"></select>
+                </div>
+            </div>
+            <div class="col-md-4 form-group text-center">
+                <button id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+
+        <!-- 记录-->
+        <div class="table-cont">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="factoryTables" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 厂家修改-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">用户信息修改</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><span class="netNodeName">姓名：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editName" autocomplete="off" id="editName" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>归属网点：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+<!--                                <select class="form-control select2" data-live-search ="true" style="width: 100%;" name="editNet" id="editNet"></select>-->
+                                <input type="text" class="form-control" name="editNet" autocomplete="off" id="editNet" >
+                            </div>
+                            <div class="col-md-2" style="padding: 0"><a id="btnChangeNet" style="line-height: 34px;text-decoration: underline;cursor: pointer">更改网点</a></div>
+                        </div>
+                        <div class="form-group col-md-12 hideChangeNet" style="line-height: 32px;color: red" hidden>
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>新的归属网点：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <select class="form-control select2" data-live-search ="true" style="width: 100%;" name="editNetChange" id="editNetChange"></select>
+                                <!--                                <input type="text" class="form-control" name="editNet" autocomplete="off" id="editNet" >-->
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 " style="line-height: 32px;">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>角色：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <select class="form-control select2" multiple="multiple" data-live-search ="true" style="width: 100%;" name="roleId" id="roleId"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>联系电话：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="edittel" autocomplete="off" id="edittel" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>邮箱地址：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editEmail" autocomplete="off" id="editEmail" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  $(function() {
+    //下拉框
+    selectInit()
+    function selectInit(){
+//角色
+      $.ajax({
+        type: 'POST',
+        url: "/systeam/queryRole",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          console.log(data)
+          if (!data.result)
+            return;
+          $('#roleId').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择用户角色</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.roleId + '"  ' + '>' + comment.roleName + '</option>';
+          });
+          $('#roleId').html(html);
+          $('#roleId').select2({
+            placeholder: "请选择用户角色",
+          })
+        }
+      });
+      $('#netNodeCode').select2({
+        placeholder: "请输入关键字",
+        language : {
+          inputTooShort: function () {
+            return "请至少输入两个中文关键字";
+          }
+        },
+        allowClear: true,
+        ajax: {
+          type: 'POST',
+          delay : 800,// 延迟显示
+          url: '/systeam/netQueryName',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              page: params.page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            // Transforms the top-level key of the response object from 'items' to 'results'
+            const results = [];
+            $.each(data.data.data, function (commentIndex, comment) {
+              results.push({id:comment.netNodeCode,text:comment.nodeName})
+            });
+            return {
+              results: results
+            };
+          }
+        },
+        minimumInputLength : 1,// 最少输入一个字符才开始检索
+      });
+    }
+
+      if ($('#factoryTables')) {
+        var pagesize = 10;
+        var settings = {
+          "destroy": true,
+          "serverSide": true,
+          "ajax": {
+            url: '/systeam/sysUserQuery',
+            data: {},
+          },
+          "columns": [
+            {"data": "userId", "title": "账号"},
+            {"data": "userName", "title": "姓名"},
+            {"data": "roleNames", "title": "身份"},
+            {"data": "netNodeName", "title": "网点"},
+            {"data": "phoneCall", "title": "联系电话"},
+            {"data": "email", "title": "邮箱"},
+            {"data": "createTime", "title": "创建时间"},
+            {"data": "updateTime", "title": "最后修改时间"},
+            {"data": "userId", "title": "操作"},
+            ],
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "processing": true,
+          "pageLength": pagesize,
+          "oLanguage": {
+            "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+            "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sProcessing": "正在加载中...",
+            "oPaginate": {
+              "sFirst": "第一页",
+              "sPrevious": " 上一页 ",
+              "sNext": " 下一页 ",
+              "sLast": " 最后一页 "
+            }
+          },
+          "createdRow": function (row, data, index) {
+            if(data.updateTime){
+              $('td', row).eq(7).html(data.updateTime);
+            }else {
+              $('td', row).eq(7).html(data.createTime);
+            }
+            $('td', row).eq(8).html('<a class="btn btn-sm btn-info" name="edit" data-name="'+data.userName+'" data-id="'+data.userId+'" data-roleid="'+data.roleIds+'" data-netname="'+data.netNodeName+'" data-netcode="'+data.netNodeCode+'" data-tel="'+data.phoneCall+'" data-email="'+data.email+'">修改</a>' +
+              '<a class="btn btn-sm btn-warning" name="recover" style="margin-left: 10px"  data-id="'+data.userId+'" >重置密码</a>');
+          },
+          "drawCallback": function (settings, json) {
+            $('a[name="edit"]').click(editUser);
+            $('a[name="recover"]').click(recoverPsw);
+          }
+        };
+        factoryTable = $('#factoryTables').DataTable(settings);
+      }
+    //
+    function editUser(e){
+      $("#editModal").modal('show');
+      $("#editModal").off("click","#editSubmit");
+      $("#btnChangeNet").removeClass("checkNewNet");
+      $('#editNetChange').empty();
+      $(".hideChangeNet").hide();
+      editNetCode()
+      const id = e.currentTarget.dataset.id;
+      const netcode = e.currentTarget.dataset.netcode;
+      $("#editName").val(e.currentTarget.dataset.name);
+      $("#editNet").val(e.currentTarget.dataset.netname);
+      $("#edittel").val(e.currentTarget.dataset.tel);
+      $("#editEmail").val(e.currentTarget.dataset.email);
+      //下拉框默认选择
+      var roleArr = e.currentTarget.dataset.roleid.split(',')
+      $('#roleId').val(roleArr).select2().trigger('change');
+
+      $("#editModal").on("click","#editSubmit",function() {
+        $("#editSubmit").attr('disabled','disabled');
+        const editname = $("#editName").val();
+        const edittel = $("#edittel").val();
+        const editemail = $("#editEmail").val();
+        const roleId = $("#roleId").val().join(',');
+        if ($("#btnChangeNet").hasClass("checkNewNet")){
+          $("form").bootstrapValidator("addField", "editNetChange", {
+            validators: {
+              notEmpty: {
+                message: '请选择新的归属网点'
+              }
+            }
+          })
+          var editnet = $("#editNetChange").val();
+        }else {
+          var editnet = netcode;
+        }
+        $('form').bootstrapValidator('validate');
+        if($('form').data('bootstrapValidator').isValid()){
+          if(roleId==e.currentTarget.dataset.roleid&&editname==e.currentTarget.dataset.name&&editnet==e.currentTarget.dataset.netcode&&edittel==e.currentTarget.dataset.tel&&editemail==e.currentTarget.dataset.email){
+            swal({
+              title:'您没有做任何修改',
+              text:' ',
+              icon:'warning',
+              button:false
+            });
+            $('form').data('bootstrapValidator').resetForm();
+            $("#editSubmit").removeAttr('disabled');
+            return;
+          }
+          $.ajax({
+            type: 'POST',
+            url: "/systeam/sysUserUpdate",
+            data: {
+              userId:id,
+              userName:editname,
+              netNodeCode:editnet,
+              roleIds:roleId,
+              phoneCall:edittel,
+              email:editemail,
+            },
+            dataType: "json",
+            success: function (data) {
+              $("#editSubmit").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+              $("#editModal").modal('hide');
+              if (!data.result){
+                swal({
+                  title:'修改失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:false
+                });
+              }else {
+                swal({
+                  title:'修改成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                factoryTable.ajax.url("/systeam/sysUserQuery?" +"&userName="+$("#userName").val()+"&netNodeCode="+$("#netNodeCode").val()).load();
+              }
+            }
+          })
+        }else {
+          $("#editSubmit").removeAttr('disabled');
+        }
+      })
+    }
+    $("#btnChangeNet").click(function() {
+      $(this).toggleClass("checkNewNet");
+      $(".hideChangeNet").slideToggle();
+    })
+    function editNetCode(){
+      $('#editNetChange').select2({
+        placeholder: "请输入关键字",
+        language : {
+          inputTooShort: function () {
+            return "请至少输入两个中文关键字";
+          }
+        },
+        allowClear: true,
+        ajax: {
+          type: 'POST',
+          delay : 800,// 延迟显示
+          url: '/systeam/netQueryName',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              page: params.page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            // Transforms the top-level key of the response object from 'items' to 'results'
+            const results = [];
+            $.each(data.data.data, function (commentIndex, comment) {
+              results.push({id:comment.netNodeCode,text:comment.nodeName})
+            });
+            return {
+              results: results
+            };
+          }
+        },
+        minimumInputLength : 1,// 最少输入一个字符才开始检索
+      });
+    }
+    //  查询
+    $("#btnSearch").click(function() {
+      factoryTable.ajax.url("/systeam/sysUserQuery?" +"&userName="+$("#userName").val()+"&netNodeCode="+$("#netNodeCode").val()).load();
+    })
+  //  密码重置
+    function recoverPsw(e) {
+      const id = e.currentTarget.dataset.id;
+      swal({
+        title:'密码重置确认',
+        text:'确认重置“'+id+'”的密码？',
+        buttons:{
+          cancel:'取消',
+          defeat:'确定',
+        },
+      }).then((vaule)=>{
+        switch (vaule) {
+          case 'defeat':
+            inform();
+            break;
+        }
+      })
+      function inform() {
+        $.ajax({
+          type: 'POST',
+          url: "/systeam/resetPassword",
+          data: {
+            userId:id
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'操作失败',
+                text:data.errMsg?data.errMsg:'',
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'操作成功',
+                text:data.msg?data.msg:'',
+                icon:'success',
+                button:false,
+                timer: 3000
+              });
+            }
+          }
+        });
+      }
+    }
+
+  })
+</script>

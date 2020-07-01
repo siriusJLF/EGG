@@ -1,0 +1,855 @@
+2020-03-23 09:46:39,441 ERROR 6108 [-/127.0.0.1/-/5004ms POST /publish/netListCompany] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":11,"createSocketErrorCount":0,"closeSocketCount":9,"errorSocketCount":0,"timeoutSocketCount":8,"requestCount":10,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":2},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 12
+data: undefined
+path: "/api/netNode/queryNetNodeTree"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5001,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 6108
+hostname: LAPTOP-SP7MH255
+
+2020-03-23 09:46:39,443 ERROR 6108 [-/127.0.0.1/-/5009ms POST /publish/netListCompany] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":11,"createSocketErrorCount":0,"closeSocketCount":10,"errorSocketCount":0,"timeoutSocketCount":8,"requestCount":10,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 11
+data: undefined
+path: "/api/netNode/queryNetNodeTree"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5008,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 6108
+hostname: LAPTOP-SP7MH255
+
+2020-03-23 09:46:55,448 ERROR 6108 [-/127.0.0.1/-/21007ms GET /line/querySignline?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=samSerialNo&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=companyName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadName&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=roadCode&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationName&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=stationCode&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=chanelId&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTrace&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=result&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=applyTime&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&companyCode=00000000&_=1584927769579] nodejs.RequestError: connect ETIMEDOUT 118.190.16.246:9888, POST http://test.vfjtech.com.cn:9888/api/line/querySignline -1 (connected: false, keepalive socket: false, agent status: {"createSocketCount":14,"createSocketErrorCount":0,"closeSocketCount":10,"errorSocketCount":1,"timeoutSocketCount":8,"requestCount":10,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":4},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1113:14)
+errno: "ETIMEDOUT"
+code: "ETIMEDOUT"
+syscall: "connect"
+address: "118.190.16.246"
+port: 9888
+name: "RequestError"
+data: undefined
+path: "/api/line/querySignline"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":21005,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/line/querySignline"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 6108
+hostname: LAPTOP-SP7MH255
+
+2020-03-23 09:46:57,573 ERROR 6108 [-/127.0.0.1/-/5001ms POST /publish/netListCompany] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":14,"createSocketErrorCount":0,"closeSocketCount":12,"errorSocketCount":1,"timeoutSocketCount":8,"requestCount":10,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":2},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 14
+data: undefined
+path: "/api/netNode/queryNetNodeTree"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5000,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 6108
+hostname: LAPTOP-SP7MH255
+
+2020-03-23 09:46:57,575 ERROR 6108 [-/127.0.0.1/-/5003ms POST /publish/netListCompany] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":14,"createSocketErrorCount":0,"closeSocketCount":13,"errorSocketCount":1,"timeoutSocketCount":8,"requestCount":10,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 15
+data: undefined
+path: "/api/netNode/queryNetNodeTree"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5002,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 6108
+hostname: LAPTOP-SP7MH255
+
+2020-03-23 09:47:04,646 ERROR 6108 [-/127.0.0.1/-/12066ms GET /line/querySignline?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=samSerialNo&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=companyName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadName&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=roadCode&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationName&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=stationCode&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=chanelId&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTrace&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=result&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=applyTime&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&companyCode=00000000&_=1584927769580] nodejs.ResponseError: read ECONNRESET, POST http://test.vfjtech.com.cn:9888/api/line/querySignline -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":14,"createSocketErrorCount":0,"closeSocketCount":13,"errorSocketCount":2,"timeoutSocketCount":8,"requestCount":10,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TCP.onStreamRead (internal/stream_base_commons.js:111:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+name: "ResponseError"
+data: undefined
+path: "/api/line/querySignline"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":12062,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/line/querySignline"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 6108
+hostname: LAPTOP-SP7MH255
+
+2020-03-24 13:55:24,017 ERROR 14812 [-/127.0.0.1/-/5019ms GET /index/menulist] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/ware/getMenu -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 1
+data: undefined
+path: "/api/ware/getMenu"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5011,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 14812
+hostname: LAPTOP-SP7MH255
+
+2020-03-24 13:55:51,657 WARN 14812 [-/127.0.0.1/-/5048ms POST /publish/netListCompany] nodejs.ResponseTimeoutError: Response timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree 200 (connected: true, keepalive socket: false, agent status: {"createSocketCount":8,"createSocketErrorCount":0,"closeSocketCount":7,"errorSocketCount":0,"timeoutSocketCount":5,"requestCount":6,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 05:55:47 GMT"}
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 05:55:47 GMT"}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:940:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ResponseTimeoutError"
+requestId: 8
+data: "<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 39 39 39 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 ...(16804) >"
+path: "/api/netNode/queryNetNodeTree"
+status: 200
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 05:55:47 GMT"}
+res: {"status":200,"statusCode":200,"statusMessage":"","headers":{"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 05:55:47 GMT"},"size":16804,"aborted":true,"rt":5047,"keepAliveSocket":false,"data":"<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 39 39 39 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 ...(16804) >","requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 14812
+hostname: LAPTOP-SP7MH255
+
+2020-03-24 13:55:51,660 WARN 14812 [-/127.0.0.1/-/5057ms POST /publish/netListCompany] nodejs.ResponseTimeoutError: Response timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree 200 (connected: true, keepalive socket: false, agent status: {"createSocketCount":8,"createSocketErrorCount":0,"closeSocketCount":8,"errorSocketCount":0,"timeoutSocketCount":5,"requestCount":7,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"application/json;charset=utf-8","content-length":"25999","date":"Tue, 24 Mar 2020 05:55:47 GMT"}
+headers: {"content-type":"application/json;charset=utf-8","content-length":"25999","date":"Tue, 24 Mar 2020 05:55:47 GMT"}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:940:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ResponseTimeoutError"
+requestId: 7
+data: "<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 33 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 3a 22 ...(901) >"
+path: "/api/netNode/queryNetNodeTree"
+status: 200
+headers: {"content-type":"application/json;charset=utf-8","content-length":"25999","date":"Tue, 24 Mar 2020 05:55:47 GMT"}
+res: {"status":200,"statusCode":200,"statusMessage":"","headers":{"content-type":"application/json;charset=utf-8","content-length":"25999","date":"Tue, 24 Mar 2020 05:55:47 GMT"},"size":901,"aborted":true,"rt":5056,"keepAliveSocket":false,"data":"<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 33 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 3a 22 ...(901) >","requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 14812
+hostname: LAPTOP-SP7MH255
+
+2020-03-24 15:02:56,486 WARN 14812 [-/127.0.0.1/-/5052ms POST /publish/netListCompany] nodejs.ResponseTimeoutError: Response timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree 200 (connected: true, keepalive socket: false, agent status: {"createSocketCount":52,"createSocketErrorCount":0,"closeSocketCount":47,"errorSocketCount":0,"timeoutSocketCount":43,"requestCount":68,"freeSockets":{"test.vfjtech.com.cn:9888:":4},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 07:02:52 GMT"}
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 07:02:52 GMT"}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:940:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ResponseTimeoutError"
+requestId: 65
+data: "<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 39 39 39 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 ...(149652) >"
+path: "/api/netNode/queryNetNodeTree"
+status: 200
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 07:02:52 GMT"}
+res: {"status":200,"statusCode":200,"statusMessage":"","headers":{"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Tue, 24 Mar 2020 07:02:52 GMT"},"size":149652,"aborted":true,"rt":5050,"keepAliveSocket":false,"data":"<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 39 39 39 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 ...(149652) >","requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 14812
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 09:59:41,477 ERROR 4656 [-/undefined/-/5138ms POST /login?_csrf=HLNAOgMX-Co9aI52wm0D6ZBuLRG2wfSv28OQ] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/manager/userLogin -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 1
+data: undefined
+path: "/api/manager/userLogin"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5006,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"172.31.255.254","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+headerSent: true
+pid: 4656
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 09:59:44,978 ERROR 4656 [-/127.0.0.1/-/5005ms POST /login?_csrf=HLNAOgMX-Co9aI52wm0D6ZBuLRG2wfSv28OQ] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/manager/userLogin -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":2,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 2
+data: undefined
+path: "/api/manager/userLogin"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5002,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"172.31.255.254","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 4656
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 10:28:46,706 ERROR 2248 [-/127.0.0.1/-/5040ms GET /monitor/monitorIn] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/monitor/queryTotal -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 1
+data: undefined
+path: "/api/monitor/queryTotal"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5018,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/monitor/queryTotal"],"timing":null,"remoteAddress":"172.31.255.254","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 2248
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 10:29:06,224 ERROR 2248 [-/127.0.0.1/-/5004ms GET /monitor/monitorIn] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/monitor/queryTotal -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":2,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 2
+data: undefined
+path: "/api/monitor/queryTotal"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5003,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/monitor/queryTotal"],"timing":null,"remoteAddress":"172.31.255.254","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 2248
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 10:29:21,398 ERROR 5192 [-/127.0.0.1/-/5012ms GET /index/menulist] nodejs.ConnectionTimeoutError: Connect timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/ware/getMenu -2 (connected: false, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+headers: {}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:926:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ConnectionTimeoutError"
+requestId: 1
+data: undefined
+path: "/api/ware/getMenu"
+status: -2
+headers: {}
+res: {"status":-2,"statusCode":-2,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":5007,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"172.31.255.254","remotePort":"","socketHandledRequests":1,"socketHandledResponses":0}
+pid: 5192
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 13:14:29,048 ERROR 11640 [-/127.0.0.1/-/339ms GET /monitor/queryPsamCountDetail?draw=1&columns%5B0%5D%5Bdata%5D=samSerialNo&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=wareId&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=respoCompany&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=currRoadName&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=currStationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&status=PSAM_COUNT_STATUS_NOTUSED&_=1585286063077] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryPsamCountDetail (D:\new work\newEgg\app\controller\monitor.js:369:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 11640
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 13:15:55,401 ERROR 8380 [-/127.0.0.1/-/176ms GET /monitor/queryPsamCountDetail?draw=1&columns%5B0%5D%5Bdata%5D=samSerialNo&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=wareId&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=respoCompany&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=currRoadName&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=currStationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&status=PSAM_COUNT_STATUS_NOTUSED&_=1585286151235] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryPsamCountDetail (D:\new work\newEgg\app\controller\monitor.js:372:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 8380
+hostname: LAPTOP-SP7MH255
+
+2020-03-27 13:16:36,803 ERROR 7868 [-/127.0.0.1/-/274ms GET /monitor/queryPsamCountDetail?draw=1&columns%5B0%5D%5Bdata%5D=samSerialNo&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=wareId&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=respoCompany&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=currRoadName&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=currStationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&status=PSAM_COUNT_STATUS_NOTUSED&_=1585286190408] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryPsamCountDetail (D:\new work\newEgg\app\controller\monitor.js:373:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 7868
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:34:23,402 ERROR 6448 [-/127.0.0.1/-/252ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:35:01,777 ERROR 6448 [-/127.0.0.1/-/353ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:36:07,081 ERROR 6448 [-/127.0.0.1/-/512ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:36:48,762 ERROR 6448 [-/127.0.0.1/-/292ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:37:50,076 ERROR 6448 [-/127.0.0.1/-/309ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:38:32,098 ERROR 6448 [-/127.0.0.1/-/339ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:39:06,464 ERROR 6448 [-/127.0.0.1/-/340ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:41:02,626 ERROR 6448 [-/127.0.0.1/-/306ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:41:23,066 ERROR 6448 [-/127.0.0.1/-/295ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:42:59,263 ERROR 6448 [-/127.0.0.1/-/298ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:43:09,178 ERROR 6448 [-/127.0.0.1/-/414ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 09:43:42,832 ERROR 6448 [-/127.0.0.1/-/675ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:352:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 6448
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 10:50:57,772 ERROR 22408 [-/127.0.0.1/-/240ms GET /monitor/queryPsamCountDetail?draw=1&columns%5B0%5D%5Bdata%5D=samSerialNo&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=wareId&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=respoCompany&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=currRoadName&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=currStationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=20&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1585709441726] nodejs.Error: 500:No message available
+    at monitor.queryPsamCountDetail (D:\new work\newEgg\app\controller\monitor.js:374:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 22408
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 11:38:47,352 ERROR 22408 [-/127.0.0.1/-/144ms GET /monitor/monitorIn] nodejs.ResponseError: read ECONNRESET, POST http://test.vfjtech.com.cn:9888/api/monitor/queryTotal -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":270,"createSocketErrorCount":0,"closeSocketCount":269,"errorSocketCount":1,"timeoutSocketCount":268,"requestCount":449,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TCP.onStreamRead (internal/stream_base_commons.js:111:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+name: "ResponseError"
+data: undefined
+path: "/api/monitor/queryTotal"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":141,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/monitor/queryTotal"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 22408
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 11:38:53,089 ERROR 22408 [-/127.0.0.1/-/119ms GET /monitor/monitorIn] nodejs.ResponseError: read ECONNRESET, POST http://test.vfjtech.com.cn:9888/api/monitor/queryTotal -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":271,"createSocketErrorCount":0,"closeSocketCount":270,"errorSocketCount":2,"timeoutSocketCount":268,"requestCount":449,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TCP.onStreamRead (internal/stream_base_commons.js:111:27)
+errno: "ECONNRESET"
+code: "ECONNRESET"
+syscall: "read"
+name: "ResponseError"
+data: undefined
+path: "/api/monitor/queryTotal"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":118,"keepAliveSocket":false,"requestUrls":["http://test.vfjtech.com.cn:9888/api/monitor/queryTotal"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 22408
+hostname: LAPTOP-SP7MH255
+
+2020-04-01 13:51:11,628 WARN 11428 [-/127.0.0.1/-/5052ms POST /publish/netListCompany] nodejs.ResponseTimeoutError: Response timeout for 5000ms, POST http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree 200 (connected: true, keepalive socket: false, agent status: {"createSocketCount":12,"createSocketErrorCount":0,"closeSocketCount":12,"errorSocketCount":0,"timeoutSocketCount":11,"requestCount":20,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Wed, 01 Apr 2020 05:51:06 GMT"}
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Wed, 01 Apr 2020 05:51:06 GMT"}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:940:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ResponseTimeoutError"
+requestId: 20
+data: "<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 39 39 39 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 ...(145284) >"
+path: "/api/netNode/queryNetNodeTree"
+status: 200
+headers: {"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Wed, 01 Apr 2020 05:51:06 GMT"}
+res: {"status":200,"statusCode":200,"statusMessage":"","headers":{"content-type":"application/json;charset=utf-8","content-length":"164569","date":"Wed, 01 Apr 2020 05:51:06 GMT"},"size":145284,"aborted":true,"rt":5050,"keepAliveSocket":false,"data":"<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 6e 65 74 4e 6f 64 65 43 6f 64 65 22 3a 22 39 39 39 39 39 22 2c 22 70 61 72 65 6e 74 49 64 22 ...(145284) >","requestUrls":["http://test.vfjtech.com.cn:9888/api/netNode/queryNetNodeTree"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 11428
+hostname: LAPTOP-SP7MH255
+
+2020-04-03 10:00:32,352 WARN 23264 [-/127.0.0.1/-/30049ms GET /monitor/queryPsamStatusStationCount] nodejs.ResponseTimeoutError: Response timeout for 30000ms, POST http://test.vfjtech.com.cn:9888/api/monitor/queryPsamStatusStationCount 200 (connected: true, keepalive socket: false, agent status: {"createSocketCount":18,"createSocketErrorCount":0,"closeSocketCount":18,"errorSocketCount":0,"timeoutSocketCount":17,"requestCount":32,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"application/json;charset=utf-8","content-length":"111988","date":"Fri, 03 Apr 2020 02:00:01 GMT"}
+headers: {"content-type":"application/json;charset=utf-8","content-length":"111988","date":"Fri, 03 Apr 2020 02:00:01 GMT"}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:940:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ResponseTimeoutError"
+requestId: 28
+data: "<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 63 6f 6d 70 61 6e 79 4e 61 6d 65 22 3a 22 e4 ba a4 e5 bb ba e9 9b 86 e5 9b a2 e7 9b b4 e5 b1 ...(92712) >"
+path: "/api/monitor/queryPsamStatusStationCount"
+status: 200
+headers: {"content-type":"application/json;charset=utf-8","content-length":"111988","date":"Fri, 03 Apr 2020 02:00:01 GMT"}
+res: {"status":200,"statusCode":200,"statusMessage":"","headers":{"content-type":"application/json;charset=utf-8","content-length":"111988","date":"Fri, 03 Apr 2020 02:00:01 GMT"},"size":92712,"aborted":true,"rt":30048,"keepAliveSocket":false,"data":"<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 63 6f 6d 70 61 6e 79 4e 61 6d 65 22 3a 22 e4 ba a4 e5 bb ba e9 9b 86 e5 9b a2 e7 9b b4 e5 b1 ...(92712) >","requestUrls":["http://test.vfjtech.com.cn:9888/api/monitor/queryPsamStatusStationCount"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 23264
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 13:39:21,692 WARN 13112 A client (127.0.0.1:61675) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:21,694 WARN 13112 A client (127.0.0.1:61676) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:21,695 WARN 13112 A client (127.0.0.1:61675) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:21,696 WARN 13112 A client (127.0.0.1:61676) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:24,010 WARN 13112 A client (127.0.0.1:61678) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:24,011 WARN 13112 A client (127.0.0.1:61679) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:24,013 WARN 13112 A client (127.0.0.1:61678) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:39:24,014 WARN 13112 A client (127.0.0.1:61679) error [HPE_INVALID_METHOD] occurred: Parse Error
+2020-04-23 13:57:07,264 WARN 11412 [-/127.0.0.1/-/2146ms POST /login?_csrf=Bb0QbHmA-7Cicv4Esbu49PoPyHksEC-HKKJc] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":1666,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 11412
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 13:57:29,526 WARN 11412 [-/127.0.0.1/-/1ms POST /login?_csrf=Bb0QbHmA-7Cicv4Esbu49PoPyHksEC-HKKJc] invalid csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2020-04-23 13:57:29,528 WARN 11412 [-/127.0.0.1/-/3ms POST /login?_csrf=Bb0QbHmA-7Cicv4Esbu49PoPyHksEC-HKKJc] nodejs.ForbiddenError: invalid csrf token
+    at Object.throw (D:\new work\newEgg\node_modules\koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\new work\newEgg\node_modules\egg-security\app\extend\context.js:163:19)
+    at csrf (D:\new work\newEgg\node_modules\egg-security\lib\middlewares\csrf.js:33:9)
+    at dispatch (D:\new work\newEgg\node_modules\egg-security\node_modules\koa-compose\index.js:42:32)
+    at D:\new work\newEgg\node_modules\egg-security\node_modules\koa-compose\index.js:34:12
+    at dispatch (D:\new work\newEgg\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at session (D:\new work\newEgg\node_modules\koa-session\index.js:41:13)
+    at dispatch (D:\new work\newEgg\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at overrideMethod (D:\new work\newEgg\node_modules\koa-override\index.js:38:12)
+    at dispatch (D:\new work\newEgg\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+message: "invalid csrf token"
+pid: 11412
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 13:57:34,908 WARN 11412 [-/127.0.0.1/-/170ms POST /login?_csrf=OjAIuiz4-H9DG9ee0sNtzVUKZfuReNGVcEpA] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":169,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 11412
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 13:58:06,760 WARN 10292 [-/127.0.0.1/-/236ms POST /login?_csrf=KoO8xNJ9-cn--XgpE0ioHlrMOdJ7LL5FRVVA] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":217,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 10292
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 13:59:42,452 WARN 10292 [-/127.0.0.1/-/196ms POST /login?_csrf=FOaR8YB9-I9YNQNb0I3ZTxVghbaffRTRtjIQ] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":193,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 10292
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:47:43,273 WARN 5636 [-/127.0.0.1/-/201ms GET /index/menulist] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/ware/getMenu 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":3,"createSocketErrorCount":0,"closeSocketCount":2,"errorSocketCount":0,"timeoutSocketCount":2,"requestCount":4,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/ware/getMenu"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":197,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 5636
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:47:45,915 WARN 5636 [-/127.0.0.1/-/174ms GET /index/menulist] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/ware/getMenu 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":4,"createSocketErrorCount":0,"closeSocketCount":3,"errorSocketCount":0,"timeoutSocketCount":2,"requestCount":4,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/ware/getMenu"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":173,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 5636
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:47:46,714 WARN 5636 [-/127.0.0.1/-/192ms GET /index/menulist] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/ware/getMenu 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":5,"createSocketErrorCount":0,"closeSocketCount":4,"errorSocketCount":0,"timeoutSocketCount":2,"requestCount":4,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/ware/getMenu"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":190,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 5636
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:47:50,453 WARN 5636 [-/127.0.0.1/-/178ms POST /login?_csrf=wWTctM36-aAIguer6qXE4AAQYe1FflGajjpU] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":6,"createSocketErrorCount":0,"closeSocketCount":5,"errorSocketCount":0,"timeoutSocketCount":2,"requestCount":4,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":176,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 5636
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:48:15,145 WARN 14260 [-/127.0.0.1/-/215ms POST /login?_csrf=oDqVNNxJ-G4m3698-RljVcxzDq3AfNTxBl1E] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":189,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 14260
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:48:43,584 WARN 14260 [-/127.0.0.1/-/168ms POST /login?_csrf=mD6Uo1pC-1CP7mChvsPyymjjDmmq9OCu3o3c] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":165,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 14260
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:49:31,217 ERROR 19804 [-/127.0.0.1/-/377ms POST /login?_csrf=GBWvwSUU-q4yj5uArXeKRqsSGxKDINDcbgTU] nodejs.ResponseError: unable to verify the first certificate, POST https://test.vfjtech.com.cn:9888/api/manager/userLogin -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":1,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888::::::::::::::::":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1049:34)
+    at TLSSocket.emit (events.js:182:13)
+    at TLSSocket._finishInit (_tls_wrap.js:631:8)
+code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+name: "ResponseError"
+data: undefined
+path: "/api/manager/userLogin"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":340,"keepAliveSocket":false,"requestUrls":["https://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 19804
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 14:58:27,053 ERROR 16760 [-/127.0.0.1/-/358ms POST /login?_csrf=a2sluWrZ-9d9aejELG_3bIk6AJXcMC_uPehM] nodejs.ResponseError: unable to verify the first certificate, POST https://test.vfjtech.com.cn:9888/api/manager/userLogin -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":1,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888::::::::::::::::":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1049:34)
+    at TLSSocket.emit (events.js:182:13)
+    at TLSSocket._finishInit (_tls_wrap.js:631:8)
+code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+name: "ResponseError"
+data: undefined
+path: "/api/manager/userLogin"
+status: -1
+headers: {"Access-Control-Allow-Origin":"https://test.vfjtech.com.cn:9888/","Access-Control-Allow-Credentials":"true","vary":"Origin"}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":331,"keepAliveSocket":false,"requestUrls":["https://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 16760
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 15:11:26,002 WARN 5868 [-/127.0.0.1/-/333ms POST /login?_csrf=Az5VMhXc-NUWMUzWbbWrbdvywBRI0SpVWFRQ] nodejs.JSONResponseFormatError: Unexpected token B in JSON at position 0 (data json format: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"), POST http://test.vfjtech.com.cn:9888/api/manager/userLogin 400 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":0,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888:":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 1)
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+    at JSON.parse (<anonymous>)
+    at parseJSON (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:1153:24)
+    at D:\new work\newEgg\node_modules\urllib\lib\urllib.js:883:23
+    at decodeContent (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:690:14)
+    at IncomingMessage.<anonymous> (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:864:7)
+    at IncomingMessage.emit (events.js:187:15)
+    at endReadableNT (_stream_readable.js:1094:12)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+name: "JSONResponseFormatError"
+data: "Bad Request\r\nThis combination of host and port requires TLS.\r\n"
+path: "/api/manager/userLogin"
+status: 400
+headers: {"content-type":"text/plain;charset=ISO-8859-1","connection":"close"}
+res: {"status":400,"statusCode":400,"statusMessage":"","headers":{"content-type":"text/plain;charset=ISO-8859-1","connection":"close"},"size":62,"aborted":false,"rt":175,"keepAliveSocket":false,"data":"Bad Request\r\nThis combination of host and port requires TLS.\r\n","requestUrls":["http://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":1}
+pid: 5868
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 15:12:22,447 ERROR 7528 [-/127.0.0.1/-/315ms POST /login?_csrf=IAr431zy-cVXu5gfOdb9oF8ejiOz5_jPET6I] nodejs.ResponseError: unable to verify the first certificate, POST https://test.vfjtech.com.cn:9888/api/manager/userLogin -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":1,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888::::::::::::::::":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1049:34)
+    at TLSSocket.emit (events.js:182:13)
+    at TLSSocket._finishInit (_tls_wrap.js:631:8)
+code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+name: "ResponseError"
+data: undefined
+path: "/api/manager/userLogin"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":298,"keepAliveSocket":false,"requestUrls":["https://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 7528
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 15:20:34,254 ERROR 16148 [-/127.0.0.1/-/293ms GET /index/menulist] nodejs.ResponseError: unable to verify the first certificate, POST https://test.vfjtech.com.cn:9888/api/ware/getMenu -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":1,"createSocketErrorCount":0,"closeSocketCount":0,"errorSocketCount":1,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888::::::::::::::::":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1049:34)
+    at TLSSocket.emit (events.js:182:13)
+    at TLSSocket._finishInit (_tls_wrap.js:631:8)
+code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+name: "ResponseError"
+data: undefined
+path: "/api/ware/getMenu"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":288,"keepAliveSocket":false,"requestUrls":["https://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 16148
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 15:20:47,063 ERROR 16148 [-/127.0.0.1/-/255ms GET /index/menulist] nodejs.ResponseError: unable to verify the first certificate, POST https://test.vfjtech.com.cn:9888/api/ware/getMenu -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":2,"createSocketErrorCount":0,"closeSocketCount":1,"errorSocketCount":2,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888::::::::::::::::":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1049:34)
+    at TLSSocket.emit (events.js:182:13)
+    at TLSSocket._finishInit (_tls_wrap.js:631:8)
+code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+name: "ResponseError"
+data: undefined
+path: "/api/ware/getMenu"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":254,"keepAliveSocket":false,"requestUrls":["https://test.vfjtech.com.cn:9888/api/ware/getMenu"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 16148
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 15:20:55,856 ERROR 16148 [-/127.0.0.1/-/262ms POST /login?_csrf=TKbikKxH-2KbdcuSdDI4GOywWHl8CE9KIeqk] nodejs.ResponseError: unable to verify the first certificate, POST https://test.vfjtech.com.cn:9888/api/manager/userLogin -1 (connected: true, keepalive socket: false, agent status: {"createSocketCount":3,"createSocketErrorCount":0,"closeSocketCount":2,"errorSocketCount":3,"timeoutSocketCount":0,"requestCount":0,"freeSockets":{},"sockets":{"test.vfjtech.com.cn:9888::::::::::::::::":1},"requests":{}}, socketHandledRequests: 1, socketHandledResponses: 0)
+headers: {}
+    at TLSSocket.onConnectSecure (_tls_wrap.js:1049:34)
+    at TLSSocket.emit (events.js:182:13)
+    at TLSSocket._finishInit (_tls_wrap.js:631:8)
+code: "UNABLE_TO_VERIFY_LEAF_SIGNATURE"
+name: "ResponseError"
+data: undefined
+path: "/api/manager/userLogin"
+status: -1
+headers: {}
+res: {"status":-1,"statusCode":-1,"statusMessage":null,"headers":{},"size":0,"aborted":false,"rt":246,"keepAliveSocket":false,"requestUrls":["https://test.vfjtech.com.cn:9888/api/manager/userLogin"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":1,"socketHandledResponses":0}
+pid: 16148
+hostname: LAPTOP-SP7MH255
+
+2020-04-23 15:21:19,612 WARN 7484 [-/127.0.0.1/-/17ms POST /login?_csrf=TKbikKxH-2KbdcuSdDI4GOywWHl8CE9KIeqk] invalid csrf token. See https://eggjs.org/zh-cn/core/security.html#安全威胁csrf的防范
+2020-04-23 15:21:19,614 WARN 7484 [-/127.0.0.1/-/18ms POST /login?_csrf=TKbikKxH-2KbdcuSdDI4GOywWHl8CE9KIeqk] nodejs.ForbiddenError: invalid csrf token
+    at Object.throw (D:\new work\newEgg\node_modules\koa\lib\context.js:97:11)
+    at Object.assertCsrf (D:\new work\newEgg\node_modules\egg-security\app\extend\context.js:163:19)
+    at csrf (D:\new work\newEgg\node_modules\egg-security\lib\middlewares\csrf.js:33:9)
+    at dispatch (D:\new work\newEgg\node_modules\egg-security\node_modules\koa-compose\index.js:42:32)
+    at D:\new work\newEgg\node_modules\egg-security\node_modules\koa-compose\index.js:34:12
+    at dispatch (D:\new work\newEgg\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at session (D:\new work\newEgg\node_modules\koa-session\index.js:41:13)
+    at dispatch (D:\new work\newEgg\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+    at overrideMethod (D:\new work\newEgg\node_modules\koa-override\index.js:38:12)
+    at dispatch (D:\new work\newEgg\node_modules\koa\node_modules\koa-compose\index.js:42:32)
+message: "invalid csrf token"
+pid: 7484
+hostname: LAPTOP-SP7MH255
+
+2020-05-08 17:06:19,141 ERROR 23516 [-/127.0.0.1/-/417ms GET /monitor/queryNewestTenErrChanel] nodejs.Error: 500:系统出错！请联系管理员
+    at monitor.queryNewestTenErrChanel (D:\new work\newEgg\app\controller\monitor.js:357:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 23516
+hostname: LAPTOP-SP7MH255
+
+2020-06-03 09:28:11,663 ERROR 1096 [-/127.0.0.1/-/259ms GET /line/queryAuthLine?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=companyName&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=roadName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadCode&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=stationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationCode&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=chanelId&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=samSeriaNo&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTerminal&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=applyResult&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=authResult&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B11%5D%5Bdata%5D=authSW&columns%5B11%5D%5Bname%5D=&columns%5B11%5D%5Bsearchable%5D=true&columns%5B11%5D%5Borderable%5D=false&columns%5B11%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B11%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B12%5D%5Bdata%5D=applyTime&columns%5B12%5D%5Bname%5D=&columns%5B12%5D%5Bsearchable%5D=true&columns%5B12%5D%5Borderable%5D=false&columns%5B12%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B12%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B13%5D%5Bdata%5D=confirmTime&columns%5B13%5D%5Bname%5D=&columns%5B13%5D%5Bsearchable%5D=true&columns%5B13%5D%5Borderable%5D=false&columns%5B13%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B13%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1591147679182] nodejs.Error: 500:系统出错！请联系管理员
+    at detail.queryAuthLine (D:\new work\newEgg\app\controller\detail.js:291:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 1096
+hostname: LAPTOP-SP7MH255
+
+2020-06-03 09:28:13,376 ERROR 1096 [-/127.0.0.1/-/246ms GET /line/queryAuthLine?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=companyName&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=roadName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadCode&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=stationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationCode&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=chanelId&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=samSeriaNo&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTerminal&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=applyResult&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=authResult&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B11%5D%5Bdata%5D=authSW&columns%5B11%5D%5Bname%5D=&columns%5B11%5D%5Bsearchable%5D=true&columns%5B11%5D%5Borderable%5D=false&columns%5B11%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B11%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B12%5D%5Bdata%5D=applyTime&columns%5B12%5D%5Bname%5D=&columns%5B12%5D%5Bsearchable%5D=true&columns%5B12%5D%5Borderable%5D=false&columns%5B12%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B12%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B13%5D%5Bdata%5D=confirmTime&columns%5B13%5D%5Bname%5D=&columns%5B13%5D%5Bsearchable%5D=true&columns%5B13%5D%5Borderable%5D=false&columns%5B13%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B13%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1591147679183] nodejs.Error: 500:系统出错！请联系管理员
+    at detail.queryAuthLine (D:\new work\newEgg\app\controller\detail.js:291:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 1096
+hostname: LAPTOP-SP7MH255
+
+2020-06-03 09:37:14,866 ERROR 1096 [-/127.0.0.1/-/468ms GET /line/queryAuthLine?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=companyName&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=roadName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadCode&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=stationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationCode&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=chanelId&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=samSeriaNo&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTerminal&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=applyResult&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=authResult&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B11%5D%5Bdata%5D=authSW&columns%5B11%5D%5Bname%5D=&columns%5B11%5D%5Bsearchable%5D=true&columns%5B11%5D%5Borderable%5D=false&columns%5B11%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B11%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B12%5D%5Bdata%5D=applyTime&columns%5B12%5D%5Bname%5D=&columns%5B12%5D%5Bsearchable%5D=true&columns%5B12%5D%5Borderable%5D=false&columns%5B12%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B12%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B13%5D%5Bdata%5D=confirmTime&columns%5B13%5D%5Bname%5D=&columns%5B13%5D%5Bsearchable%5D=true&columns%5B13%5D%5Borderable%5D=false&columns%5B13%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B13%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1591148121587] nodejs.Error: 500:系统出错！请联系管理员
+    at detail.queryAuthLine (D:\new work\newEgg\app\controller\detail.js:291:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 1096
+hostname: LAPTOP-SP7MH255
+
+2020-06-03 09:37:45,426 ERROR 1096 [-/127.0.0.1/-/619ms GET /line/queryAuthLine?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=companyName&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=roadName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadCode&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=stationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationCode&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=chanelId&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=samSeriaNo&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTerminal&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=applyResult&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=authResult&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B11%5D%5Bdata%5D=authSW&columns%5B11%5D%5Bname%5D=&columns%5B11%5D%5Bsearchable%5D=true&columns%5B11%5D%5Borderable%5D=false&columns%5B11%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B11%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B12%5D%5Bdata%5D=applyTime&columns%5B12%5D%5Bname%5D=&columns%5B12%5D%5Bsearchable%5D=true&columns%5B12%5D%5Borderable%5D=false&columns%5B12%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B12%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B13%5D%5Bdata%5D=confirmTime&columns%5B13%5D%5Bname%5D=&columns%5B13%5D%5Bsearchable%5D=true&columns%5B13%5D%5Borderable%5D=false&columns%5B13%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B13%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1591148121591] nodejs.Error: 500:系统出错！请联系管理员
+    at detail.queryAuthLine (D:\new work\newEgg\app\controller\detail.js:291:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 1096
+hostname: LAPTOP-SP7MH255
+
+2020-06-03 09:38:06,027 ERROR 1096 [-/127.0.0.1/-/360ms GET /line/queryAuthLine?draw=1&columns%5B0%5D%5Bdata%5D=id&columns%5B0%5D%5Bname%5D=&columns%5B0%5D%5Bsearchable%5D=true&columns%5B0%5D%5Borderable%5D=false&columns%5B0%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B0%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B1%5D%5Bdata%5D=companyName&columns%5B1%5D%5Bname%5D=&columns%5B1%5D%5Bsearchable%5D=true&columns%5B1%5D%5Borderable%5D=false&columns%5B1%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B1%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B2%5D%5Bdata%5D=roadName&columns%5B2%5D%5Bname%5D=&columns%5B2%5D%5Bsearchable%5D=true&columns%5B2%5D%5Borderable%5D=false&columns%5B2%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B2%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B3%5D%5Bdata%5D=roadCode&columns%5B3%5D%5Bname%5D=&columns%5B3%5D%5Bsearchable%5D=true&columns%5B3%5D%5Borderable%5D=false&columns%5B3%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B3%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B4%5D%5Bdata%5D=stationName&columns%5B4%5D%5Bname%5D=&columns%5B4%5D%5Bsearchable%5D=true&columns%5B4%5D%5Borderable%5D=false&columns%5B4%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B4%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B5%5D%5Bdata%5D=stationCode&columns%5B5%5D%5Bname%5D=&columns%5B5%5D%5Bsearchable%5D=true&columns%5B5%5D%5Borderable%5D=false&columns%5B5%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B5%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B6%5D%5Bdata%5D=chanelId&columns%5B6%5D%5Bname%5D=&columns%5B6%5D%5Bsearchable%5D=true&columns%5B6%5D%5Borderable%5D=false&columns%5B6%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B6%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B7%5D%5Bdata%5D=samSeriaNo&columns%5B7%5D%5Bname%5D=&columns%5B7%5D%5Bsearchable%5D=true&columns%5B7%5D%5Borderable%5D=false&columns%5B7%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B7%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B8%5D%5Bdata%5D=applyTerminal&columns%5B8%5D%5Bname%5D=&columns%5B8%5D%5Bsearchable%5D=true&columns%5B8%5D%5Borderable%5D=false&columns%5B8%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B8%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B9%5D%5Bdata%5D=applyResult&columns%5B9%5D%5Bname%5D=&columns%5B9%5D%5Bsearchable%5D=true&columns%5B9%5D%5Borderable%5D=false&columns%5B9%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B9%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B10%5D%5Bdata%5D=authResult&columns%5B10%5D%5Bname%5D=&columns%5B10%5D%5Bsearchable%5D=true&columns%5B10%5D%5Borderable%5D=false&columns%5B10%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B10%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B11%5D%5Bdata%5D=authSW&columns%5B11%5D%5Bname%5D=&columns%5B11%5D%5Bsearchable%5D=true&columns%5B11%5D%5Borderable%5D=false&columns%5B11%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B11%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B12%5D%5Bdata%5D=applyTime&columns%5B12%5D%5Bname%5D=&columns%5B12%5D%5Bsearchable%5D=true&columns%5B12%5D%5Borderable%5D=false&columns%5B12%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B12%5D%5Bsearch%5D%5Bregex%5D=false&columns%5B13%5D%5Bdata%5D=confirmTime&columns%5B13%5D%5Bname%5D=&columns%5B13%5D%5Bsearchable%5D=true&columns%5B13%5D%5Borderable%5D=false&columns%5B13%5D%5Bsearch%5D%5Bvalue%5D=&columns%5B13%5D%5Bsearch%5D%5Bregex%5D=false&start=0&length=10&search%5Bvalue%5D=&search%5Bregex%5D=false&_=1591148281818] nodejs.Error: 500:系统出错！请联系管理员
+    at detail.queryAuthLine (D:\new work\newEgg\app\controller\detail.js:291:24)
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+
+pid: 1096
+hostname: LAPTOP-SP7MH255
+
+2020-06-05 12:57:15,848 WARN 23200 [-/127.0.0.1/-/30015ms POST /detail/downloadAppMonitorDtl4Excel?_csrf=EyDXoMGC-84OrtNF4hI2oA331VmDgmU-X67g] nodejs.ResponseTimeoutError: Response timeout for 30000ms, POST https://test.vfjtech.com.cn:9888/api/report/psamAppMonitorDtl4Excel 200 (connected: true, keepalive socket: true, agent status: {"createSocketCount":3,"createSocketErrorCount":0,"closeSocketCount":3,"errorSocketCount":0,"timeoutSocketCount":2,"requestCount":6,"freeSockets":{},"sockets":{},"requests":{}}, socketHandledRequests: 3, socketHandledResponses: 3)
+headers: {"content-type":"application/json;charset=UTF-8","content-length":"4770518","date":"Fri, 05 Jun 2020 04:56:48 GMT"}
+headers: {"content-type":"application/json;charset=UTF-8","content-length":"4770518","date":"Fri, 05 Jun 2020 04:56:48 GMT"}
+    at Timeout._onTimeout (D:\new work\newEgg\node_modules\urllib\lib\urllib.js:940:15)
+    at ontimeout (timers.js:436:11)
+    at tryOnTimeout (timers.js:300:5)
+    at listOnTimeout (timers.js:263:5)
+    at Timer.processTimers (timers.js:223:10)
+name: "ResponseTimeoutError"
+requestId: 7
+data: "<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 63 75 72 72 52 6f 61 64 43 6f 64 65 22 3a 22 22 2c 22 63 75 72 72 52 6f 61 64 4e 61 6d 65 22 ...(3873639) >"
+path: "/api/report/psamAppMonitorDtl4Excel"
+status: 200
+headers: {"content-type":"application/json;charset=UTF-8","content-length":"4770518","date":"Fri, 05 Jun 2020 04:56:48 GMT"}
+res: {"status":200,"statusCode":200,"statusMessage":"","headers":{"content-type":"application/json;charset=UTF-8","content-length":"4770518","date":"Fri, 05 Jun 2020 04:56:48 GMT"},"size":3873639,"aborted":true,"rt":30003,"keepAliveSocket":true,"data":"<Buffer 7b 22 64 61 74 61 22 3a 7b 22 64 61 74 61 22 3a 5b 7b 22 63 75 72 72 52 6f 61 64 43 6f 64 65 22 3a 22 22 2c 22 63 75 72 72 52 6f 61 64 4e 61 6d 65 22 ...(3873639) >","requestUrls":["https://test.vfjtech.com.cn:9888/api/report/psamAppMonitorDtl4Excel"],"timing":null,"remoteAddress":"118.190.16.246","remotePort":9888,"socketHandledRequests":3,"socketHandledResponses":3}
+pid: 23200
+hostname: LAPTOP-SP7MH255
+

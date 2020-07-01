@@ -1,0 +1,129 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+</style>
+<section class="content-header">
+    <h1>终端明细</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 终端管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" id="hideNetNode" value="{{netnode}}">
+</section>
+<section class="content">
+    <div class="box">
+        <div class="table-cont">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="modleTable" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    //表格
+    if ($('#modleTable')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/terminal/modelQuery',
+          data: {
+            appUserId: $("#hideUserId").val(),
+            companyCode: $("#hideNetNode").val()
+            // level:'NETNODE_LEVEL_1'
+          },
+        },
+        "columns": [
+          {"data": "authModelId", "title": "终端ID"},
+          {"data": "deviceSerialNo", "title": "设备序列号"},
+          {"data": "deviceModel", "title": "设备型号"},
+          {"data": "wareId", "title": "物料代码"},
+          {"data": "roadName", "title": "归属路段"},
+          {"data": "stationName", "title": "归属站点"},
+          {"data": "mantPerson", "title": "维护人"},
+          {"data": "mantTel", "title": "维护电话"},
+          {"data": "status", "title": "状态"},
+          {"data": "workUrl", "title": "工作URL"},
+          {"data": "lastShakeHane", "title": "握手时间"},
+          {"data": "remark", "title": "备注"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          switch (data.status) {
+            case 'NEW':
+              $('td', row).eq(8).html('新建');
+              break;
+            case 'IMPORT':
+              $('td', row).eq(8).html('<span class="text-aqua">入库</span>');
+              break;
+            case 'NORMAL':
+              $('td', row).eq(8).html('<span class="text-green">正常</span>');
+              break;
+            case 'DUMP':
+              $('td', row).eq(8).html('<span class="text-red">连接异常</span>');
+              break;
+            case 'TIMEOUT':
+              $('td', row).eq(8).html('<span class="text-red">超时</span>');
+              break;
+            case 'STOP':
+              $('td', row).eq(8).html('<span class="text-red">停用</span>');
+              break;
+            case 'RECO':
+              $('td', row).eq(8).html('<span class="text-yellow">回收</span>');
+              break;
+            default:
+              $('td', row).eq(8).html('<span class="text-red">状态异常 </span>');
+              break;
+          }
+        },
+        "drawCallback": function (settings, json) {
+
+        }
+      };
+      modleTable = $('#modleTable').DataTable(settings);
+    }
+
+    //Date picker
+    $('#dateStart').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      language:'zh',
+      endDate: '0d',
+      todayHighlight:true
+    })
+    $('#dateEnd').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      endDate: '0d',
+      language:'zh',
+      todayHighlight:true
+    })
+
+
+
+  })
+</script>

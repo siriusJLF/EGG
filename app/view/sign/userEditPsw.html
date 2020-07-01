@@ -1,0 +1,146 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        密码管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" id="hideUser" value="{{userMsg}}">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;padding-bottom: 50px">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>旧密码：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="password" class="form-control" name="oldPassword" autocomplete="off"  id="oldPassword" placeholder="请输入旧密码">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>新密码：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="password" class="form-control" name="newPassword" autocomplete="off"  id="newPassword" placeholder="请输入新密码">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>确认密码：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="password" class="form-control" name="newPassword2" autocomplete="off"  id="newPassword2" placeholder="请确认新密码，两次密码保持一致">
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" >
+                    <button id="btnUpdate" type="button" style="width: 180px; height: 42px; margin: 20px 0;" class="btn btn-primary">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    // 添加
+    $("#btnUpdate").click(function() {
+      if($('form').data('bootstrapValidator').isValid()){
+        const data = {
+          oldPassword: $("#oldPassword").val(),
+          newPassword: $("#newPassword").val(),
+        }
+        $("#btnInventory").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/systeam/sysPswUpdate",
+          data: data,
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'密码修改失败',
+                text:data.errMsg?data.errMsg:' ',
+                icon:'error',
+                button:false
+              });
+              $("#btnInventory").removeAttr('disabled');
+            }else {
+              swal({
+                title:'密码修改成功',
+                text:data.msg?data.msg:' ',
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $('input').val('');
+              $("#btnInventory").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+            }
+          }
+        });
+      }
+
+    })
+    //校验
+    $('form').bootstrapValidator({
+      // 默认的提示消息
+      message: 'This value is not valid',
+      // 表单框里右侧的icon
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        oldPassword: {
+          validators: {
+            notEmpty: {
+              message: '请输入旧密码'
+            }
+          }
+        },
+        newPassword: {
+          validators: {
+            notEmpty: {
+              message: '请输入新密码'
+            },
+            different: {
+              field: 'oldPassword',
+              message: '新密码不能与旧密码一样，请重新输入'
+            }
+          }
+        },
+        newPassword2: {
+          validators: {
+            notEmpty: {
+              message: '请确认新密码'
+            },
+            identical: {
+              field: 'newPassword',
+              message: '两次密码不一致，请仔细确认'
+            },
+          }
+        },
+      }
+    });
+  })
+</script>

@@ -1,0 +1,340 @@
+{
+  "keys": "D:\\new work\\newEgg\\config\\config.default.js",
+  "middleware": "D:\\new work\\newEgg\\config\\config.default.js",
+  "apiAdress": "D:\\new work\\newEgg\\config\\config.default.js",
+  "jwt": {
+    "secret": "D:\\new work\\newEgg\\config\\config.default.js",
+    "enable": "D:\\new work\\newEgg\\node_modules\\egg-jwt\\config\\config.default.js"
+  },
+  "security": {
+    "csrf": {
+      "enable": "D:\\new work\\newEgg\\config\\config.default.js",
+      "type": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "ignoreJSON": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "useSession": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "cookieName": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "sessionName": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "headerName": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "bodyName": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "queryName": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "refererWhiteList": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "domainWhiteList": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+    "protocolWhiteList": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+    "defaultMiddleware": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+    "xframe": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "hsts": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.local.js",
+      "maxAge": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "includeSubdomains": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "dta": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "methodnoallow": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "noopen": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "nosniff": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "referrerPolicy": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "xssProtection": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "csp": {
+      "enable": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "policy": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "ssrf": {
+      "ipBlackList": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js",
+      "checkAddress": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+    }
+  },
+  "view": {
+    "defaultViewEngine": "D:\\new work\\newEgg\\config\\config.default.js",
+    "defaultExtension": "D:\\new work\\newEgg\\config\\config.default.js",
+    "mapping": {
+      ".html": "D:\\new work\\newEgg\\config\\config.default.js"
+    },
+    "root": "D:\\new work\\newEgg\\config\\config.default.js",
+    "cache": "D:\\new work\\newEgg\\node_modules\\egg-view\\config\\config.local.js"
+  },
+  "news": {
+    "pageSize": "D:\\new work\\newEgg\\config\\config.default.js",
+    "serverUrl": "D:\\new work\\newEgg\\config\\config.default.js"
+  },
+  "logger": {
+    "appLogName": "D:\\new work\\newEgg\\config\\config.default.js",
+    "coreLogName": "D:\\new work\\newEgg\\config\\config.default.js",
+    "agentLogName": "D:\\new work\\newEgg\\config\\config.default.js",
+    "errorLogName": "D:\\new work\\newEgg\\config\\config.default.js",
+    "dir": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "env": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "level": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "consoleLevel": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "disableConsoleAfterReady": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "outputJSON": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "buffer": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "coreLogger": {
+      "consoleLevel": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.local.js"
+    },
+    "allowDebugAtProd": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "session": {
+    "key": "D:\\new work\\newEgg\\config\\config.default.js",
+    "maxAge": "D:\\new work\\newEgg\\config\\config.default.js",
+    "httpOnly": "D:\\new work\\newEgg\\config\\config.default.js",
+    "encrypt": "D:\\new work\\newEgg\\config\\config.default.js",
+    "renew": "D:\\new work\\newEgg\\config\\config.default.js"
+  },
+  "httpclient": {
+    "httpAgent": {
+      "keepAlive": "D:\\new work\\newEgg\\config\\config.default.js",
+      "freeSocketTimeout": "D:\\new work\\newEgg\\config\\config.default.js",
+      "timeout": "D:\\new work\\newEgg\\config\\config.default.js",
+      "maxSockets": "D:\\new work\\newEgg\\config\\config.default.js",
+      "maxFreeSockets": "D:\\new work\\newEgg\\config\\config.default.js"
+    },
+    "httpsAgent": {
+      "keepAlive": "D:\\new work\\newEgg\\config\\config.default.js",
+      "freeSocketTimeout": "D:\\new work\\newEgg\\config\\config.default.js",
+      "timeout": "D:\\new work\\newEgg\\config\\config.default.js",
+      "maxSockets": "D:\\new work\\newEgg\\config\\config.default.js",
+      "maxFreeSockets": "D:\\new work\\newEgg\\config\\config.default.js",
+      "rejectUnauthorized": "D:\\new work\\newEgg\\config\\config.default.js"
+    },
+    "enableDNSCache": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "dnsCacheLookupInterval": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "dnsCacheMaxLength": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "request": {
+      "timeout": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "cluster": {
+    "listen": {
+      "port": "D:\\new work\\newEgg\\config\\config.default.js",
+      "hostname": "D:\\new work\\newEgg\\config\\config.default.js",
+      "https": {
+        "key": "D:\\new work\\newEgg\\config\\config.default.js",
+        "cert": "D:\\new work\\newEgg\\config\\config.default.js"
+      },
+      "path": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "io": {
+    "init": "D:\\new work\\newEgg\\config\\config.default.js",
+    "namespace": {
+      "/exchange": {
+        "connectionMiddleware": "D:\\new work\\newEgg\\config\\config.default.js",
+        "packetMiddleware": "D:\\new work\\newEgg\\config\\config.default.js"
+      },
+      "/": {
+        "connectionMiddleware": "D:\\new work\\newEgg\\node_modules\\egg-socket.io\\config\\config.default.js",
+        "packetMiddleware": "D:\\new work\\newEgg\\node_modules\\egg-socket.io\\config\\config.default.js"
+      }
+    }
+  },
+  "helper": {
+    "shtml": "D:\\new work\\newEgg\\node_modules\\egg-security\\config\\config.default.js"
+  },
+  "jsonp": {
+    "limit": "D:\\new work\\newEgg\\node_modules\\egg-jsonp\\config\\config.default.js",
+    "callback": "D:\\new work\\newEgg\\node_modules\\egg-jsonp\\config\\config.default.js",
+    "csrf": "D:\\new work\\newEgg\\node_modules\\egg-jsonp\\config\\config.default.js"
+  },
+  "onerror": {
+    "errorPageUrl": "D:\\new work\\newEgg\\node_modules\\egg-onerror\\config\\config.default.js",
+    "appErrorFilter": "D:\\new work\\newEgg\\node_modules\\egg-onerror\\config\\config.default.js",
+    "templatePath": "D:\\new work\\newEgg\\node_modules\\egg-onerror\\config\\config.default.js"
+  },
+  "i18n": {
+    "defaultLocale": "D:\\new work\\newEgg\\node_modules\\egg-i18n\\config\\config.default.js",
+    "dirs": "D:\\new work\\newEgg\\node_modules\\egg-i18n\\config\\config.default.js",
+    "queryField": "D:\\new work\\newEgg\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieField": "D:\\new work\\newEgg\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieDomain": "D:\\new work\\newEgg\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieMaxAge": "D:\\new work\\newEgg\\node_modules\\egg-i18n\\config\\config.default.js"
+  },
+  "watcher": {
+    "type": "D:\\new work\\newEgg\\node_modules\\egg-watcher\\config\\config.local.js",
+    "eventSources": {
+      "default": "D:\\new work\\newEgg\\node_modules\\egg-watcher\\config\\config.default.js",
+      "development": "D:\\new work\\newEgg\\node_modules\\egg-watcher\\config\\config.default.js"
+    }
+  },
+  "customLogger": {
+    "scheduleLogger": {
+      "consoleLevel": "D:\\new work\\newEgg\\node_modules\\egg-schedule\\config\\config.default.js",
+      "file": "D:\\new work\\newEgg\\node_modules\\egg-schedule\\config\\config.default.js"
+    }
+  },
+  "schedule": {
+    "directory": "D:\\new work\\newEgg\\node_modules\\egg-schedule\\config\\config.default.js"
+  },
+  "multipart": {
+    "mode": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "autoFields": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "defaultCharset": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fieldNameSize": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fieldSize": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fields": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fileSize": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "files": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fileExtensions": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "whitelist": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "tmpdir": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js",
+    "cleanSchedule": {
+      "cron": "D:\\new work\\newEgg\\node_modules\\egg-multipart\\config\\config.default.js"
+    }
+  },
+  "development": {
+    "watchDirs": "D:\\new work\\newEgg\\node_modules\\egg-development\\config\\config.default.js",
+    "ignoreDirs": "D:\\new work\\newEgg\\node_modules\\egg-development\\config\\config.default.js",
+    "fastReady": "D:\\new work\\newEgg\\node_modules\\egg-development\\config\\config.default.js",
+    "reloadOnDebug": "D:\\new work\\newEgg\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideDefault": "D:\\new work\\newEgg\\node_modules\\egg-development\\config\\config.default.js"
+  },
+  "logrotator": {
+    "filesRotateByHour": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "hourDelimiter": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "filesRotateBySize": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxFileSize": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxFiles": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "rotateDuration": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxDays": "D:\\new work\\newEgg\\node_modules\\egg-logrotator\\config\\config.default.js"
+  },
+  "static": {
+    "prefix": "D:\\new work\\newEgg\\node_modules\\egg-static\\config\\config.default.js",
+    "dir": "D:\\new work\\newEgg\\node_modules\\egg-static\\config\\config.default.js",
+    "dynamic": "D:\\new work\\newEgg\\node_modules\\egg-static\\config\\config.default.js",
+    "preload": "D:\\new work\\newEgg\\node_modules\\egg-static\\config\\config.default.js",
+    "buffer": "D:\\new work\\newEgg\\node_modules\\egg-static\\config\\config.default.js",
+    "maxFiles": "D:\\new work\\newEgg\\node_modules\\egg-static\\config\\config.default.js"
+  },
+  "nunjucks": {
+    "autoescape": "D:\\new work\\newEgg\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "throwOnUndefined": "D:\\new work\\newEgg\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "trimBlocks": "D:\\new work\\newEgg\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "lstripBlocks": "D:\\new work\\newEgg\\node_modules\\egg-view-nunjucks\\config\\config.default.js",
+    "cache": "D:\\new work\\newEgg\\node_modules\\egg-view-nunjucks\\config\\config.local.js"
+  },
+  "validate": "D:\\new work\\newEgg\\node_modules\\egg-validate\\config\\config.default.js",
+  "cors": "D:\\new work\\newEgg\\node_modules\\egg-cors\\config\\config.default.js",
+  "env": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "name": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "proxy": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "maxProxyCount": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "protocolHeaders": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "ipHeaders": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "hostHeaders": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "pkg": {
+    "name": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "version": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "description": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "private": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "egg": {
+      "declarations": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "dependencies": {
+      "bootstrapvalidator": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "crypto": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-cors": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-jwt": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-scripts": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-socket.io": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-validate": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-view-nunjucks": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "node-xlsx": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "silly-datetime": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "devDependencies": {
+      "autod": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "autod-egg": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-bin": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-ci": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "egg-mock": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "eslint": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "eslint-config-egg": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "engines": {
+      "node": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "scripts": {
+      "start": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "stop": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "dev": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "debug": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "test": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "test-local": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "cov": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "lint": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "ci": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "autod": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "ci": {
+      "version": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "repository": {
+      "type": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "url": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "author": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "license": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "baseDir": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "HOME": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "rundir": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "dump": {
+    "ignore": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "confusedConfigurations": {
+    "bodyparser": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "notFound": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "sitefile": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "middlewares": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "httpClient": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "notfound": {
+    "pageUrl": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "siteFile": {
+    "/favicon.ico": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "bodyParser": {
+    "enable": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "formLimit": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "jsonLimit": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "strict": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "queryString": {
+      "arrayLimit": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "depth": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+      "parameterLimit": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+    },
+    "onerror": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "meta": {
+    "enable": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "logging": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "coreMiddleware": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "workerStartTimeout": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "serverTimeout": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+  "clusterClient": {
+    "maxWaitTime": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js",
+    "responseTimeout": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+  },
+  "onClientError": "D:\\new work\\newEgg\\node_modules\\egg\\config\\config.default.js"
+}

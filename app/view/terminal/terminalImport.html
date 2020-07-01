@@ -1,0 +1,1075 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    #modleTable .btn-sm{
+        margin: 0 5px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        终端管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 授权终端</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+                <div class="col-md-3 form-group " >
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>设备序列号：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <input type="text" class="form-control" name="terminalNum" autocomplete="off" id="terminalNum" placeholder="请输入设备序列号">
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>物料类型：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <select class="form-control select2" data-live-search ="true" name="wareType" id="wareType"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>公司：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="comp" id="Acompanycode">
+                            <option value="">请选择公司</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>路段：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="road" id="Aroadcode">
+                            <option value="">请先选择公司</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>站点：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="station" id="Astationcode">
+                            <option value="">请先选择路段</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 form-group " >
+                    <div class="col-md-5" style="text-align: right;line-height: 34px">
+                        <label>状态：</label>
+                    </div>
+                    <div class="col-md-7" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="status" id="status">
+                            <option value="">请先选择状态</option>
+                            <option value="AM_STATUS_NEW">新建</option>
+                            <option value="AM_STATUS_IMPORT">已入库</option>
+                            <option value="AM_STATUS_NORMAL">正常</option>
+                            <option value="AM_STATUS_DUMP">连接异常</option>
+                            <option value="AM_STATUS_TIMEOUT">超时</option>
+                            <option value="AM_STATUS_RECO">回收</option>
+                            <option value="AM_STATUS_STOP">停用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <button type="button" id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+                </div>
+            </div>
+        </form>
+        <!-- 记录-->
+
+        <div class="table-cont" style="padding-bottom: 20px;margin-top: 20px">
+            <div class="panel box box-primary">
+                <h4>终端列表</h4>
+            </div>
+            <div class="box-body">
+                <table id="modleTable" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 授权终端信息修改-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 690px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">授权终端信息维护</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>设备序列号：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="deviceSerialNo" disabled autocomplete="off" id="deviceSerialNo" placeholder="请输入设备序列号">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>设备型号：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="deviceModel" disabled autocomplete="off" id="deviceModel" placeholder="请输入设备型号">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>物料：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control" style="width: 100%;" name="wareId" id="wareId"> </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>公司：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="companyCode" id="companyCode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>路段：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="roadCode" id="roadCode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>站点：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="stationCode" id="stationCode"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>维护人：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="mantPerson" autocomplete="off" id="mantPerson" placeholder="请输入维护人姓名">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>维护电话：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="mantTel" autocomplete="off" id="mantTel" placeholder="请输入维护电话">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>握手时间：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="lastShakeHane" autocomplete="off" id="lastShakeHane" placeholder="请输入最后握手时间">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>工作URL：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="workUrl" autocomplete="off" id="workUrl" placeholder="请输入工作URL">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>备份URL(1)：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="backUrl1" autocomplete="off" id="backUrl1" placeholder="请输入备份URL">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>备份URL(2)：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="backUrl2" autocomplete="off" id="backUrl2" placeholder="请输入备份URL">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>备注：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" name="remark" autocomplete="off" id="remark" placeholder="请输入备注">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>状态：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="editstatus" id="editstatus">
+                                    <option value="AM_STATUS_NEW">新建</option>
+                                    <option value="AM_STATUS_IMPORT">入库</option>
+                                    <option value="AM_STATUS_NORMAL">正常</option>
+                                    <option value="AM_STATUS_DUMP">连接异常</option>
+                                    <option value="AM_STATUS_TIMEOUT">超时</option>
+                                    <option value="AM_STATUS_STOP">停用</option>
+                                    <option value="AM_STATUS_RECO">回收</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 授权终端领用确认-->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 690px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="confirmModalLabel">领用信息确认</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>设备序列号：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" disabled id="confirmDeviceSerialNo" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>物料：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" disabled id="confirmWareId" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>公司：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" disabled id="confirmCompanyName" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>路段：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" disabled id="confirmRoadName" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>站点：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" disabled id="confirmStationName" >
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>工作URL：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" disabled id="confirmWorkUrl">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>领用人：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" id="confirmMantPerson" placeholder="请输入领用人姓名" >
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group " >
+                            <p class="text-red" style="line-height: 34px">注：系统需有领用人账号信息</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmit">信息无误，确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 授权终端停用确认-->
+<div class="modal fade" id="stopModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 690px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="stopModalLabel">停用信息确认</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="col-md-12 form-group " >
+                            <div class="col-md-3" style="text-align: right;line-height: 34px">
+                                <label>停用说明：</label>
+                            </div>
+                            <div class="col-md-9" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" id="stopRemark" placeholder="请输入停用说明" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="stopSubmit">确 认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 授权终端回收确认-->
+<div class="modal fade" id="recoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 690px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="recoModalLabel">回收信息确认</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="col-md-12 form-group " >
+                            <div class="col-md-3" style="text-align: right;line-height: 34px">
+                                <label>回收说明：</label>
+                            </div>
+                            <div class="col-md-9" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" id="recoRemark" placeholder="请输入回收说明" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="recoSubmit">确 认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      $('#status').select2({
+        placeholder:'请选择状态',
+        allowClear:true
+      });
+
+      $('#editstatus').select2({
+        placeholder:'请选择状态'
+      });
+      // $('#editstatus').val('AM_STATUS_NEW').select2().trigger('change');
+      //物料
+      $.ajax({
+        type: 'POST',
+        url: "/publish/wareSearchType",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#wareType').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择物料</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.wareId + '"  ' + '>' + comment.wareName + '</option>';
+          });
+          $('#wareType').html(html);
+          $('#wareType').select2({
+            placeholder:'请选择物料'
+          })
+        }
+      });
+      //公司
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_1'
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#companyCode').empty();   //清空resText里面的所有内容
+          var html = '';
+          html += '<option value="">请选择公司</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#companyCode').html(html);
+          $('#companyCode').select2({
+            placeholder:'请选择公司'
+          });
+        }
+      });
+      //物料
+      $.ajax({
+        type: 'POST',
+        url: "/publish/wareSearchType",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#wareId').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择物料</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.wareId + '"  ' + '>' + comment.wareName + '</option>';
+          });
+          $('#wareId').html(html);
+          $('#wareId').select2({
+            placeholder:'请选择物料'
+          })
+        }
+      });
+
+    }
+//下拉框
+    const parentcode = $("#hideNetNode").val();
+    getslect(1);
+    getslect(2,parentcode);
+    setTimeout(function() {
+      getslect(3);
+    },0)
+    function getslect(level,parent){
+      var placholder = '';
+      var searchLevel = '';
+      var dom = '';
+      switch (level) {
+        case 1:
+          placholder = '请选择公司';
+          searchLevel = 'NETNODE_LEVEL_1';
+          dom = $("#Acompanycode")
+          break;
+        case 2:
+          placholder = '请选择路段';
+          searchLevel = 'NETNODE_LEVEL_2';
+          dom = $("#Aroadcode");
+          break;
+        case 3:
+          placholder = '请选择收费站';
+          searchLevel = 'NETNODE_LEVEL_3';
+          dom = $("#Astationcode");
+          break;
+      }
+      function getNetNode() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            level:searchLevel,
+            // parentId:parent,
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            dom.empty();
+            var html = '';
+            html += '<option value="">'+placholder+'</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            dom.html(html);
+            dom.select2({
+              placeholder:placholder,
+              allowClear : true,
+            });
+          }
+        });
+      }
+      getNetNode();
+    }
+    selectInit();
+    function selectInit() {
+      $("#Acompanycode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page: 0,
+            pageSize: 1000,
+            parentId: $('#Acompanycode')
+              .val(),
+          },
+          dataType: "json",
+          success: function(data) {
+            if (!data.result)
+              return;
+            $('#Aroadcode')
+              .empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择路段</option>';
+            $.each(data.data.data, function(commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#Aroadcode')
+              .html(html);
+            $('#Aroadcode')
+              .select2({
+                placeholder: '请选择路段',
+                allowClear: true,
+              });
+          }
+        });
+      });
+      $("#Aroadcode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#Aroadcode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#Astationcode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#Astationcode').html(html);
+            $('#Astationcode').select2({
+              placeholder:'请选择站点',
+              allowClear : true,
+            });
+          }
+        });
+      })
+    }
+    //表格
+    //表格
+    if ($('#modleTable')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/terminal/modelQuery',
+          data: {
+            status: $("#status").val(),
+            // level:'NETNODE_LEVEL_1'
+          },
+        },
+        "columns": [
+          {"data": "authModelId", "title": "终端ID"},
+          {"data": "deviceSerialNo", "title": "设备序列号"},
+          {"data": "deviceModel", "title": "设备型号"},
+          {"data": "wareName", "title": "物料"},
+          {"data": "companyName", "title": "归属公司"},
+          {"data": "roadName", "title": "归属路段"},
+          {"data": "stationName", "title": "归属站"},
+          {"data": "mantPerson", "title": "维护人"},
+          {"data": "mantTel", "title": "维护电话"},
+          {"data": "status", "title": "状态"},
+          {"data": "workUrl", "title": "工作URL"},
+          {"data": "remark", "title": "备注"},
+          {"data": "authModelId", "title": "操作"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          switch (data.status) {
+            case 'NEW':
+              $('td', row).eq(9).html('新建');
+              $('td', row).eq(12).html("<a class='btn btn-sm btn-primary' name='import' data-dcid='"+data.deviceSerialNo+"' data-wareid='"+data.wareId+"'>入库</a>" +
+                "<a class='btn btn-sm btn-warning' name='edit'>编辑</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+              break;
+            case 'IMPORT':
+              $('td', row).eq(9).html('<span class="text-aqua">入库</span>');
+              $('td', row).eq(12).html("<a class='btn btn-sm btn-primary' name='reeceive'>领用</a>" +
+                "<a class='btn btn-sm btn-warning' name='edit'>编辑</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+              break;
+            case 'NORMAL':
+              $('td', row).eq(9).html('<span class="text-green">正常</span>');
+              $('td', row).eq(12).html("<a class='btn btn-sm btn-danger' name='stop'>停用</a>" +
+                "<a class='btn btn-sm btn-warning' name='edit'>编辑</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+              break;
+            case 'DUMP':
+              $('td', row).eq(9).html('<span class="text-red">连接异常</span>');
+              $('td', row).eq(12).html("<a class='btn btn-sm btn-warning' name='edit'>编辑</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+              break;
+            case 'TIMEOUT':
+              $('td', row).eq(9).html('<span class="text-red">超时</span>');
+              $('td', row).eq(12).html("<a class='btn btn-sm btn-warning' name='edit'>编辑</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+              break;
+            case 'STOP':
+              $('td', row).eq(9).html('<span class="text-red">停用</span>');
+              $('td', row).eq(12).html("<a class='btn btn-sm btn-danger' name='reco'>回收</a>" +
+                "<a class='btn btn-sm btn-warning' name='edit'>编辑</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+              break;
+            case 'RECO':
+              $('td', row).eq(9).html('<span class="text-yellow">回收</span>');
+              $('td', row).eq(12).html("");
+              break;
+            default:
+              $('td', row).eq(9).html('<span class="text-red">状态异常 </span>');
+              $('td', row).eq(12).html('');
+              break;
+          }
+        },
+        "drawCallback": function (settings, json) {
+          $('a').unbind("click");
+          $('a[name="import"]').click(terminalImport);
+          $('a[name="edit"]').click(editTerminal);
+          $('a[name="reeceive"]').click(terminalReeceive);
+          $('a[name="stop"]').click(terminalStop);
+          $('a[name="reco"]').click(terminalReco);
+        }
+      };
+      modleTable = $('#modleTable').DataTable(settings);
+    }
+    // 入库
+    function terminalImport(e){
+      if (e.currentTarget.dataset.dcid ==''||e.currentTarget.dataset.wareid=='') {
+        swal({
+          title:'操作失败',
+          text:'数据不完整',
+          icon:'info',
+          button:true
+        });
+        return
+      };
+      const datas = {
+        deviceSerialNo: e.currentTarget.dataset.dcid,
+        wareId: e.currentTarget.dataset.wareid,
+      }
+      $("#btnImport").attr('disabled','disabled');
+      $.ajax({
+        type: 'POST',
+        url: "/terminal/moldeImport",
+        data: datas,
+        dataType: "json",
+        success: function (data) {
+          $("#btnApply").removeAttr('disabled');
+          if (!data.result){
+            swal({
+              title:'入库失败',
+              text:data.errMsg,
+              icon:'error',
+              button:false
+            });
+          }else {
+            swal({
+              title:'入库成功',
+              text:data.msg,
+              icon:'success',
+              button:false,
+              timer: 2000
+            })
+            search();
+          }
+        }
+      });
+    }
+    //  修改
+    function editTerminal(e){
+      $("#editModal").modal('show');
+      $("#editModal").off("click","#editSubmit");
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      //获取当前路段
+      getRoad(data.companyCode,data.roadCode);
+      //获取当前站
+      getStation(data.roadCode,data.stationCode)
+      const authModelId = data.authModelId;
+      $("#deviceSerialNo").val(data.deviceSerialNo);
+      $("#deviceModel").val(data.deviceModel);
+      const statustring = 'AM_STATUS_'+data.status;
+      $('#editstatus').val(statustring).select2().trigger('change');
+      $('#wareId').val(data.wareId).select2().trigger('change');
+      $('#companyCode').val(data.companyCode).select2().trigger('change');
+      $("#mantPerson").val(data.mantPerson);
+      $("#mantTel").val(data.mantTel);
+      $("#workUrl").val(data.workUrl);
+      $("#lastShakeHane").val(data.lastShakeHane);
+      $("#remark").val(data.remark);
+      $("#backUrl1").val(data.backUrl1);
+      $("#backUrl2").val(data.backUrl2);
+
+      setTimeout(function() {
+        change();
+      },300);
+      const submit = function(){
+
+      }
+      $("#editModal").on("click","#editSubmit",function() {
+        $("#editSubmit").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/terminal/updateAuthModel",
+          data: {
+            authModelId: authModelId,
+            wareId: $('#wareId').val(),
+            companyCode: $('#companyCode').val(),
+            roadCode: $('#roadCode').val(),
+            stationCode: $('#stationCode').val(),
+            mantPerson: $('#mantPerson').val(),
+            mantTel: $('#mantTel').val(),
+            workUrl: $('#workUrl').val(),
+            status:$('#editstatus').val(),
+            lastShakeHane: $('#lastShakeHane').val(),
+            remark: $('#remark').val(),
+            backUrl1: $('#backUrl1').val(),
+            backUrl2: $('#backUrl2').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            $("#editSubmit").removeAttr('disabled');
+            $("#editModal").modal('hide');
+            if (!data.result){
+              swal({
+                title:'修改失败',
+                text:data.errMsg,
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'修改成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              search();
+            }
+          }
+        })
+      })
+    }
+    //领用
+    function terminalReeceive(){
+      $("#confirmModal").modal('show');
+      $("#confirmModal").off("click","#confirmSubmit");
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      $("#confirmDeviceSerialNo").val(data.deviceSerialNo);
+      $('#confirmWareId').val(data.wareId);
+      $('#confirmCompanyName').val(data.companyName);
+      $('#confirmRoadName').val(data.roadName);
+      $('#confirmStationName').val(data.stationName);
+      $("#confirmMantPerson").val(data.mantPerson);
+      $("#workUrl").val(data.workUrl);
+      $("#confirmModal").on("click","#confirmSubmit",function() {
+        $(this).attr('disabled','disabled');
+        const dataJson = {
+          recver:$("#confirmMantPerson").val(),
+          companyCode: data.companyCode,
+          roadCode:data.roadCode,
+          stationCode:data.stationCode,
+          deviceSerialNo:data.deviceSerialNo,
+          wareId:data.wareId,
+          url:data.workUrl,
+        }
+        $.ajax({
+          type: 'POST',
+          url: "/terminal/moldelGrant",
+          data: dataJson,
+          dataType: "json",
+          success: function (data) {
+            $("#confirmModal").modal('hide');
+            $("#confirmSubmit").removeAttr('disabled');
+            $("#editModal").modal('hide');
+            if (!data.result){
+              swal({
+                title:'领用失败',
+                text:data.errMsg,
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'领用成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              search();
+            }
+          }
+        })
+      })
+    }
+    //停用
+    function terminalStop(){
+      $("#stopModal").modal('show');
+      $("#stopRemark").val('')
+      $("#stopModal").off("click","#stopSubmit");
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      $("#stopModal").on("click","#stopSubmit",function() {
+        $(this).attr('disabled','disabled');
+        const dataJson = {
+          remark:$("#stopRemark").val(),
+          deviceSerialNo:data.deviceSerialNo,
+        }
+        $.ajax({
+          type: 'POST',
+          url: "/terminal/authMoudleStop",
+          data: dataJson,
+          dataType: "json",
+          success: function (data) {
+            $("#stopModal").modal('hide');
+            $("#stopSubmit").removeAttr('disabled');
+            if (!data.result){
+              swal({
+                title:'操作失败',
+                text:data.errMsg,
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'操作成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              search();
+            }
+          }
+        })
+      })
+    }
+    //回收
+    function terminalReco(){
+      $("#recoModal").modal('show');
+      $("#recoRemark").val('')
+      $("#recoModal").off("click","#recoSubmit");
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      $("#recoModal").on("click","#recoSubmit",function() {
+        $(this).attr('disabled','disabled');
+        const dataJson = {
+          remark:$("#recoRemark").val(),
+          deviceSerialNo:data.deviceSerialNo,
+        }
+        $.ajax({
+          type: 'POST',
+          url: "/terminal/authMoudleRecovery",
+          data: dataJson,
+          dataType: "json",
+          success: function (data) {
+            $("#recoModal").modal('hide');
+            $("#recoSubmit").removeAttr('disabled');
+            if (!data.result){
+              swal({
+                title:'操作失败',
+                text:data.errMsg,
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'操作成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              search();
+            }
+          }
+        })
+      })
+    }
+    //  查询
+    $("#btnSearch").click(function() {
+      search()
+    })
+    function search() {
+      modleTable.clear();
+      modleTable.ajax.url("/terminal/modelQuery?"+"&deviceSerialNo="+$("#terminalNum").val()+"&status="+$("#status").val()+"&wareId="+$("#wareType").val()
+        +"&companyCode="+$("#Acompanycode").val()
+        +"&roadCode="+$("#Aroadcode").val()+"&stationCode="+$("#Astationcode").val()).load();
+    }
+
+    function getRoad(company,self) {
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          parentId:company,
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#roadCode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择路段</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#roadCode').html(html);
+          $('#roadCode').select2({
+            placeholder:'请选择路段'
+          });
+          setTimeout(function() {
+            $('#roadCode').val(self).select2().trigger('change');
+          },200)
+
+        }
+      });
+    }
+    function getStation(road,self) {
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          parentId:road,
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#stationCode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择站点</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#stationCode').html(html);
+          $('#stationCode').select2({
+            placeholder:'请选择站点'
+          });
+          setTimeout(function() {
+            $('#stationCode').val(self).select2().trigger('change');
+          },1000)
+
+        }
+      });
+    }
+
+    function change() {
+      $("#companyCode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#companyCode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#roadCode').empty();
+            var html = '';
+            html += '<option value="">请选择路段</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#roadCode').html(html);
+            $('#roadCode').select2({
+              placeholder:'请选择路段'
+            });
+          }
+        });
+      })
+      $("#roadCode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#roadCode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#stationCode').empty();
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#stationCode').html(html);
+            $('#stationCode').select2({
+              placeholder:'请选择站点'
+            });
+          }
+        });
+      })
+    }
+  })
+</script>

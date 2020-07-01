@@ -1,0 +1,352 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+</style>
+<section class="content-header">
+    <h1>物料明细</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 物料管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-4 form-group " >
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>物料名称：</label>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="wareName" id="wareName" placeholder="请输入要查询的物料名称" >
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>供应商：</label>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="factory" id="factory" placeholder="请输入要供应商名称" >
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>场景：</label>
+                </div>
+                <div class="col-md-6" style="padding: 0">
+                    <select class="form-control" name="usageId" id="usage"></select>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <button id="btnSearch" style="width: 180px; height: 42px;margin-bottom: 20px" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+        <!-- 记录-->
+        <div class="table-cont">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="supplierRecord" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 物料修改-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">物料信息修改</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span class="netNodeName">物料名称：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editwareName" autocomplete="off" id="editwareName" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>厂家：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <select style="width: 100%" class="form-control" name="editfactoryCode" id="editfactoryCode"> </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>场景：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <select style="width: 100%" class="form-control" name="editusage" id="editusage"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>版本号：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editversion" autocomplete="off" id="editversion" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>描述：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editspec" autocomplete="off" id="editspec" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>备注：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="remark" autocomplete="off" id="remark"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      $.ajax({
+        type: 'POST',
+        url: "/publish/queryUsage",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#usage').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择场景</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.usageId + '"  ' + '>' + comment.usegeInfo + '</option>';
+          });
+          $('#usage').html(html);
+          $('#usage').select2({
+            placeholder:'请选择场景'
+          })
+          $('#editusage').html(html);
+          $('#editusage').select2({
+            placeholder:'请选择场景'
+          })
+        }
+      });
+      $.ajax({
+        type: 'POST',
+        url: "/publish/queryFactory",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#editfactoryCode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择供应商</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.factoryCode + '"  ' + '>' + comment.factoryName + '</option>';
+          });
+          $('#editfactoryCode').html(html);
+          $('#editfactoryCode').select2({
+            placeholder:'请选择供应商'
+          })
+        }
+      });
+    }
+
+      if ($('#supplierRecord')) {
+        var pagesize = 10;
+        var settings = {
+          "destroy": true,
+          "serverSide": true,
+          "ajax": {
+            url: '/ware/wareQuery',
+            data: {
+              status:''
+            },
+          },
+          "columns": [
+            {"data": "wareId", "title": "物料ID"},
+            {"data": "wareName", "title": "物料名称"},
+            {"data": "factoryCode", "title": "供应商代码"},
+            {"data": "factoryName", "title": "供应商名称"},
+            {"data": "version", "title": "版本"},
+            {"data": "spec", "title": "描述"},
+            {"data": "remark", "title": "备注"},
+            {"data": "createTime", "title": "创建时间"},
+            {"data": "updateTime", "title": "最后修改时间"},
+        {"data": "factoryCode", "title": "操作"},
+            ],
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "processing": true,
+          "pageLength": pagesize,
+          "oLanguage": {
+            "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+            "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sProcessing": "正在加载中...",
+            "oPaginate": {
+              "sFirst": "第一页",
+              "sPrevious": " 上一页 ",
+              "sNext": " 下一页 ",
+              "sLast": " 最后一页 "
+            }
+          },
+          "createdRow": function (row, data, index) {
+            if(data.updateTime){
+              $('td', row).eq(8).html(data.updateTime);
+            }else {
+              $('td', row).eq(8).html(data.createTime);
+            }
+            $('td', row).eq(9).html("<a class='btn btn-sm btn-info' name='edit'>修改</a><input type='hidden' value='"+JSON.stringify(data)+"'>");
+          },
+          "drawCallback": function (settings, json) {
+            $('a[name="edit"]').click(editSupplier);
+          }
+        };
+        supplierRecord = $('#supplierRecord').DataTable(settings);
+      }
+    //  修改
+    function editSupplier(e){
+      $("#editModal").modal('show');
+      $("#editModal").off("click","#editSubmit");
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      const wareId = data.wareId;
+      $("#editwareName").val(data.wareName);
+      $('#editfactoryCode').val(data.factoryCode).select2().trigger('change');
+      $('#editusage').val(data.useageId).select2().trigger('change');
+      $("#editversion").val(data.version);
+      $("#editspec").val(data.spec);
+      $("#remark").val(data.remark);
+
+      $("#editModal").on("click","#editSubmit",function(){
+        const editname = $("#editwareName").val();
+        const editfactory = $("#editfactoryCode").val();
+        const editusage = $("#editusage").val();
+        const editversion = $("#editversion").val();
+        const editspec = $("#editspec").val();
+        const editremark = $("#remark").val();
+        $("#editSubmit").attr('disabled','disabled');
+        $('form').bootstrapValidator('validate');
+        if($('form').data('bootstrapValidator').isValid()){
+          if(editname==data.wareName&&editfactory==data.factoryCode&&editusage==data.useageId&&editversion==data.version&&editspec==data.spec&&editremark==data.remark){
+            swal({
+              title:'您没有做任何修改',
+              text:' ',
+              icon:'warning',
+              button:false
+            });
+            $('form').data('bootstrapValidator').resetForm();
+            $("#editSubmit").removeAttr('disabled');
+            return;
+          }
+          $.ajax({
+            type: 'POST',
+            url: "/ware/wareSupUpdate",
+            data: {
+              wareId: wareId,
+              wareName: editname,
+              factoryCode: editfactory,
+              version: editversion,
+              spec: editspec,
+              usageId: editusage,
+              remark: editremark,
+            },
+            dataType: "json",
+            success: function (data) {
+              $("#editSubmit").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+              $("#editModal").modal('hide');
+              if (!data.result){
+                swal({
+                  title:'修改失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:true
+                });
+              }else {
+                swal({
+                  title:'修改成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                supplierRecord.ajax.url("/ware/wareQuery?" +"&wareName="+$("#wareName").val()+"&factoryName="+$("#factory").val()+"&usageId="+$("#usage").val()).load();
+              }
+            }
+          })
+        }
+      })
+    }
+    //  查询
+    $("#btnSearch").click(function() {
+      supplierRecord.ajax.url("/ware/wareQuery?" +"&wareName="+$("#wareName").val()+"&factoryName="+$("#factory").val()+"&usageId="+$("#usage").val()).load();
+    })
+    //校验
+    $('form').bootstrapValidator({
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        editwareName: {
+          validators: {
+            notEmpty: {
+              message: '请输入物料名称'
+            }
+          }
+        },
+        editfactoryCode: {
+          validators: {
+            notEmpty: {
+              message: '请选择厂家'
+            }
+          }
+        },
+        editusage: {
+          validators: {
+            notEmpty: {
+              message: '请选择场景'
+            }
+          }
+        }
+      }
+    });
+  })
+</script>

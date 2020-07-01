@@ -1,0 +1,252 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        采购申请
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 合同管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>合同标题：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="title" autocomplete="off" id="title" placeholder="请输入采购标题">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>物料：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control" name="wareType" id="wareType"> </select>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>采购数量：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="cardNum" autocomplete="off" id="cont" placeholder="请输入采购数量">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>备注：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="remark" autocomplete="off" id="remark" placeholder="请输入备注">
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" >
+                    <button id="btnInventory" type="submit" style="width: 180px; height: 42px; margin-bottom: 15px" class="btn btn-primary">申&nbsp;&nbsp;&nbsp;&nbsp;请</button>
+                </div>
+            </div>
+        </form>
+        <!-- 记录-->
+        <div class="table-cont">
+            <div class="panel box box-primary">
+                <h4>采购提交记录</h4>
+            </div>
+            <div class="box-body">
+                <table id="importRecord" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      $.ajax({
+        type: 'POST',
+        url: "/publish/wareSearchType",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#wareType').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择物料</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.wareId + '"  ' + '>' + comment.wareName + '</option>';
+          });
+          $('#wareType').html(html);
+          $('#wareType').select2({
+            placeholder:'请选择物料'
+          })
+        }
+      });
+    }
+
+    $('.select2').select2();
+
+    if ($('#importRecord')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/ware/materialList',
+          data: {
+            status: ''
+          },
+        },
+        "columns": [
+          { "data": "id", "title": "合同号" },
+          { "data": "title", "title": "标题" },
+          { "data": "cardProvid", "title": "供应商" },
+          { "data": "count", "title": "数量" },
+          { "data": "wareName", "title": "物料" },
+          { "data": "applyDate", "title": "提交时间" },
+          { "data": "status", "title": "状态" }],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function(row, data, index) {
+          $('td', row).eq(5).html(''+data.applyDate.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          switch (data.status) {
+            case 'NEW':
+              $('td', row).eq(6).html('<span class="text-light-blue">待入库</span>');
+              break;
+            case 'FSH':
+              $('td', row).eq(6).html('<span class="text-aqua">已入库</span>');
+              break;
+            case 'PARTIMP':
+              $('td', row).eq(6).html('<span class="text-yellow">部分入库</span>');
+              break;
+            case 'ING':
+              $('td', row).eq(6).html('<span class="text-yellow">发行中</span>');
+              break;
+            case 'FSH':
+              $('td', row).eq(6).html('<span class="text-green">发行完成</span>');
+              break;
+          }
+        },
+        "drawCallback": function(settings, json) {
+
+        }
+      };
+      importTable = $('#importRecord').DataTable(settings);
+    }
+
+    $("#btnInventory").click(function() {
+      $('form').bootstrapValidator('validate');
+      if($('form').data('bootstrapValidator').isValid()){
+        const data = {
+          title: $("#title").val(),
+          wareId: $("#wareType").val(),
+          count: $("#cont").val(),
+          remark: $("#remark").val(),
+        }
+        $("#btnInventory").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/ware/purchasedo",
+          data: data,
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'需求提交失败',
+                text:data.errMsg?data.errMsg:' ',
+                icon:'error',
+                button:false
+              });
+              $("#btnInventory").removeAttr('disabled');
+            }else {
+              swal({
+                title:'需求提交成功',
+                text:data.msg?data.msg:' ',
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $('input').val('');
+              $("#btnInventory").removeAttr('disabled');
+              $('form').data('bootstrapValidator').destroy();
+              importTable.ajax.url("/ware/materialList").load();
+            }
+          }
+        });
+      }
+
+    })
+    //  校验
+    //校验
+    $('form').bootstrapValidator({
+      // 默认的提示消息
+      message: 'This value is not valid',
+      // 表单框里右侧的icon
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        title: {
+          validators: {
+            notEmpty: {
+              message: '请输入标题'
+            }
+          }
+        },
+        wareType: {
+          validators: {
+            notEmpty: {
+              message: '请选择物料类型'
+            }
+          }
+        },
+        cardNum: {
+          validators: {
+            notEmpty: {
+              message: '请输入采购数量'
+            }
+          }
+        }
+      }
+    });
+  })
+</script>

@@ -1,0 +1,275 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        订单管理
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 订单管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>合同：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="inventoryId" id="inventoryId"></select>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>采购数量：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="applycont" autocomplete="off" id="applycont" placeholder="采购数量" disabled>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>已入库数量：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="haveIn" autocomplete="off" id="haveIn" placeholder="已入库数量" disabled>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>实际入库数量：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="cardNum" autocomplete="off" id="cont" placeholder="请输入实际入库数量">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>起始号：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="startNum" autocomplete="off" id="startNum" placeholder="请输入入库卡片起始号">
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center">
+                    <button id="btnInventory" type="submit" style="width: 180px; height: 42px; margin-bottom: 15px" class="btn btn-primary">入&nbsp;&nbsp;&nbsp;&nbsp;库</button>
+                </div>
+            </div>
+        </form>
+        <!-- 记录-->
+        <div class="table-cont">
+            <div class="panel box box-primary">
+                <h4>入库记录</h4>
+            </div>
+            <div class="box-body">
+                <table id="importRecord" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    $.ajax({
+      type: 'GET',
+      url: "/ware/materialList",
+      data: {
+        status:'IMPORT_STATSU_NEW',
+        isImport: 'true',
+      },
+      dataType: "json",
+      success: function (data) {
+        if (!data.result)
+          return;
+        $('#inventoryId').empty();   //清空resText里面的所有内容
+
+        var html = '';
+        html += '<option value="">请选择入库合同</option>';
+        $.each(data.data, function (commentIndex, comment) {
+          html += '<option title="' + comment.count + '"  remain="' + comment.remain + '" value="' + comment.id + '"  ' + '>' + comment.title + '</option>';
+        });
+        $('#inventoryId').html(html);
+        $('#inventoryId').select2({
+          placeholder:'请选择入库合同'
+        });
+        $("#inventoryId").on("select2:select",function(e){
+          $("#applycont").val(e.params.data.title);
+          $("#haveIn").val(e.params.data.element.attributes.remain.value);
+        })
+      }
+    });
+    if ($('#importRecord')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/ware/materialList',
+          data: {
+            status:'',
+            hasImport: 'true'
+          },
+        },
+        "columns": [
+          {"data": "id", "title": "合同号"},
+          {"data": "title", "title": "合同标题"},
+          {"data": "cardProvid", "title": "供应商"},
+          {"data": "count", "title": "采购数量"},
+          {"data": "remain", "title": "入库数量"},
+          {"data": "wareName", "title": "物料"},
+          {"data": "importDate", "title": "入仓时间"},
+          {"data": "status", "title": "状态"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          if(data.count>data.remain){
+            $('td', row).eq(0).css({'color':'#f39c12 !important','font-weight':'bold'});
+            // $('td', row).css({'color':'#f39c12 !important'});
+            $('td', row).eq(4).html('<span class="text-yellow">'+data.remain+'</span>');
+          }else {
+            $('td', row).eq(4).html('<span class="text-green">'+data.remain+'</span>');
+          }
+          if(data.importDate){
+            $('td', row).eq(6).html(''+data.importDate.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          }else {
+            $('td', row).eq(6).html('');
+          }
+          switch (data.status) {
+            case 'FSH':
+              $('td', row).eq(7).html('<span class="text-aqua">已入库</span>');
+              break;
+            case 'PARTIMP':
+              $('td', row).eq(7).html('<span class="text-yellow">部分入库</span>');
+              break;
+          }
+        },
+        "drawCallback": function (settings, json) {
+
+        }
+      };
+      importTable = $('#importRecord').DataTable(settings);
+    }
+
+    //psam入库
+    $("#btnInventory").click(function() {
+      $('form').bootstrapValidator('validate');
+      if($('form').data('bootstrapValidator').isValid()){
+        swal({title:'入库中...',button:false});
+        const data = {
+          batchNo: $("#inventoryId").val(),
+          count: $("#cont").val(),
+          startPtrNum: $("#startNum").val(),
+        }
+        $("#btnInventory").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/ware/psamImport",
+          data: data,
+          dataType: "json",
+          timeout:30000,
+          success: function (data) {
+            swal.close();
+            if (!data.result){
+              swal({
+                title:'入库失败',
+                text:data.errMsg,
+                icon:'error',
+                button:false
+              });
+              $("#btnInventory").removeAttr('disabled');
+            }else {
+              swal({
+                title:'入库成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $('input').val('');
+              $('form').data('bootstrapValidator').destroy();
+              $("#btnInventory").removeAttr('disabled');
+              importTable.ajax.url("/ware/materialList").load();
+              // $('#stationcode').empty()
+            }
+          }
+        });
+      }
+
+    })
+    //  校验
+    //校验
+    $('form').bootstrapValidator({
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        cardNum: {
+          validators: {
+            notEmpty: {
+              message: '请输入卡片数量'
+            },
+            regexp:{
+              regexp:'^-?\\d+$',
+              message: '请输入数字'
+            }
+          }
+        },
+        inventoryId: {
+          validators: {
+            notEmpty: {
+              message: '请输入批次号'
+            }
+          }
+        },
+        startNum: {
+          validators: {
+            notEmpty: {
+              message: '请输入起始号'
+            },
+            stringLength : {
+              max : 20,
+              message : '长度可能有误，请检查'
+            }
+          }
+        }
+      }
+    });
+  })
+</script>

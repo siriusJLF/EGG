@@ -1,0 +1,119 @@
+body{
+    background: url("../img/login-bg.png") no-repeat center ;
+    background-size: cover;
+}
+html{
+    font-size: 12px;
+}
+.header{
+    height: 60px;
+    line-height: 60px;
+    padding: 0 30px;
+    box-shadow: 0 0 6px 3px rgba(96,170,234,0.4);
+    width: 100%;
+    background: white;
+}
+.header .logo{
+    /*line-height: 80px !important;*/
+    text-decoration: none;
+}
+.header .logo-lg{
+    font-size: 28px;
+}
+.main-content{
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-direction: row;
+}
+.main-content .item{
+    width: 500px;
+    min-height: 300px;
+}
+
+.logo-form-cont{
+    height: 380px;
+    width: 360px;
+    /*height: 60%;
+    width: 28%;*/
+    background: white;
+    border-radius: 5px;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    padding: 30px 50px;
+    margin-left: 50px;
+    margin-top: 50px;
+    padding-bottom: 0;
+}
+.input-cont{
+    position: relative;
+    /*margin-bottom: 20px;*/
+    font-size: 18px;
+    height: 50px;
+}
+.input-user{
+    height: 40px;
+    line-height: 40px;
+    border: solid 1px #dddddd;
+    width: 100%;
+    border-radius: 3px;
+    padding-left: 36px;
+    font-size: 16px;
+    background: url(../img/icon-user.png) no-repeat 12px center;
+}
+.input-password{
+    height: 40px;
+    line-height: 40px;
+    border: solid 1px #dddddd;
+    width: 100%;
+    border-radius: 3px;
+    padding-left: 36px;
+    font-size: 16px;
+    background: url(../img/icon-password.png) no-repeat 12px center;
+}
+.btn-blue{
+    display: block;
+    height: 40px;
+    width: 100%;
+    border: 0;
+    outline: none;
+    cursor: pointer;
+    line-height: 40px;
+    border-radius: 25px;
+    text-align: center;
+    background: linear-gradient(to right bottom,#0dc7ff,#0aa0ff);
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 2px 6px 2px #48c6ff;
+}
+.btn-orange2{
+    background: #ff8202;
+    color: #fff;
+    line-height: 28px;
+    padding: 0 10px;
+    border: none;
+    border-radius: 5px;
+    width:74px;
+    outline: none;
+    cursor: default;
+}
+.mgt-10 {
+    margin-top: 10px !important;
+}
+.mgt-20 {
+    margin-top: 20px;
+}
+.forgetPsw{
+    text-decoration: none;
+    cursor: pointer;
+}
+.errtips{
+    height: 20px;
+    line-height: 20px;
+    color: red;
+    font-size: 14px;
+}
+

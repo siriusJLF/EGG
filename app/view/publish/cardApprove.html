@@ -1,0 +1,604 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>发行审批</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 发行管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+                <div class="col-md-3 form-group " >
+                    <div class="col-md-4" style="text-align: right;line-height: 34px">
+                        <label>申请人：</label>
+                    </div>
+                    <div class="col-md-6" style="padding: 0">
+                        <input type="text" class="form-control" autocomplete="off" name="applyPers" id="applyPers" placeholder="输入申请人查询" >
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-4" style="text-align: right;line-height: 34px">
+                        <label>场景：</label>
+                    </div>
+                    <div class="col-md-6" style="padding: 0">
+                        <select class="form-control" name="usage" id="usage"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-4" style="text-align: right;line-height: 34px">
+                        <label>状态：</label>
+                    </div>
+                    <div class="col-md-6" style="padding: 0">
+                        <select class="form-control" name="status" id="status">
+                            <option value="">请选择状态</option>
+                            <option value="ISSUEBATCH_STATUS_NEW" >待审批</option>
+                            <option value="ISSUEBATCH_STATUS_APV">审批通过</option>
+                            <option value="ISSUEBATCH_STATUS_REF">审批失败</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-4" style="text-align: right;line-height: 34px">
+                        <label>公司：</label>
+                    </div>
+                    <div class="col-md-6" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="comp" id="companycode"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-4" style="text-align: right;line-height: 34px">
+                        <label>路段：</label>
+                    </div>
+                    <div class="col-md-6" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="comp" id="roadcode"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <div class="col-md-4" style="text-align: right;line-height: 34px">
+                        <label>站点：</label>
+                    </div>
+                    <div class="col-md-6" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="comp" id="stationcode"></select>
+                    </div>
+                </div>
+                <div class="col-md-6 form-group " >
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label style="padding-right: 6px">申请时间：</label>
+                    </div>
+                    <div class="col-md-8 form-group" style="padding: 0">
+                        <div class="input-group date col-md-3" style="float: left;">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control" style="width: 120px;float: left" name="timeStart" autocomplete="off" id="dateStart" placeholder="起始时间" >
+                        </div>
+                        <span style="float: left;line-height: 34px;padding: 0 10px;">至</span>
+                        <div class="input-group date col-md-3" style="float: left;">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" style="width: 120px;float: left" class="form-control"  name="timeEnd" autocomplete="off" id="dateEnd" placeholder="截止时间">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <button id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+                </div>
+            </div>
+        <!-- 记录-->
+        <div class="table-cont">
+<!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 审批-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">发行审批</h4>
+            </div>
+            <div class="modal-body">
+                <form id="approveForm">
+                <div class="clearfix" style="background: white;padding: 20px;">
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>审批结果：</label>
+                        </div>
+                        <!-- radio -->
+                        <div class="radio-cont">
+                            <label style="cursor: pointer" class="tabRadio">
+                                <input type="radio" name="approveRadio" value="0" class="minimal" id="pop1" checked>
+                                <span style="padding: 0 10px;">通过</span>
+                            </label>
+                            <label style="cursor: pointer" class="tabRadio">
+                                <input type="radio" name="approveRadio" value="1" class="minimal" id="pop2">
+                                <span style="padding: 0 10px">不通过</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12 personHide" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>发行人：</label>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <select class="form-control" name="personApp" id="presonApp">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>备注：</label>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <textarea class="form-control" rows="4" id="approveRemark"></textarea>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" class="btn btn-primary" id="approveBtn">确 定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 详情-->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="detailModalLabel">审批详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="clearfix" style="padding: 20px;">
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>发行批次：</label>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <span id="aprSer"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>审批时间：</label>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <span id="aprTime"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px" id="fxPerson">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>发行人：</label>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <span id="aprPrs"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>备注：</label>
+                        </div>
+                        <div class="col-md-6" style="padding: 0">
+                            <textarea class="form-control" rows="4" id="refaultRemark" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确 定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(function() {
+
+    $('#status').val('ISSUEBATCH_STATUS_NEW').select2().trigger('change');
+    //Date picker
+    $('#dateStart').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      language:'zh',
+      endDate: '0d',
+      todayHighlight:true
+    })
+    $('#dateEnd').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      endDate: '0d',
+      language:'zh',
+      todayHighlight:true
+    })
+
+  //下拉框
+    selectInit()
+    function selectInit(){
+      //changjing
+      $.ajax({
+        type: 'POST',
+        url: "/publish/queryUsage",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#usage').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择场景</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.usageId + '"  ' + '>' + comment.usegeInfo + '</option>';
+          });
+          $('#usage').html(html);
+          $('#usage').select2({
+            placeholder:'请选择场景',
+            allowClear : true,
+          })
+        }
+      });
+      //gongsi
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          level:'NETNODE_LEVEL_1'
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#companycode').empty();   //清空resText里面的所有内容
+          var html = '';
+          html += '<option value="">请选择公司</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#companycode').html(html);
+          $('#companycode').select2({
+            placeholder:'请选择公司',
+            allowClear : true,
+          });
+        }
+      });
+    //  road
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_2',
+          parentId:$('#companycode').val(),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#roadcode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择路段</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#roadcode').html(html);
+          $('#roadcode').select2({
+            placeholder:'请选择路段',
+            allowClear : true,
+          });
+        }
+      });
+    //  station
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_3',
+          parentId:$('#roadcode').val(),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#stationcode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择站点</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#stationcode').html(html);
+          $('#stationcode').select2({
+            placeholder:'请选择站点',
+            allowClear : true,
+          });
+        }
+      });
+    }
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="radio"].minimal').iCheck({
+      radioClass   : 'iradio_minimal-blue'
+    })
+    $('.tabRadio').click(function(e) {
+      if ($(this).find('input').val()!=0){
+        $(".personHide").hide();
+        // $('#presonApp').empty();
+      }else {
+        $(".personHide").show();
+        // aprvPeople();
+      }
+    })
+    //表格
+    if ($('#example2')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/publish/applyRecord',
+          data: {
+            // applyuser: 1, //0查询当前用户的记录，1查询所有人
+            // level:'NETNODE_LEVEL_1'
+            status: $("#status").val(),
+            false: true
+          },
+        },
+        "columns": [
+          {"data": "id", "title": "批次号"},
+          {"data": "company", "title": "公司"},
+          {"data": "road", "title": "路段"},
+          {"data": "station", "title": "站点"},
+          {"data": "usageInfo", "title": "场景"},
+          {"data": "count", "title": "数量"},
+          {"data": "applyDate", "title": "申请时间"},
+          {"data": "appUserId", "title": "申请人"},
+          {"data": "status", "title": "状态"},
+          {"data": "appSerial", "title": "操作"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          $('td', row).eq(6).html(''+data.applyDate.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          if(data.appUserId==''){
+            $('td', row).eq(7).html('');
+          }
+          switch (data.status) {
+            case 'NEW':
+              $('td', row).eq(8).html('待审批');
+              $('td', row).eq(9).html('<a class="btn btn-sm btn-primary" name="approve" data-serial="'+data.id+'">审批</a>');
+              break;
+            case 'APV':
+              $('td', row).eq(8).html('<span class="text-green">审批通过</span>');
+              $('td', row).eq(9).html('<a class="more" name="detail" data-serial="'+data.id+'" data-status="'+data.status+'" data-time="'+data.ApprovalDate+'" data-people="'+data.issuerId+'" data-remark="'+data.ApprovalInfo+'">查看</a>');
+              break;
+            case 'REF':
+              $('td', row).eq(8).html('<span class="text-red">审批失败</span>');
+              $('td', row).eq(9).html('<a class="more" name="detail" data-serial="'+data.id+'" data-status="'+data.status+'" data-time="'+data.ApprovalDate+'" data-remark="'+data.ApprovalInfo+'">查看</a>');
+              break;
+            case 'RCV':
+              $('td', row).eq(9).html('<a class="btn btn-sm btn-warning" data-serial="'+data.id+'">分配</a>');
+              break;
+          }
+        },
+        "drawCallback": function (settings, json) {
+          $('a[name="detail"]').click(appDetailShow);
+          $('a[name="approve"]').click(approve);
+        }
+      };
+      netTable = $('#example2').DataTable(settings);
+
+    }
+    function appDetailShow(e) {
+      const appSerial = e.currentTarget.dataset.serial;
+      const status = e.currentTarget.dataset.status;
+      const people = e.currentTarget.dataset.people;
+      const time = e.currentTarget.dataset.time.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6");
+      const remark = e.currentTarget.dataset.remark;
+      if (status=='REF'){
+        $("#fxPerson").hide();
+      }
+      $("#aprSer").html(appSerial);
+      $("#aprTime").html(time);
+      $("#aprPrs").html(people);
+      $("#refaultRemark").html(remark);
+      $('#detailModal').modal('show');
+    }
+    function aprvPeople() {
+      $.ajax({
+        type: 'GET',
+        url: "/publish/queryUserByRoles",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#presonApp').empty();   //清空resText里面的所有内容
+          var html = '';
+          html += '<option value="">请选择发行人</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.userId + '"  ' + '>' + comment.userName + '</option>';
+          });
+          $('#presonApp').html(html);
+          $('#presonApp').select2();
+        }
+      });
+    }
+    function approve(e) {
+      $(".personHide").show();
+      const appSerial = e.currentTarget.dataset.serial;
+      $("#approveRemark").val('');
+      $('#myModal').modal('show');
+      $("#myModal").off("click","#approveBtn");
+      aprvPeople();
+
+      $("#pop1").iCheck('check');
+      $("#pop2").iCheck('uncheck');
+      $("#myModal").on("click","#approveBtn",function() {
+        const status = $('input[name="approveRadio"]:checked').val();
+        if( status==0){
+          $('#approveForm').bootstrapValidator('validate');
+          if($('#approveForm').data('bootstrapValidator').isValid()){
+             const approvalId = $("#hideUserId").val();
+             const issuerId = $("#presonApp").val();
+             const remark = $("#approveRemark").val();
+             const data = {
+               applyId:appSerial,
+               approvalId:approvalId,
+               issuerId:issuerId,
+               flag:status,
+               remark:remark
+             }
+            $.ajax({
+              type: 'POST',
+              url: "/publish/approveDo",
+              data: data,
+              dataType: "json",
+              success: function (data) {
+                $('#myModal').modal('hide');
+                if (!data.result){
+                  swal({
+                    title:'审批失败',
+                    text:data.errMsg?data.errMsg:' ',
+                    icon:'error',
+                    button:false
+                  });
+                  $("#btnApply").removeAttr('disabled');
+                }else {
+                  swal({
+                    title:'审批成功',
+                    text:data.msg?data.msg:' ',
+                    icon:'success',
+                    button:false,
+                    timer: 3000
+                  })
+                  $('#approveForm').data('bootstrapValidator').resetForm();
+                  netTable.ajax.url("/publish/applyRecord?").load();
+                }
+              }
+            });
+
+          }
+        }else {
+          const approvalId = $("#hideUserId").val();
+          const remark = $("#approveRemark").val();
+          const data = {
+            applyId:appSerial,
+            approvalId:approvalId,
+            flag:status,
+            remark:remark
+          }
+          $.ajax({
+            type: 'POST',
+            url: "/publish/approveDo",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+              $('#myModal').modal('hide');
+              if (!data.result){
+                swal({
+                  title:'审批失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:false
+                });
+                $("#btnApply").removeAttr('disabled');
+              }else {
+                swal({
+                  title:'审批成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                netTable.ajax.url("/publish/applyRecord?").load();
+              }
+            }
+          });
+        }
+      })
+    }
+    //   校验
+    check()
+    function check(){
+      $('#approveForm').bootstrapValidator({
+        // 默认的提示消息
+        message: 'This value is not valid',
+        // 表单框里右侧的icon
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        submitHandler: function (validator, form, submitButton) {
+          // 表单提交成功时会调用此方法
+          // validator: 表单验证实例对象
+          // form  jq对象  指定表单对象
+          // submitButton  jq对象  指定提交按钮的对象
+          // applySubmit();
+        },
+        fields: {
+          personApp: {
+            validators: {
+              notEmpty: {
+                message: '请选择发行人'
+              }
+            }
+          }
+        }
+      });
+    }
+  //  查询
+    $("#btnSearch").click(function() {
+      netTable.clear();
+      netTable.ajax.url("/publish/applyRecord?" +"&companyCode="+$("#companycode").val()+"&roadCode="+$("#roadcode").val()+"&stationCode="+$("#stationcode").val()
+      +"&appUserId="+$("#applyPers").val()+"&status="+$("#status").val()+"&usageId="+$("#usage").val()+"&applyBeginTime="+$("#dateStart").val()+"&applyEndTime="+$("#dateEnd").val()).load();
+    })
+
+  })
+</script>

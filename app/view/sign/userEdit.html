@@ -1,0 +1,138 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        账号信息
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{userMsg}}">
+    <input type="hidden" id="hideUserId" value="{{userMsg.userId}}">
+    <input type="hidden" id="hideuserName" value="{{userMsg.userName}}">
+    <input type="hidden" id="hideNodeName" value="{{userMsg.netNodeName}}">
+    <input type="hidden" id="hideNodeCode" value="{{userMsg.netNodeCode}}">
+    <input type="hidden" id="hidePhone" value="{{userMsg.phoneCall}}">
+    <input type="hidden" id="hideEmail" value="{{userMsg.email}}">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;padding-bottom: 50px">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>账号：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="userId" autocomplete="off" disabled id="userId" value="{{userMsg.userId}}">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>姓名：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="userName" autocomplete="off" disabled id="userName" value="{{userMsg.userName}}">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>归属网点：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="netNodeCode" autocomplete="off" disabled id="netNodeCode" value="{{userMsg.netNodeName}}">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>联系电话：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="tel" autocomplete="off" id="tel"  value="{{userMsg.phoneCall}}">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>邮箱：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="email" autocomplete="off"  id="email" value="{{userMsg.email}}">
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" >
+                    <button id="editSubmit" type="button" style="width: 180px; height: 42px; margin: 20px 0;" class="btn btn-primary">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    // 修改
+    $("#editSubmit").click(function() {
+      $("#editSubmit").attr('disabled','disabled');
+      const tel = $("#tel").val();
+      const email = $("#email").val();
+      if(tel==$("#hidePhone").val()&&email==$("#hideEmail").val()){
+        swal({
+          title:'您没有做任何修改',
+          text:' ',
+          icon:'warning',
+          button:false,
+          timer: 2000
+        });
+        $("#editSubmit").removeAttr('disabled');
+        return;
+      }
+      $.ajax({
+        type: 'POST',
+        url: "/systeam/sysUserUpdate",
+        data: {
+          userId:$("#hideUserId").val(),
+          userName:$("#hideuserName").val(),
+          netNodeCode:$("#hideNodeCode").val(),
+          phoneCall:tel,
+          email:email,
+        },
+        dataType: "json",
+        success: function (data) {
+          $("#editSubmit").removeAttr('disabled');
+          if (!data.result){
+            swal({
+              title:'修改失败',
+              text:data.errMsg,
+              icon:'error',
+              button:false
+            });
+          }else {
+            swal({
+              title:'修改成功',
+              text:data.msg,
+              icon:'success',
+              button:false,
+              timer: 3000
+            })
+          }
+        }
+      })
+    })
+
+  })
+</script>

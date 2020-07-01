@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PSAM管控平台</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../public/dist/css/AdminLTE.min.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../../public/dist/css/monitor/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../public/dist/css/monitor/css/monitorstyle.css">
+    <style>
+        .overspan{
+            display: inline-block;
+            width: 100%;
+            /*max-width: 100px;*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body class="body-info">
+<canvas id="canvas">你的浏览器不支持canvas建议使用IE9以上或谷歌火狐 谢谢！</canvas>
+<div class="page-mian">
+    <div class="mheader clearfix">
+        <h3 style="color: white;" class="pull-left">重庆PSAM监控</h3>
+        <div class="menucont">
+            <ul class="menu-list clearfix" id="navMenu">
+                <li class="on"><a href="/monitor/monitorIn">监控总览</a></li>
+                <li><a href="/monitor/monitorOptIn">运行状况</a></li>
+            </ul>
+        </div>
+        <span class="pull-right systeamTime" id="sysTime">2019年10月14日 15:26:22</span>
+    </div>
+    <div class="clearfix" style="padding-bottom:20px">
+        <div class="col-md-3" >
+            <div class="page-title">
+                <h6>服务器资源使用情况</h6>
+            </div>
+            <div class="chart-block-box " style="height: 200px;padding: 10px 20px">
+                <div class="progress-box">
+                    <label>CPU :</label>
+                    <div class="pgs-bar">
+                        <!--data-prct用于接收百分比从而换算展示，js事件在页面下方-->
+                        <div class="bar-orange b-bar" id="cpuNum" data-prct="90"></div>
+                    </div>
+                    <span class="progress-value" id="cpuTip">90%</span>
+                </div>
+                <div class="progress-box mgt-13">
+                    <label>内存 :</label>
+                    <div class="pgs-bar">
+                        <div class="bar-blue b-bar" id="memNum" data-prct="40"></div>
+                    </div>
+                    <span class="progress-value" id="memTip">40%</span>
+                </div>
+                <div class="progress-box mgt-13">
+                    <label>磁盘 :</label>
+                    <div class="pgs-bar">
+                        <div class="bar-green b-bar" id="diskNum" data-prct="70"></div>
+                    </div>
+                    <span class="progress-value" id="diskTip">70%</span>
+                </div>
+            </div>
+            <div class="page-title">
+                <h6>站点信息</h6>
+            </div>
+            <div class="chart-block-box" >
+                <div style="height:240px; width:100%;" id="nodePie"></div>
+            </div>
+            <div class="page-title">
+                <h6>车道信息</h6>
+            </div>
+            <div class="chart-block-box mgt-10">
+                <div style="height:240px; width:100%;" id="chanlePie"></div>
+            </div>
+        </div>
+        <div class="col-md-6" style="padding: 0">
+            <ul class="number-show-list clearfix">
+                <li style="padding-right: 10px">
+                    <h6>PSAM</h6>
+                    <div class="number-show">
+                        <span class="number js-num" data-num="{{total.psamtotal}}">{{total.psamtotal}}</span>
+                        <!--                        <font class="number-unit">个</font>-->
+                        <div class="trend-box clearfix">
+                            <div class="number-trend trend-s">
+                                <ul class="trend">
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                </ul>
+                            </div>
+                            <!--                            <span class="trend-text trend-s">80%</span>-->
+                        </div>
+                        <div class="number-show-r"></div>
+                    </div>
+                </li>
+                <li style="padding-right: 10px">
+                    <div class="mgl-5">
+                        <h6>站点</h6>
+                        <div class="number-show">
+                            <span class="number js-num" data-num="{{total.stationtotal}}">{{total.stationtotal}}</span>
+                            <div class="trend-box">
+                                <div class="number-trend trend-s">
+                                    <ul class="trend">
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                    </ul>
+                                </div>
+                                <!--                                <span class="trend-text trend-x">80%</span>-->
+                            </div>
+                            <div class="number-show-r"></div>
+                        </div>
+                    </div>
+                </li>
+                <li style="padding-right: 10px">
+                    <div class="mgr-5">
+                        <h6>车道</h6>
+                        <div class="number-show">
+                            <span class="number js-num" data-num="{{total.chaneltotal}}">{{total.chaneltotal}}</span>
+                            <div class="trend-box">
+                                <div class="number-trend trend-s">
+                                    <ul class="trend">
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                    </ul>
+                                </div>
+                                <!--                                <span class="trend-text trend-s">80%</span>-->
+                            </div>
+                            <div class="number-show-r"></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="mgl-5">
+                        <h6>授权终端</h6>
+                        <div class="number-show">
+                            <span class="number js-num" data-num="{{total.authmodeltotal}}">{{total.authmodeltotal}}</span>
+                            <div class="trend-box">
+                                <div class="number-trend trend-s">
+                                    <ul class="trend">
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                        <li><span></span></li>
+                                    </ul>
+                                </div>
+                                <!--                                <span class="trend-text trend-s">80%</span>-->
+                            </div>
+                            <div class="number-show-r"></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="chart-block-box pos-rel" style="height: 520px;">
+                <div class="map-search clearfix">
+                    <input type="text" placeholder="请输入要查询的站点" class="ipt-search"/>
+                    <input type="button" value="查询" class="js_map_search btn-search"/>
+                </div>
+                <div class="station-Tips" id="station-Tips">
+                    <p><span>xx收费站</span></p>
+                    <p>PSAM持有量：<span class="color-blue">100</span></p>
+                    <p>正常：<span class="color-blue">80</span></p>
+                    <p>异常：<span class="color-orange">20</span></p>
+                </div>
+                <div id="mapChart" style="width:100%; height:520px;margin: 0 auto"></div>
+            </div>
+            <div class=" clearfix" style="margin-top: 10px">
+                <div class="col-md-6 " style="padding-left: 0;padding-right: 5px">
+                    <div class="chart-block-box " >
+                        <table class="table-infor01" id="chanelErrMsg1" style="width: 100%">
+                            <colgroup><col width="25%"><col width="25%"><col width="25%"><col width="25%"></colgroup>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6 " style="padding-left: 5px;padding-right: 0">
+                    <div class="chart-block-box" >
+                        <table class="table-infor01" id="chanelErrMsg2" style="width: 100%">
+                            <colgroup><col width="25%"><col width="25%"><col width="25%"><col width="25%"></colgroup>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!--start-->
+            <div>
+                <div class="page-title page-title-tab mgt-10">
+                    <ul class="fl" id="moveSmo">
+                        <li class="on">PSAM使用情况</li>
+                        <li >PSAM发行统计</li>
+                    </ul>
+                </div>
+                <div class="chart-block-box mgt-10 smoCnt">
+                    <div class="smodiv">
+                        <div class="cont" style="height:240px;" id="psamPie"></div>
+                        <div class="cont" style="height:240px;" id="psamPieIssue"></div>
+                    </div>
+                </div>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <div class="page-title page-title-tab mgt-10">
+                    <ul class="fl">
+                        <li class="on">授权终端</li>
+                    </ul>
+                </div>
+                <div class="chart-block-box">
+                    <div style="height:240px; width:100%;" id="terminalPie"></div>
+                </div>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <div class="page-title">
+                    <h6>门架信息</h6>
+                </div>
+                <div class="chart-block-box">
+                    <div style="height:200px; width:100%;" id="gatePie"></div>
+                </div>
+            </div>
+            <!--end-->
+        </div>
+        <div class="col-md-12 clearfix" style="margin-bottom: 30px">
+            <div class="page-title">
+                <h6>PSAM库存TOP10</h6>
+            </div>
+            <div class="psamNumCont chart-block-box" style="height: 300px;width: 100%" id="chart-bar1"></div>
+        </div>
+    </div>
+
+</div>
+<div class="mydialog min" hidden  id="stDialog">
+    <div class="myhead">
+        <h5>站点信息</h5>
+        <i class="myclose" id="stClose"></i>
+    </div>
+    <div class="cont" style="padding-top: 10px">
+        <div class="col-md-6 ">
+            <label>收费站名称：</label><span id="msgStName">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>收费站代码：</label><span id="msgStCode">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>PSAM持有量：</label><span id="msgCnt">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>PSAM使用量：</label><span id="msgUseCnt">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>正常数量：</label><span id="msgNorCnt">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>异常数量：</label><span class="color-orange" id="msgErrCnt">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>责任人：</label><span id="msgResponse">xxxxx</span>
+        </div>
+        <div class="col-md-6 ">
+            <label>联系方式：</label><span id="msgContact">xxxxx</span>
+        </div>
+    </div>
+</div>
+<div class="mydialog" hidden id="psamDialog">
+    <div class="myhead">
+        <h5>PSAM明细__<span id="dialogTitle">签到失败</span></h5>
+        <i class="myclose"></i>
+    </div>
+    <table class="table-infor01" id="psamDetail" style="width: 100%">
+        <colgroup><col width="20%"><col width="20%"><col width="20%"><col width="20%"><col width="20%"></colgroup>
+        <thead>
+        <tr><th>卡号</th><th>物料</th><th>公司</th><th>路段</th><th>收费站</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        <tr>
+            <td>52010201000000144852</td>
+            <td>DPSAM_FD</td>
+            <td>--</td>
+            <td>--</td>
+            <td>---</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- jQuery 3 -->
+<script src="../../public/bower_components/jquery/dist/jquery.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../public/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="../../public/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- DataTables -->
+<script src="../../public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../public/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<!--sweetalert-->
+<script src="../../public/plugins/sweetalert/sweetalert.min.js"></script>
+<!--echarts-->
+<script src="../../public/plugins/echarts/echarts.min.js"></script>
+<script src="../../public/plugins/echarts/chongqing.js"></script>
+<script src="../../public/plugins/echarts/echarts-gl.js"></script>
+
+<script type="text/javascript" src="../../public/dist/css/monitor/js/jQueryRotate.js"></script>
+<script type="text/javascript" src="../../public/dist/css/monitor/js/ui.js"></script>
+<script type="text/javascript" src="../../public/dist/css/monitor/js/numAnimate.js"></script>
+<script>
+  <!--弹窗事件-->
+  $("#stClose").click(function() {
+    $(this).parents("#stDialog").hide();
+  })
+  $(".myclose").click(function() {
+    $(this).parents("#psamDialog").hide();
+  })
+  <!--    动态数字-->
+  $('.js-num').numAnimate();
+  $(".page-title-tab").on("click","li",function(){
+    $(this).addClass("on").siblings("li").removeClass("on");
+  });
+  $("#moveSmo").on("click","li",function() {
+    var index = $(this).index();
+    var cont = $(this).parents('.page-title-tab').siblings(".smoCnt");
+    var smoDiv = cont.find(".smodiv");
+    if (index==0){
+      smoDiv.animate({"left":"0"},300)
+    }else if(index==1){
+      smoDiv.animate({"left":"-100%"},300);
+    }
+  })
+  var angle = 0;
+  // setInterval(function() {
+  //   angle += 3;
+  //   $('.animation-imgw').rotate(angle);
+  // }, 10);
+  //方式2
+  var rotation = function() {
+    $('.animation-imgt').rotate({
+      angle: 0,
+      animateTo: 360,
+      callback: rotation,
+      easing: function(x, t, b, c, d) {
+        return c * (t / d) + b;
+      }
+    })
+  };
+  // rotation();
+
+  $('.js_map_search').on('click', function(){
+    let stationName = $(".ipt-search").val();
+    if (stationName == '' ||stationName==null){
+      swal({
+        title:'系统提示',
+        text:'请输入收费站全称进行查询!',
+        icon:'info',
+        buttons:{
+          defeat:'知道了',
+        }
+      });
+      return
+    }
+    swal({
+      title:'正在查询.....',
+      text:'请勿重复操作!',
+      icon:'info',
+      button:false
+    });
+    $.ajax({
+      type: 'GET',
+      url: "/monitor/getStationDetailMsg",
+      data: {
+        stationName: stationName
+      },
+      dataType: "json",
+      success: function (data) {
+        swal.close();
+        if (!data.result){
+          swal({
+            title:'系统提示',
+            text: data.errMsg,
+            icon:'erro',
+            button:false
+          });
+          return;
+        }
+        // console.log(data);
+        $("#msgStName").html(data.data.stationName);
+        $("#msgStCode").html(data.data.stationCode);
+        $("#msgCnt").html(data.data.psamCnt);
+        $("#msgUseCnt").html(data.data.usedCnt);
+        $("#msgNorCnt").html(data.data.normalCnt);
+        $("#msgErrCnt").html(data.data.errCnt);
+        $("#msgResponse").html(data.data.responsible);
+        $("#msgContact").html(data.data.contact);
+
+        $("#stDialog").show()
+      }
+    });
+  });
+  function timeDate() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    if (hour.toString().length<2){
+      hour = '0'+hour;
+    } ;
+    if (minute.toString().length<2){
+      minute = '0'+minute;
+    } ;
+    if (second.toString().length<2){
+      second = '0'+second;
+    } ;
+    // alert(year+'年'+month+'月'+day+'日 '+hour+':'+minute+':'+second );
+    $("#sysTime").html(year+'年'+month+'月'+day+'日 '+hour+':'+minute+':'+second );
+  }
+  timeDate();
+  setInterval(timeDate,1000);
+
+</script>
+<script>
+  //自定义进度条
+
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/getCpu",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let cpu_rate = data.data.cpu_rate;
+      let mem_rate = Math.floor(((data.data.mem_free/data.data.mem_total)*100)*100) / 100 ;
+      let disk_rate = data.data.disk_rate;
+      let cpuNum = cpu_rate.replace("%","");
+      let memNum = mem_rate;
+      let diskNum = disk_rate.replace("%","");
+      // if (cpuNum<5){
+      //   cpuNum = 5
+      // }if (memNum<5){
+      //   memNum = 5
+      // }if (diskNum<5){
+      //   diskNum = 5
+      // }
+      $("#cpuNum").attr("data-prct",cpuNum);
+      $("#memNum").attr("data-prct",memNum);
+      $("#diskNum").attr("data-prct",diskNum);
+      $("#cpuTip").html(cpuNum+"%");
+      $("#memTip").html(memNum+"%");
+      $("#diskTip").html(diskNum+"%");
+      progressBar();
+    }
+  });
+  function progressBar() {
+    var bar = $(document).find(".progress-box");
+    for(var i = 0; i < bar.length; i++) {
+      var prct = parseFloat(bar.eq(i).find(".b-bar").attr("data-prct"));
+      if (prct>100){
+        prct = 100
+      }
+      var widBox = bar.eq(i).find(".pgs-bar").width();
+      var widBar = widBox * prct / 100;
+      bar.eq(i).find(".b-bar").animate({
+        "width": widBar
+      });
+    }
+    return;
+  }
+  //异常车道信息表
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryNewestTenErrChanel",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      $.each(data.data.data, function (commentIndex, comment) {
+        if(commentIndex<5){
+          $("#chanelErrMsg1").append('<tr><td><span class="overspan">'+comment.stationName+'</span></td>' +
+            '<td><span class="overspan">'+comment.laneCode+'</span></td>' +
+            '<td><span class="overspan">'+comment.transCode+'异常</span></td>' +
+            '<td><span class="overspan">'+comment.systemTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'</span></td><tr/>')
+        }else {
+          $("#chanelErrMsg2").append('<tr><td><span class="overspan">'+comment.stationName+'</span></td>' +
+            '<td><span class="overspan">'+comment.laneCode+'</span></td>' +
+            '<td><span class="overspan">'+comment.transCode+'异常</span></td>' +
+            '<td><span class="overspan">'+comment.systemTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'</span></td><tr/>')
+        }
+
+      });
+
+    }
+  });
+  psamOption = {
+    tooltip: {
+      trigger: 'none'
+    },
+    legend:{
+      // show:false,
+      textStyle:{
+        color:'#00efff',
+        fontSize:12
+      },
+      // orient:'vertical',
+      orient:'horizontal',
+      bottom:4,
+      left:'center',
+      itemWidth:10,
+      itemHeight:10,
+      // data:['正常','超时','异常']
+    },
+    color: ['#01e3f5', '#00d55f', '#6e6ee3','#ddcd43', '#eb426d', '#ff6600', '#d52d00'],
+    // color:['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],//'#50b1a8','#008ee2',
+    series: [
+      {
+        name:'PSAM',
+        type:'pie',
+        center:['50%','45%'],
+        radius: ['50%', '60%'],
+        // avoidLabelOverlap: false,
+        hoverAnimation:false,
+        avoidLabelOverlap: true,
+        selectedOffset:4,
+        animationDelay:0,
+        minAngle:4,
+        selectedMode:false,
+        itemStyle:{
+          normal:{
+            borderWidth:3,
+            borderColor:'rgba(16,4,70,1)'
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            formatter: '{b}\n{ta|{c}}{tb|({d}%)}',//{tc|{b}}
+            // position: 'center',
+            rich: {
+              ta: {
+                fontSize: 18,
+                align: 'center',
+                height: 20
+              },
+              tb: {
+                fontSize: 14,
+                align: 'center',
+                height: 20
+              }
+            }
+          },
+          emphasis: {
+            show: false,
+          }
+        },
+        labelLine: {
+          normal: {
+            show: true,
+            // length:30,
+            // length2:10,
+          }
+        },
+        data:[]
+      },{
+        name:'已启用',
+        type:'pie',
+        center:['50%','45%'],
+        radius: ['65.5%', '66%'],
+        hoverAnimation:false,
+        selectedOffset:1,
+        animationDelay:500,
+        label: {
+          normal: {
+            show: true,
+            position: 'center',
+            formatter:'{tc|{c}} \n {tb|{b}}',
+            rich:{
+              tc:{
+                fontSize:30,
+                align:'center',
+                color: '#ffffff'
+              },
+              tb:{
+                fontSize:16,
+                align:'center'
+              }
+            }
+          },emphasis: {
+            show: true
+          }
+
+        },
+        itemStyle:{
+          normal:{
+            color:'#50b1a8'
+          }
+        },
+        data:[
+          {value:1000, name:'已启用'}
+        ]
+      }
+    ]
+  };
+  psamIssueOption = {
+    tooltip: {
+      trigger: 'none'
+    },
+    legend:{
+      // show:false,
+      textStyle:{
+        color:'#00efff',
+        fontSize:12
+      },
+      // orient:'vertical',
+      orient:'horizontal',
+      bottom:4,
+      left:'center',
+      itemWidth:10,
+      itemHeight:10,
+      // data:['正常','超时','异常']
+    },
+    color: ['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],
+    // color:['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],//'#50b1a8','#008ee2',
+    series: [
+      {
+        name:'PSAM',
+        type:'pie',
+        center:['50%','45%'],
+        radius: ['50%', '60%'],
+        // avoidLabelOverlap: false,
+        hoverAnimation:false,
+        avoidLabelOverlap: true,
+        selectedOffset:4,
+        animationDelay:0,
+        minAngle:4,
+        selectedMode:false,
+        itemStyle:{
+          normal:{
+            borderWidth:3,
+            borderColor:'rgba(16,4,70,1)'
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            formatter: '{b}\n{ta|{c}}{tb|({d}%)}',//{tc|{b}}
+            // position: 'center',
+            rich: {
+              ta: {
+                fontSize: 18,
+                align: 'center',
+                height: 20
+              },
+              tb: {
+                fontSize: 14,
+                align: 'center',
+                height: 20
+              }
+            }
+          },
+          emphasis: {
+            show: false,
+          }
+        },
+        labelLine: {
+          normal: {
+            show: true,
+            // length:30,
+            // length2:10,
+          }
+        },
+        data:[{value: 1500,name: '已发行',},
+          {value: 500,name: '未发行'},]
+      },{
+        name:'发行总量',
+        type:'pie',
+        center:['50%','45%'],
+        radius: ['65.5%', '66%'],
+        hoverAnimation:false,
+        selectedOffset:1,
+        animationDelay:500,
+        silent:true,
+        label: {
+          normal: {
+            show: true,
+            position: 'center',
+            formatter:'{tc|{c}} \n {tb|{b}}',
+            rich:{
+              tc:{
+                fontSize:30,
+                align:'center',
+                color: '#ffffff'
+              },
+              tb:{
+                fontSize:16,
+                align:'center'
+              }
+            }
+          },emphasis: {
+            show: true
+          }
+
+        },
+        itemStyle:{
+          normal:{
+            color:'#50b1a8'
+          }
+        },
+        data:[
+          {value:1000, name:'发行总量'}
+        ]
+      }]
+  };
+
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryPsamIssuedOrNotCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data;
+      console.log(result);
+      let dataProo = [
+        {value: result.issuedCnt,name: '已发行'},
+        {value: result.notIssueCnt,name: '未发行'},
+      ];
+      let dataAll = [
+        {value: parseInt(result.notIssueCnt)+parseInt(result.issuedCnt),name: 'PSAM总量'},
+      ];
+      var psamIssuePie = echarts.init(document.getElementById("psamPieIssue"));
+      psamIssuePie.clear();
+      psamIssueOption.series[0].data = dataProo;
+      psamIssueOption.series[1].data = dataAll;
+      psamIssuePie.setOption(psamIssueOption);
+      // 点击显示PSAM列表
+      psamIssuePie.on('click', function (params) {
+        const title = params.name;
+        var status ;
+        switch (title) {
+          case '未发行':
+            status = 'PSAM_COUNT_STATUS_NOTISSUED';
+            break;
+          case '已发行':
+            status = 'PSAM_COUNT_STATUS_ISSUED';
+            break;
+          default:
+            break;
+        }
+        $("#psamDialog").show();
+        $("#dialogTitle").html(title);
+        var url = '/monitor/queryPsamIssueOrNotCountDetail'
+        getTable(status,url);
+      });
+    }
+  });
+
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryPsamCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data.data;
+      let dataProo = [
+        // {value: result.inUsedCnt,name: '使用中'},
+        {value: result.notUsedCnt,name: '未使用'},
+        {value: parseInt(result.inUsedDtl.normalCnt1)+parseInt(result.inUsedDtl.normalCnt2),name: '正常'},
+        {value: result.inUsedDtl.authFailCnt,name: '授权失败'},
+        {value: result.inUsedDtl.signFailCnt,name: '签到失败'},
+        {value: result.inUsedDtl.ortherCnt,name: '其他'},
+      ];
+      let dataAll = [
+        {value: result.inUsedCnt,name: '使用中'},
+      ];
+      var psamPie = echarts.init(document.getElementById("psamPie"));
+      psamPie.clear();
+      psamOption.series[0].data = dataProo;
+      psamOption.series[1].data = dataAll;
+      psamPie.setOption(psamOption);
+      // 点击显示PSAM列表
+      psamPie.on('click', function (params) {
+        console.log(params);
+        const title = params.name;
+        var status ;
+        switch (title) {
+          case '正常':
+            status = 'PSAM_COUNT_STATUS_NORMAL';
+            break;
+          case '未使用':
+            status = 'PSAM_COUNT_STATUS_NOTUSED';
+            break;
+          case '使用中':
+            status = 'PSAM_COUNT_STATUS_INUSED';
+            break;
+          case '未使用':
+          case '签到失败':
+            status = 'PSAM_COUNT_STATUS_SIGNFAIL';
+            break;
+          case '授权失败':
+            status = 'PSAM_COUNT_STATUS_AUTHFAIL';
+            break;
+          case '其他':
+            status = 'PSAM_COUNT_STATUS_ORTHER';
+            break;
+          default:
+            break;
+        }
+        $("#psamDialog").show();
+        $("#dialogTitle").html(title);
+        var url = '/monitor/queryPsamCountDetail'
+        getTable(status,url);
+
+      });
+    }
+  });
+  function getTable(status,url) {
+    var settings = {
+      "destroy": true,
+      "serverSide": true,
+      "ajax": {
+        url: url,
+        data: {
+          status: status
+        },
+      },
+      // "columnDefs": [
+      //   { "width": "2%", "targets": 0 }
+      // ],
+      "columns": [
+        {"data": "samSerialNo", "title": "卡号"},
+        {"data": "wareId", "title": "物料"},
+        {"data": "respoCompany", "title": "公司"},
+        {"data": "currRoadName", "title": "路段"},
+        {"data": "currStationName", "title": "收费站"}],
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": true,
+      "autoWidth": false,
+      "processing": true,
+      "pageLength": 20,
+      "oLanguage": {
+        "sLengthMenu" : "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+        "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+        "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+        "sProcessing": "正在加载中...",
+        "oPaginate": {
+          "sFirst": "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext": " 下一页 ",
+          "sLast": " 最后一页 "
+        }
+      },
+      "createdRow": function (row, data, index) {
+        if (data.wareId==''){
+          $('td', row).eq(1).html('--');
+        }
+        if (data.respoCompany==''){
+          $('td', row).eq(2).html('--');
+        }
+        if (data.currRoadName==''){
+          $('td', row).eq(3).html('--');
+        }
+        if (data.currStationName==''){
+          $('td', row).eq(4).html('--');
+        }
+      },
+      "drawCallback": function (settings, json) {
+
+      }
+    };
+    netTable = $('#psamDetail').DataTable(settings);
+  }
+  var stationArr = [];
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryPsamStatusStationCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data.data;
+      var hStep = 300 / (result.length);
+      var busLines = [];
+      var point=[];
+      for (var i = 0; i <= result.length-1; i++) {
+        if(result[i].coordinate!=''){
+          let longlat = result[i].coordinate.split(',');
+          let pointData = {
+            roadName: result[i].roadName,
+            name: result[i].stationName,
+            coord: [longlat[1].replace("E",""),longlat[0].replace("N","")],
+            norValue: result[i].norCnt,
+            errCnt: result[i].errCnt,
+            total: result[i].total,
+            value: result[i].total,
+            // itemStyle: { color: echarts.color.modifyHSL('#5A94DF', Math.round(hStep * (i+1)))}
+          }
+          if(result[i].hasErrPsam =='true'){
+            pointData.itemStyle = {
+              color:'red',
+            }
+          }
+          busLines.push(pointData);
+          stationArr = busLines;
+          stationAuto();
+        }
+      }
+      var map = document.getElementById("mapChart");
+      var mapChart = echarts.init(map);
+      mapChart.setOption(option = {
+        grid:{
+          left:10,
+          right:10,
+          bottom:10,
+          top:10
+        },
+        tooltip:{
+          show:true,
+          trigger: "item",
+          backgroundColor: 'rgba(255,255,255,.9)',
+          borderWidth: 1,
+          borderColor: '#1c3a78',
+          padding: 10,
+        },
+        series: [{
+          type:'map',
+          map: '重庆',
+          mapType: '重庆',
+          // center:[106.56288, 29.556742],
+          zoom: 1,
+          aspectScale:0.75,
+          top:20,left:'15%',bottom:20,right:'15%',
+          roam: true,
+          // slient:false,
+          smooth:true,
+          showSymbol:true,
+          tooltip:{
+            show:false,
+          },
+          label:{
+            show:true,
+            color: "#666666",
+          },
+          itemStyle:{
+            areaColor : '#ffffff',
+            borderColor: '#999999',
+            opacity: 1,
+          },
+          emphasis:{
+            label:{
+              show:false,
+              textStyle: {
+                //fontWeight:'bold',
+                color: "#666666",
+                fontSize:12
+              }
+            },
+            itemStyle:{
+              areaColor : '#ffffff',
+              // borderColor: '#00efff',
+              opacity: 1,
+            }
+          },
+          markPoint:{
+            symbol:'pin',
+            symbolSize:12,
+            showSymbol:true,
+            tooltip:{
+              show:true,
+              trigger: "item",
+              formatter:function(params) {
+                // console.log(params);
+                let html ='<span style="color:#01e3f5 ">'+params.name+'<span/><br/>';
+                html += '<span style="color:#ff6600 ">持有量：'+params.data.total+'<span/><br/>'
+                html += '<span style="color:#00d55f ">正常数量：'+params.data.norValue+'<span/><br/>'
+                html += '<span style="color:#d52d00 ">异常数量：'+params.data.errCnt+'<span/><br/>'
+                return html
+              },
+            },
+            label:{
+              show:false,
+              formatter:'{b}:\n  异常：{@errCnt}',
+              position:'right'
+            },
+            itemStyle:{
+              color:'#6ed464'
+            },
+            emphasis:{
+              itemStyle:{
+                symbolSize:16,
+              },
+              label:{
+                show:false,
+                color:'#d52d00',
+                fontWeight:'bold',
+                fontSize: 12,
+                position: [10, 10],
+                offset:[-30,-30]
+              }
+            },
+            data: busLines
+            // data:[
+            //   {coord: [106.560813, 29.523992],name: "某某收费站"},
+            //   {coord: [106.480989, 29.523492],name: "某某收费站",itemStyle:{color:'#dd4b39 '},symbolSize:12},
+            //   {coord: [108.380246, 30.807807],name: "某某收费站"},
+            // ]
+          }
+        }]
+
+      });
+      // mapChart.setOption(option);
+
+    }
+  });
+  // pie1Chart.dispatchAction({type: 'highlight',seriesIndex: 0,dataIndex: 0});
+  var curData=[];
+  //站点信息轮播
+  function stationAuto() {
+    var i=1;
+    var dom = '<p><span>'+stationArr[0].roadName+'路  '+stationArr[0].name+'</span></p>';
+    dom += '<p>PSAM持有量：<span class="color-blue">'+stationArr[0].total+'</span></p>';
+    dom += '<p>正常：<span class="color-blue">'+stationArr[0].norValue+'</span></p>';
+    dom += '<p>异常：<span class="color-orange">'+stationArr[0].errCnt+'</span></p>';
+    // console.log(dom);
+    $("#station-Tips").html(dom);
+    var timer = setInterval(function() {
+      if(i>=stationArr.length){
+        window.clearInterval(timer);
+      }else{
+        var dom = '<p><span>'+stationArr[i].roadName+'路  '+stationArr[i].name+'</span></p>';
+        dom += '<p>PSAM持有量：<span class="color-blue">'+stationArr[i].total+'</span></p>';
+        dom += '<p>正常：<span class="color-blue">'+stationArr[i].norValue+'</span></p>';
+        dom += '<p>异常：<span class="color-orange">'+stationArr[i].errCnt+'</span></p>';
+        // console.log(dom);
+        $("#station-Tips").html(dom);
+        i++;
+      }
+    },3000);
+    return timer;
+  }
+
+
+
+  //饼图1
+  pieOption = {
+    tooltip: {
+      show: true,
+      trigger: 'item',
+      formatter: "{b} : {c} ({d}%)"
+    },
+    legend: {
+      show: true,
+      bottom: 10,
+      itemWidth: 15,
+      itemHeight: 15,
+      textStyle: {
+        color: "#07dbff",
+        fontSize: 16
+      }
+    },
+    // color: ['#01e3f5', '#6e6ee3','#ddcd43', '#eb426d', '#ff6600', '#d52d00'],
+    color: ['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],
+    series: [{
+      name: '',
+      type: 'pie',
+      radius: '65%',
+      center: ['50%', '40%'],
+      clockwise: true,
+      selectedMode: false,
+      selectedOffset: 5,
+      // silent: true,
+      data: '',
+      minAngle:4,
+      roseType: false,
+      hoverAnimation:true,
+      label: {
+        normal: {
+          show: true,
+          position: 'inside',
+          formatter: "{c}",
+          textStyle: {
+            color: 'rgba(255, 255, 255, 1)',
+            fontSize: 16
+          }
+        },
+        emphasis:{
+          show: true,
+          position: 'inside',
+          formatter: "{d}%",
+          textStyle: {
+            color: 'rgba(255, 255, 255, 1)',
+            fontSize: 16
+          }
+        }
+      },
+      itemStyle: {
+        normal: {
+          shadowBlur: 100,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      animationType: 'expansion',
+      animationEasing: 'quarticOut'
+    }]
+  };
+
+  //饼图1&2
+  //站点统计
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryStationStatusRepo",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data.data[0];
+      let dataArr = [
+        {value: result.norCnt,name: '正常',selected: true},
+        {value: result.errCnt,name: '异常'},
+      ]
+      var nodePie =echarts.init(document.getElementById("nodePie"));
+      nodePie.clear();
+      pieOption.series[0].data = dataArr;
+      nodePie.setOption(pieOption);
+    }
+  });
+  //车道统计
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryChanelStatusCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data.data[0];
+      let dataArr = [
+        {value: result.norCnt,name: '正常',selected: true},
+        {value: result.errCnt,name: '异常'},
+      ]
+      var chanlePie =echarts.init(document.getElementById("chanlePie"));
+      chanlePie.clear();
+      pieOption.series[0].data = dataArr;
+      chanlePie.setOption(pieOption);
+    }
+  });
+  //授权终端统计
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryOfflineTraceCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data.data[0];
+      let dataArr = [
+        {value: result.succCnt,name: '正常',selected: true},
+        {value: result.failCnt,name: '异常'},
+      ]
+      var terminalPie =echarts.init(document.getElementById("terminalPie"));
+      terminalPie.clear();
+      pieOption.series[0].data = dataArr;
+      terminalPie.setOption(pieOption);
+    }
+  });
+  //门架统计
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryGantryCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data.data[0];
+      let dataArr = [
+        {value: result.norCnt,name: '正常',selected: true},
+        {value: result.errCnt,name: '异常'},
+      ]
+      var gatePie =echarts.init(document.getElementById("gatePie"));
+      gatePie.clear();
+      pieOption.series[0].data = dataArr;
+      gatePie.setOption(pieOption);
+    }
+  });
+
+  //柱状图
+  //库存top10
+
+  var optionbar = {
+    tooltip: {
+
+    },
+    legend: {
+      show: true,
+      top: 10,
+      left:20,
+      itemWidth: 15,
+      itemHeight: 15,
+      textStyle: {
+        color: "#07dbff",
+        fontSize: 16
+      }
+    },
+    grid: {
+      left: 50,
+      right: 20,
+      bottom: 30,
+      top: 50
+    },
+    xAxis: {
+      axisPointer: {
+        show: false,
+        type: 'line',
+        label: {
+          show: false
+        }
+      },
+      axisLabel: {
+        show: true,
+        interval:0,
+        textStyle: {
+          color: '#00ffff',
+          fontSize: 14,
+          fontWeight: 100,
+        }
+      },
+      boundaryGap: ["10px", "1%"],
+      axisTick: {
+        show: false
+      },
+      splitLine: {
+        show: false
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#0f4268'
+        }
+      },
+      data: ["三施公司","三荔公司","中交安江","中交沿德","中交荔榕","中交贵瓮","中交贵都","中交贵黔","中交道安","中交铜怀"],
+
+    },
+    yAxis: {
+      type: 'value',
+      show: true,
+      splitLine: {
+        show: true,
+        lineStyle: {
+          color: '#0f4268'
+        }
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#0f4268'
+        }
+      },
+      axisLabel: {
+        show: true,
+        textStyle: {
+          color: '#00ffff',
+          fontSize: 12,
+          fontWeight: 100,
+        }
+      }
+    },
+    series: [{
+      name: '总库存',
+      type: 'bar',
+      barMaxWidth: 20,
+      barCategoryGap: "10%",
+//				animationDelay: 600,
+      itemStyle: {
+        normal: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0, color: '#1fb1c6' // 0% 处的颜色
+            }, {
+              offset: 1, color: '#3d74f5' // 100% 处的颜色
+            }],
+            globalCoord: false // 缺省为 false
+          },
+          borderColor:'#00ffff',
+          borderWidth:1,
+          shadowBlur: 15,
+          shadowColor: 'rgba(0,142,226,0.4)',
+          shadowOffsetX: 1,
+          shadowOffsetY: 1,
+          label: {
+            show: true,
+            position: 'top',
+            textStyle: {
+              color: "#00ffff"
+            }
+          }
+        }
+      },
+      data: []
+    },
+      {
+        name: '使用中',
+        type: 'bar',
+        barMaxWidth: 20,
+        barCategoryGap: "10%",
+//				animationDelay: 600,
+        itemStyle: {
+          normal: {
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0, color: '#ffc700' // 0% 处的颜色
+              }, {
+                offset: 1, color: '#ff8700' // 100% 处的颜色
+              }],
+              globalCoord: false // 缺省为 false
+            },
+            borderColor:'#ffe27a',
+            borderWidth:1,
+            shadowBlur: 15,
+            shadowColor: 'rgba(0,142,226,0.4)',
+            shadowOffsetX: 1,
+            shadowOffsetY: 1,
+            label: {
+              show: true,
+              position: 'top',
+              textStyle: {
+                color: "#ffe27a"
+              }
+            }
+          }
+        },
+        data: []
+      }]
+  };
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryStockIndex",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let dataToal = [];
+      let dataInUse = [];
+      let company = [];
+      $.each(data.data, function (commentIndex, comment) {
+        dataToal.push(comment.total);
+        dataInUse.push(comment.inUseCount);
+        company.push(comment.companyName);
+      });
+      var barChart = echarts.init(document.getElementById("chart-bar1"));
+      barChart.clear();
+      optionbar.xAxis.data = company;
+      optionbar.series[0].data = dataToal;
+      optionbar.series[1].data = dataInUse;
+      barChart.setOption(optionbar);
+    }
+  });
+
+  // setTimeout(function() {
+  //   console.log('go')
+  //   window.location.replace('/monitor/monitorOptIn');
+  // },30000);
+
+</script>
+</body>
+</html>

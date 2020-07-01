@@ -1,0 +1,272 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>厂家管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 物料管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-12 form-group " >
+                <div class="col-md-2" style="text-align: right;line-height: 34px">
+                    <label>厂家名称：</label>
+                </div>
+                <div class="col-md-2" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="factoryName" id="factoryName" placeholder="请输入要查询的厂家名称" >
+                </div>
+                <div class="col-md-2">
+                    <button id="btnSearch" style="width: 120px; height: 34px;margin-bottom: 20px" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+                </div>
+            </div>
+
+        <!-- 记录-->
+        <div class="table-cont">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="factoryTables" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 厂家修改-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">厂家信息修改</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span class="netNodeName">厂家名称：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editcmpName" autocomplete="off" id="editcmpName" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>联系人：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editlinkMan" autocomplete="off" id="editlinkMan" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>电话号码：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="edittel" autocomplete="off" id="edittel" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>备注：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="remark" autocomplete="off" id="remark"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  $(function() {
+    $('form').bootstrapValidator({
+      message: 'This value is not valid',
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        editlinkMan: {
+          validators: {
+            notEmpty: {
+              message: '请输入联系人'
+            }
+          }
+        },
+        edittel: {
+          validators: {
+            notEmpty: {
+              message: '请输入联系电话'
+            }
+          }
+        }
+      }
+    });
+    getWare();
+    function getWare(){
+      $.ajax({
+        type: 'POST',
+        url: "/publish/wareSearchType",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#wareType').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.wareId + '"  ' + '>' + comment.wareName + '</option>';
+          });
+          $('#wareType').html(html);
+        }
+      });
+    }
+
+      if ($('#factoryTables')) {
+        var pagesize = 10;
+        var settings = {
+          "destroy": true,
+          "serverSide": true,
+          "ajax": {
+            url: '/ware/wareFactoryQuery',
+            data: {},
+          },
+          "columns": [
+            {"data": "factoryCode", "title": "厂家代码"},
+            {"data": "factoryName", "title": "厂家名称"},
+            {"data": "ContractPerson", "title": "联系人"},
+            {"data": "contractTel", "title": "联系电话"},
+            {"data": "remark", "title": "备注"},
+            {"data": "createTime", "title": "创建时间"},
+            {"data": "updateTime", "title": "最后修改时间"},
+            {"data": "factoryCode", "title": "操作"},
+            ],
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "processing": true,
+          "pageLength": pagesize,
+          "oLanguage": {
+            "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+            "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sProcessing": "正在加载中...",
+            "oPaginate": {
+              "sFirst": "第一页",
+              "sPrevious": " 上一页 ",
+              "sNext": " 下一页 ",
+              "sLast": " 最后一页 "
+            }
+          },
+          "createdRow": function (row, data, index) {
+            if(data.updateTime){
+              $('td', row).eq(6).html(data.updateTime);
+            }else {
+              $('td', row).eq(6).html(data.createTime);
+            }
+            $('td', row).eq(7).html('<a class="btn btn-sm btn-info" name="edit" data-name="'+data.factoryName+'" data-factory="'+data.factoryCode+'" data-person="'+data.ContractPerson+'" data-tel="'+data.contractTel+'" data-remark="'+data.remark+'">修改</a>');
+          },
+          "drawCallback": function (settings, json) {
+            $('a[name="edit"]').click(editFactory);
+          }
+        };
+        factoryTable = $('#factoryTables').DataTable(settings);
+      }
+    //
+    function editFactory(e){
+      $("#editModal").modal('show');
+      $("#editModal").off("click","#editSubmit");
+      const factoryCode = e.currentTarget.dataset.factory;
+      $("#editcmpName").val(e.currentTarget.dataset.name);
+      $("#editlinkMan").val(e.currentTarget.dataset.person);
+      $("#edittel").val(e.currentTarget.dataset.tel);
+      $("#remark").val(e.currentTarget.dataset.remark);
+
+      $("#editModal").on("click","#editSubmit",function(){
+        const editname = $("#editcmpName").val();
+        const editperson = $("#editlinkMan").val();
+        const edittel = $("#edittel").val();
+        const editremark = $("#remark").val();
+        $("#editSubmit").attr('disabled','disabled');
+        $('form').bootstrapValidator('validate');
+        if($('form').data('bootstrapValidator').isValid()){
+          if(editname==e.currentTarget.dataset.name&&editperson==e.currentTarget.dataset.person&&edittel==e.currentTarget.dataset.tel&&editremark==e.currentTarget.dataset.remark){
+            swal({
+              title:'您没有做任何修改',
+              text:' ',
+              icon:'warning',
+              button:false
+            });
+            $('form').data('bootstrapValidator').resetForm();
+            $("#editSubmit").removeAttr('disabled');
+            return;
+          }
+          $.ajax({
+            type: 'POST',
+            url: "/ware/wareFactoryUpdate",
+            data: {
+              factoryCode:factoryCode,
+              factoryName:editname,
+              contractPerson:editperson,
+              contracrTel:edittel,
+              remark:editremark,
+            },
+            dataType: "json",
+            success: function (data) {
+              $("#editSubmit").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+              $("#editModal").modal('hide');
+              if (!data.result){
+                swal({
+                  title:'修改失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:false
+                });
+              }else {
+                swal({
+                  title:'修改成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                factoryTable.ajax.url("/ware/wareFactoryQuery?" +"&factoryName="+$("#factoryName").val()+"&factoryType="+$("#factoryType").val()).load();
+              }
+            }
+          })
+        }
+      })
+    }
+    //  查询
+    $("#btnSearch").click(function() {
+      factoryTable.ajax.url("/ware/wareFactoryQuery?" +"&factoryName="+$("#factoryName").val()).load();
+    })
+
+  })
+</script>

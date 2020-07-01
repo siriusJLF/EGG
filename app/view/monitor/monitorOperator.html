@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>PSAM管控平台</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../../public/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../public/dist/css/AdminLTE.min.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="../../public/dist/css/monitor/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../public/dist/css/monitor/css/monitorstyle.css">
+</head>
+
+<body class="body-info">
+<canvas id="canvas">你的浏览器不支持canvas建议使用IE9以上或谷歌火狐 谢谢！</canvas>
+<div class="page-mian">
+    <div class="mheader clearfix">
+        <h3 style="color: white;" class="pull-left">{{title}}</h3>
+        <div class="menucont">
+            <ul class="menu-list clearfix" id="navMenu">
+                <li><a href="/monitor/monitorIn">监控总览</a></li>
+                <li class="on"><a href="/monitor/monitorOptIn">运行状况</a></li>
+            </ul>
+        </div>
+        <span class="pull-right systeamTime" id="sysTime">2019年10月14日 15:26:22</span>
+    </div>
+    <div class="clearfix" style="padding-bottom:20px">
+        <div class="col-md-3" >
+            <!--start-->
+            <div>
+                <div class="page-title">
+                    <h6>省部交易比例</h6>
+                </div>
+                <div class="chart-block-box" >
+                    <div style="height:264px; width:100%;" id="chart-pie1"></div>
+                </div>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <div class="page-title">
+                    <h6>脱机在线授权比例</h6>
+                </div>
+                <div class="chart-block-box mgt-10">
+                    <div style="height:240px; width:100%;" id="chart-pie2"></div>
+                </div>
+            </div>
+            <!--end-->
+            <!--start-->
+            <div>
+                <div class="page-title">
+                    <h6>高脱机率网点预警</h6>
+                </div>
+                <div class="chart-block-box mgt-10">
+                    <div style="height:360px; width:100%;" id="oulineTop-bar"></div>
+                </div>
+            </div>
+            <!--end-->
+        </div>
+        <div class="col-md-9" style="padding: 0">
+            <!--门架start-->
+            <div class="clearfix" >
+                <div class="col-md-8 " style="padding-left: 0;padding-right: 5px">
+                    <div class="page-title page-title-tab mgt-10">
+                        <h6>门架交易量</h6>
+                    </div>
+                    <div class="chart-block-box">
+                        <div style="height:280px; width:100%;" id="gateLine"></div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-left: 5px;padding-right: 0">
+                    <div class="page-title page-title-tab mgt-10">
+                        <h6>门架交易流水</h6>
+                    </div>
+                    <div class="chart-block-box" style="padding: 4px 0;height: 290px">
+                        <table class="table-infor01" id="gateTable" style="width: 100%">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--门架end-->
+            <!--授权start-->
+            <div class="clearfix">
+                <div class="col-md-8 " style="padding-left: 0;padding-right: 5px">
+                    <div class="page-title page-title-tab mgt-10">
+                        <h6>授权交易量</h6>
+                    </div>
+                    <div class="chart-block-box">
+                        <div style="height:280px; width:100%;" id="authLine"></div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-left: 5px;padding-right: 0">
+                    <div class="page-title page-title-tab mgt-10">
+                        <h6>授权交易流水</h6>
+                    </div>
+                    <div class="chart-block-box" style="padding: 4px 0;height: 290px">
+                        <table class="table-infor01" id="authTable" style="width: 100%">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--授权end-->
+            <!--签到start-->
+            <div class="clearfix">
+                <div class="col-md-8 " style="padding-left: 0;padding-right: 5px">
+                    <div class="page-title page-title-tab mgt-10">
+                        <h6>签到交易量</h6>
+                    </div>
+                    <div class="chart-block-box">
+                        <div style="height:280px; width:100%;" id="signLine"></div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-left: 5px;padding-right: 0">
+                    <div class="page-title page-title-tab mgt-10">
+                        <h6>签到交易流水</h6>
+                    </div>
+                    <div class="chart-block-box" style="padding: 4px 0;height: 290px">
+                        <table class="table-infor01" id="signTable" style="width: 100%">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--签到end-->
+        </div>
+        <!--end-->
+
+    </div>
+
+</div>
+<!-- jQuery 3 -->
+<script src="../../public/bower_components/jquery/dist/jquery.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../../public/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../../public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="../../public/bower_components/fastclick/lib/fastclick.js"></script>
+<!-- DataTables -->
+<script src="../../public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../../public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../../public/plugins/bootstrap-validator/js/bootstrapValidator.js"></script>
+<!--sweetalert-->
+<script src="../../public/plugins/sweetalert/sweetalert.min.js"></script>
+<!--echarts-->
+<script src="../../public/plugins/echarts/echarts.min.js"></script>
+<script src="../../public/plugins/echarts/guizhou.js"></script>
+<script src="../../public/plugins/echarts/echarts-gl.js"></script>
+
+<script type="text/javascript" src="../../public/dist/css/monitor/js/jQueryRotate.js"></script>
+<script type="text/javascript" src="../../public/dist/css/monitor/js/ui.js"></script>
+<script type="text/javascript" src="../../public/dist/css/monitor/js/numAnimate.js"></script>
+<script>
+<!--    动态数字-->
+  $('.js-num').numAnimate();
+  $(".page-title-tab").on("click","li",function(){
+    $(this).addClass("on").siblings("li").removeClass("on");
+  });
+  var angle = 0;
+  // setInterval(function() {
+  //   angle += 3;
+  //   $('.animation-imgw').rotate(angle);
+  // }, 10);
+  //方式2
+  var rotation = function() {
+    $('.animation-imgt').rotate({
+      angle: 0,
+      animateTo: 360,
+      callback: rotation,
+      easing: function(x, t, b, c, d) {
+        return c * (t / d) + b;
+      }
+    })
+  };
+  // rotation();
+
+  $('.js_map_search').on('click', function(){
+    var d = dialog({
+      title:'营业厅名称',
+      width:740,
+      height:420,
+      url:'map-serach.html',
+      padding:0,
+      quickClose:true,
+      okValue:'ok',
+      cancelValue:'cancel',
+    });
+    d.showModal();
+  });
+  function timeDate() {
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    if (hour.toString().length<2){
+      hour = '0'+hour;
+    } ;
+    if (minute.toString().length<2){
+      minute = '0'+minute;
+    } ;
+    if (second.toString().length<2){
+      second = '0'+second;
+    } ;
+    // alert(year+'年'+month+'月'+day+'日 '+hour+':'+minute+':'+second );
+    $("#sysTime").html(year+'年'+month+'月'+day+'日 '+hour+':'+minute+':'+second );
+  }
+timeDate();
+  setInterval(timeDate,1000);
+
+</script>
+<script>
+  //自定义进度条
+  progressBar();
+
+  function progressBar() {
+    var bar = $(document).find(".progress-box");
+    for(var i = 0; i < bar.length; i++) {
+      var prct = parseFloat(bar.eq(i).find(".b-bar").attr("data-prct"));
+      var widBox = bar.eq(i).find(".pgs-bar").width();
+      var widBar = widBox * prct / 100;
+      bar.eq(i).find(".b-bar").animate({
+        "width": widBar
+      });
+    }
+    return;
+  }
+
+
+  var lineOption = {
+    tooltip: {
+      trigger:'axis'
+    },
+    grid: {
+      left: 20,
+      right: 20,
+      bottom: 30,
+      top: 30
+    },
+    legend:{
+      top:10,
+      textStyle: {
+        color: 'white',
+        fontSize: 14
+      },
+      itemWidth: 20,
+      itemHeight: 10,
+      // data:['今日','昨日']
+    },
+    xAxis: {
+      // type : 'time',
+      axisPointer: {
+        show: true,
+        type: 'none'
+      },
+      axisLabel: {
+        show: true,
+        interval: 0,
+        textStyle: {
+          color: '#00efff'
+        }
+      },
+      boundaryGap: false,
+      // interval: 2,
+      maxInterval: 3600 * 1000,
+      axisTick: {
+        inside: true
+      },
+      splitLine: {
+        show: false
+      },
+      axisLine: {
+        show: true,
+        lineStyle:{
+          color:'#00efff'
+        }
+      },
+      data: ["0", "01:00", "02:00", "03:00", "04:00","05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00","13:00", "14:00", "15:00", "16:00", "17:00","18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"],
+
+    },
+    yAxis: {
+      type: 'value',
+      show: false,
+
+    },
+    color:['#1cdef2','#ff6600','#5750d3','#df2759','#1bd04c'],
+    series: [],
+  };
+  function autoTipDo(option,setoption){
+    var timer = 0;
+    var total = option.series[0].data.length;
+    var count = 0;
+    var tooltip = setoption.tooltip;
+    function tip(){
+      setoption.dispatchAction({type: 'showTip', seriesIndex:0, dataIndex:0});
+    }
+    tip();
+    function autoTip() {
+      timer = setInterval(function () {
+        var curr = count % total;
+        setoption.dispatchAction({type: 'showTip', seriesIndex:0, dataIndex:curr});
+
+        count += 1;
+      }, 2000);
+    }
+    autoTip();
+  }
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryGantryTradingVolume",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      lineOption.series = [];
+      $.each(data.data.data, function (commentIndex, comment) {
+        let dataOption = {
+          name: comment.transCode,
+          type: 'line',
+          smooth:true,
+          symbol:'emptyCircle',
+          data: comment.cnt
+        }
+        lineOption.series.push(dataOption)
+      });
+      var gateLine =echarts.init(document.getElementById("gateLine"));
+      gateLine.clear();
+      gateLine.setOption(lineOption);
+      autoTipDo(lineOption,gateLine);
+    }
+  });
+
+  // 授权交易量
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryAuthorizeTradingVolume",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      lineOption.series = [];
+      $.each(data.data.data, function (commentIndex, comment) {
+        let dataOption = {
+          name: comment.target,
+          type: 'line',
+          smooth:true,
+          symbol:'emptyCircle',
+          data: comment.cnt
+        }
+        lineOption.series.push(dataOption)
+      });
+      var authLine =echarts.init(document.getElementById("authLine"));
+      authLine.clear();
+      authLine.setOption(lineOption);
+      autoTipDo(lineOption,authLine);
+    }
+  });
+  //签到交易量
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/querySignTradingVolume",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      lineOption.series = [];
+      $.each(data.data.data, function (commentIndex, comment) {
+        let dataOption = {
+          name: comment.target,
+          type: 'line',
+          smooth:true,
+          symbol:'emptyCircle',
+          data: comment.cnt
+        }
+        lineOption.series.push(dataOption)
+      });
+      var signLine =echarts.init(document.getElementById("signLine"));
+      signLine.clear();
+      signLine.setOption(lineOption);
+      autoTipDo(lineOption,signLine);
+    }
+  });
+
+  //饼图数据
+  //饼图1
+  optionProo = {
+    tooltip: {
+      trigger: 'none'
+    },
+    legend:{
+      show:false,
+    },
+    // color: ['#01e3f5', '#6e6ee3','#ddcd43', '#eb426d', '#ff6600', '#d52d00'],
+    // color: ['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],
+    color: ['#01e3f5', '#00d55f', '#6e6ee3','#ddcd43', '#eb426d', '#ff6600', '#d52d00'],
+    // color:['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],//'#50b1a8','#008ee2',
+    series: [
+      {
+        name:'访问来源',
+        type:'pie',
+        center:['50%','55%'],
+        radius: ['45%', '60%'],
+        // avoidLabelOverlap: false,
+        hoverAnimation:false,
+        avoidLabelOverlap: true,
+        selectedOffset:4,
+        animationDelay:0,
+        minAngle:4,
+        selectedMode:false,
+        itemStyle:{
+          normal:{
+            borderWidth:2,
+            borderColor:'rgba(16,4,70,1)'
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            formatter: '{b}\n{ta|{c}}{tb|({d}%)}',//{tc|{b}}
+            // position: 'center',
+            rich: {
+              ta: {
+                fontSize: 18,
+                align: 'center',
+                height: 20
+              },
+              tb: {
+                fontSize: 14,
+                align: 'center',
+                height: 20
+              }
+            }
+          },
+          emphasis: {
+            show: false,
+          }
+        },
+        labelLine: {
+          normal: {
+            show: true,
+            // length:30,
+            // length2:10,
+          }
+        },
+        data:''
+      },{
+        name:'已启用',
+        type:'pie',
+        center:['50%','55%'],
+        radius: ['69.5%', '70%'],
+        hoverAnimation:false,
+        selectedOffset:1,
+        animationDelay:500,
+        label: {
+          normal: {
+            show: false
+          },emphasis: {
+            show: false
+          }
+
+        },
+        itemStyle:{
+          normal:{
+            color:'#50b1a8'
+          }
+        },
+        data:[
+          {value:1000, name:'装饰用'}
+        ]
+      }
+    ]
+  };
+
+  //饼图1&2
+  pieOption = {
+    tooltip: {
+      show: true,
+      trigger: 'item',
+      formatter: "{b} : {c} ({d}%)"
+    },
+    legend: {
+      show: true,
+      bottom: 10,
+      itemWidth: 15,
+      itemHeight: 15,
+      textStyle: {
+        color: "#07dbff",
+        fontSize: 16
+      }
+    },
+    // color: ['#01e3f5', '#6e6ee3','#ddcd43', '#eb426d', '#ff6600', '#d52d00'],
+    color: ['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],
+    series: [{
+      name: '路网信息',
+      type: 'pie',
+      radius: '65%',
+      center: ['50%', '40%'],
+      clockwise: true,
+      selectedMode: false,
+      selectedOffset: 5,
+      // silent: true,
+      data: '',
+      minAngle:4,
+      roseType: false,
+      hoverAnimation:true,
+      label: {
+        normal: {
+          show: true,
+          position: 'inside',
+          formatter: "{c}",
+          textStyle: {
+            color: 'rgba(255, 255, 255, 1)',
+            fontSize: 16
+          }
+        },
+        emphasis:{
+          show: true,
+          position: 'inside',
+          formatter: "{d}%",
+          textStyle: {
+            color: 'rgba(255, 255, 255, 1)',
+            fontSize: 16
+          }
+        }
+      },
+      itemStyle: {
+        normal: {
+          shadowBlur: 100,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      animationType: 'expansion',
+      animationEasing: 'quarticOut'
+    }]
+  };
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryPropo",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data[0];
+      let dataProo = [
+        {value: result.Gaci,name: '部门架授权'},
+        {value: result.Gsci,name: '部门架签到'},
+        {value: result.Caci,name: '部车道授权'},
+        {value: result.Csci,name: '部车道签到'},
+        {value: result.Gaca,name: '省门架授权'},
+        {value: result.Gsca,name: '省门架签到'},
+        {value: result.Caca,name: '省车道授权'},
+        {value: result.Csca,name: '省车道签到'}
+        ];
+      var pieChart = echarts.init(document.getElementById("chart-pie1"));
+      pieChart.clear();
+      optionProo.series[0].data = dataProo;
+      pieChart.setOption(optionProo);
+
+    }
+  });
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryOfflineAuthorizeCount",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let result = data.data;
+      let dataSB = [
+        {value: result.onLineCnt,name: '在线授权'},
+        {value: result.offlineCnt,name: '离线授权'}
+      ];
+      var pieChart2 = echarts.init(document.getElementById("chart-pie2"));
+      pieOption.series[0].data = dataSB;
+      pieChart2.clear();
+      pieChart2.setOption(pieOption);
+
+    }
+  });
+  //柱状图
+  //虚拟使用率top10
+  var optionbar = {
+    tooltip: {
+
+    },
+    legend: {
+      show: true,
+      top: 10,
+      left:20,
+      itemWidth: 12,
+      itemHeight: 12,
+      textStyle: {
+        color: "#07dbff",
+        fontSize: 12
+      }
+    },
+    grid: {
+      left: 100,
+      right: 40,
+      bottom: 30,
+      top: 40
+    },
+    yAxis: {
+      axisPointer: {
+        show: false,
+        type: 'line',
+        label: {
+          show: false
+        }
+      },
+      axisLabel: {
+        show: true,
+        interval:0,
+        textStyle: {
+          color: '#00ffff',
+          fontSize: 12,
+          fontWeight: 100,
+        }
+      },
+      boundaryGap: ["10px", "1%"],
+      axisTick: {
+        show: false
+      },
+      splitLine: {
+        show: false
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#0f4268'
+        }
+      },
+      data: ["三施公司","三荔公司","中交安江","中交沿德","中交荔榕"],
+
+    },
+    xAxis: {
+      type: 'value',
+      show: true,
+      splitLine: {
+        show: false,
+        lineStyle: {
+          color: '#0f4268'
+        }
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#0f4268'
+        }
+      },
+      axisLabel: {
+        show: true,
+        textStyle: {
+          color: '#00ffff',
+          fontSize: 12,
+          fontWeight: 100,
+        }
+      }
+    },
+    series: [{
+      name: '脱机授权次数',
+      type: 'bar',
+      barMaxWidth: 16,
+      barCategoryGap: "10%",
+//				animationDelay: 600,
+      itemStyle: {
+        normal: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+              offset: 0, color: '#ffc700' // 0% 处的颜色
+            }, {
+              offset: 1, color: '#ff8700' // 100% 处的颜色
+            }],
+            globalCoord: false // 缺省为 false
+          },
+          borderColor:'#ffe27a',
+          borderWidth:1,
+          shadowBlur: 15,
+          shadowColor: 'rgba(0,142,226,0.4)',
+          shadowOffsetX: 1,
+          shadowOffsetY: 1,
+          label: {
+            show: true,
+            position: 'right',
+            textStyle: {
+              color: "#ffe27a"
+            }
+          }
+        }
+      },
+      data: [50, 62, 76, 80, 99]
+    }]
+  };
+  $.ajax({
+    type: 'GET',
+    url: "/monitor/queryOfflineRateWarnning",
+    data: {},
+    dataType: "json",
+    success: function (data) {
+      if (!data.result)
+        return;
+      let dataToal = [];
+      let dataInUse = [];
+      let company = [];
+      $.each(data.data, function (commentIndex, comment) {
+        dataToal.push(comment.cnt);
+        company.push(comment.stationName);
+      });
+      var barChart = echarts.init(document.getElementById("oulineTop-bar"));
+      barChart.clear();
+      optionbar.yAxis.data = company.reverse();
+      optionbar.series[0].data = dataToal.reverse();
+      barChart.setOption(optionbar);
+    }
+  });
+
+  //表格
+  if ($('#gateTable')) {
+    var pagesize = 10;
+    var settings = {
+      "destroy": true,
+      "serverSide": true,
+      "ajax": {
+        url: '/monitor/queryMonitorGateline',
+        data: {
+
+        },
+      },
+      "columns": [
+        {"data": "roadName", "title": "路段"},
+        {"data": "stationName", "title": "收费站"},
+        {"data": "responseCode", "title": "响应代码"},
+        {"data": "responseMessage", "title": "响应结果"}],
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+      "processing": true,
+      "pageLength": pagesize,
+      "oLanguage": {
+        "sLengthMenu" : "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+        "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+        "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+        "sProcessing": "正在加载中...",
+        "oPaginate": {
+          "sFirst": "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext": " 下一页 ",
+          "sLast": " 最后一页 "
+        }
+      },
+      "createdRow": function (row, data, index) {
+
+      },
+      "drawCallback": function (settings, json) {
+
+      }
+    };
+    gateTabel = $('#gateTable').DataTable(settings);
+
+  }
+  if ($('#authTable')) {
+    var pagesize = 10;
+    var settings = {
+      "destroy": true,
+      "serverSide": true,
+      "ajax": {
+        url: '/monitor/queryAuthFrontTrace',
+        data: {
+
+        },
+      },
+      "columns": [
+        {"data": "roadName", "title": "路段"},
+        {"data": "stationName", "title": "收费站"},
+        {"data": "responseCode", "title": "响应代码"},
+        {"data": "responseMessage", "title": "响应结果"}],
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+      "processing": true,
+      "pageLength": pagesize,
+      "oLanguage": {
+        "sLengthMenu" : "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+        "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+        "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+        "sProcessing": "正在加载中...",
+        "oPaginate": {
+          "sFirst": "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext": " 下一页 ",
+          "sLast": " 最后一页 "
+        }
+      },
+      "createdRow": function (row, data, index) {
+
+      },
+      "drawCallback": function (settings, json) {
+
+      }
+    };
+    authTable = $('#authTable').DataTable(settings);
+
+  }
+  if ($('#signTable')) {
+    var pagesize = 10;
+    var settings = {
+      "destroy": true,
+      "serverSide": true,
+      "ajax": {
+        url: '/monitor/queryMonitorSignline',
+        data: {
+
+        },
+      },
+      "columns": [
+        {"data": "roadName", "title": "路段"},
+        {"data": "stationName", "title": "收费站"},
+        {"data": "chanelId", "title": "车道"},
+        {"data": "result", "title": "响应代码"},
+        {"data": "target", "title": "目标"}],
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": false,
+      "info": false,
+      "autoWidth": false,
+      "processing": true,
+      "pageLength": pagesize,
+      "oLanguage": {
+        "sLengthMenu" : "显示 _MENU_ 项结果",
+        "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+        "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+        "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+        "sProcessing": "正在加载中...",
+        "oPaginate": {
+          "sFirst": "第一页",
+          "sPrevious": " 上一页 ",
+          "sNext": " 下一页 ",
+          "sLast": " 最后一页 "
+        }
+      },
+      "createdRow": function (row, data, index) {
+
+      },
+      "drawCallback": function (settings, json) {
+
+      }
+    };
+    signTable = $('#signTable').DataTable(settings);
+
+  }
+  // setTimeout(function() {
+  //   console.log('go')
+  //  window.location.replace('/monitor/monitorIn');
+  // },30000);
+</script>
+</body>
+</html>

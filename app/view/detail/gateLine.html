@@ -1,0 +1,397 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+    .child-row{
+        text-align: left !important;background-color:#f4f4f4  !important;
+    }
+    .shown{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white;
+    }
+    .shown td{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white !important;
+    }
+    .child-span{
+        display: inline-block;
+        padding: 0 10px;margin-right: 50px;
+    }
+    .list-psam{
+        padding: 0;
+        max-height: 550px;
+        overflow: auto;
+    }
+    .list-psam li{
+        display: inline-block;
+        width: 48%;
+        line-height: 40px;
+        text-align: center;
+        padding: 5px;
+    }
+    .list-psam li span{
+        display: inline-block;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        border: solid 1px #00c0ef;
+        color: #00a7d0;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+<section class="content-header">
+    <h1>门架流水</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统监控</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+    <input type="hidden" id="hideSelectedPsam" value="">
+    <input type="hidden" id="hideSelectedLength" value="0">
+    <input type="hidden" value="{{type}}" id="hideType">
+    <input type="hidden" value="{{lever}}" id="hideLevel">
+    <input type="hidden" value="{{netnode}}" id="hideNetNode">
+</section>
+<section class="content">
+    <div class="box">
+        <div class="tab-pane clearfix" id="resetPwd2" style="padding-top: 50px;">
+            {% if lever <= 2 %}
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>路段：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    {% if lever < 2 %}
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="roadcode"></select>
+                    {% else %}
+                    <input type="text" class="form-control" autocomplete="off" name="netNodeName" disabled  placeholder="" value="{{netNodeName}}" >
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>站点：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    {% if lever < 3 %}
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="stationcode"></select>
+                    {% else %}
+                    <input type="text" class="form-control" autocomplete="off" name="netNodeName" disabled  placeholder="" value="{{netNodeName}}" >
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>门架编码：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="gateLane" id="gateLane" placeholder="请输入门架编号" >
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>省/部交易：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control select2" style="width: 100%;" name="target" id="target">
+                        <option value="">请选择交易来源</option>
+                        <option value="TARGET_ENUM_ITSCP">部</option>
+                        <option value="TARGET_ENUM_AUTHM">省</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 form-group " >
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label style="padding-right: 6px">时间：</label>
+                </div>
+                <div class="col-md-7 form-group" style="padding: 0">
+                    <div class="input-group date col-md-12" style="float: left;">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" style="width: 100%;float: left" name="timeStart" autocomplete="off" id="queryMonth" placeholder="请选择年月查询" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <button id="btnExcel" style="width: 180px; height: 42px;margin-left: 20px" class="btn btn-warning pull-right">导出为Excel</button>
+                <button id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary ">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+        </div>
+        <div class="table-cont" style="padding: 0">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="example" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    $('#queryMonth').datepicker({
+      format: 'yyyymm',
+      autoclose: true,
+      language:'zh',
+      startDate:new Date("2019-11-01"),
+      endDate: '0d',
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2
+    })
+    $('#target').select2({
+      placeholder:'请选择交易来源',
+      allowClear : true,
+    });
+    const parentcode = $("#hideNetNode").val();
+    switch ($("#hideLevel").val()) {
+      case '1':
+        getslect(2,parentcode);
+        setTimeout(function() {
+          getslect(3);
+        },0)
+        break;
+      case '2':
+        $('#roadcode').attr("disabled","disabled");
+        getslect(3,parentcode);
+        break;
+      case '3':
+        $('#stationcode').attr("disabled","disabled");
+        break;
+      default:
+        getslect(2);
+        setTimeout(function() {
+          getslect(3);
+        },300)
+        break;
+    }
+    //下拉框
+
+    function getslect(level,parent){
+      var placholder = '';
+      var searchLevel = '';
+      var dom = '';
+      switch (level) {
+        case 1:
+          placholder = '请选择公司';
+          searchLevel = 'NETNODE_LEVEL_1';
+          dom = $("#companycode")
+          break;
+        case 2:
+          placholder = '请选择路段';
+          searchLevel = 'NETNODE_LEVEL_2';
+          dom = $("#roadcode");
+          break;
+        case 3:
+          placholder = '请选择收费站';
+          searchLevel = 'NETNODE_LEVEL_3';
+          dom = $("#stationcode");
+          break;
+      }
+      function getNetNode() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            level:searchLevel,
+            parentId:parent,
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            dom.empty();
+            var html = '';
+            html += '<option value="">'+placholder+'</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            dom.html(html);
+            dom.select2({
+              placeholder:placholder,
+              allowClear : true,
+            });
+          }
+        });
+      }
+      getNetNode();
+    }
+    selectInit();
+    function selectInit() {
+      $("#companycode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#companycode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#roadcode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择路段</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#roadcode').html(html);
+            $('#roadcode').select2({
+              placeholder:'请选择路段',
+              allowClear : true,
+            });
+          }
+        });
+      })
+      $("#roadcode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#roadcode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#stationcode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择收费站</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#stationcode').html(html);
+            $('#stationcode').select2({
+              placeholder:'请选择收费站',
+              allowClear : true,
+            });
+          }
+        });
+      })
+    }
+
+    //表格
+    if ($('#example')) {
+      const hideNetNode = $("#hideNetNode").val();
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/detail/queryGateline2',
+          data: {
+            // applyuser: 1, //0查询当前用户的记录，1查询所有人
+            // level:'NETNODE_LEVEL_1'
+            // status: $("#status").val(),
+          },
+        },
+        "columns": [
+          {"data": "companyName", "title": "公司"},
+          {"data": "roadName", "title": "路段"},
+          {"data": "stationName", "title": "收费站"},
+          {"data": "gateName", "title": "门架"},
+          {"data": "gateLane", "title": "门架编号"},
+          {"data": "taxCode", "title": "营改增代码"},
+          {"data": "samSerialNo", "title": "PSAM"},
+          {"data": "target", "title": "授权来源"},
+          {"data": "transType", "title": "交易类型"},
+          {"data": "terminalTime", "title": "交易时间"}],
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sLengthMenu" : "显示 _MENU_ 项结果",
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          var welldata = JSON.stringify(data);
+          switch (data.target) {
+            case 'ITSCP':
+              $('td', row).eq(7).html('<span class="text-aqua">交通部授权</span>');
+              break;
+            case 'AUTHM':
+              $('td', row).eq(7).html('<span class="text-green">本地授权</span>');
+              break;
+            default:
+              $('td', row).eq(7).html('<span class="text-red">异常来源（'+data.target+'）</span>');
+              break;
+          }
+          switch (data.transType) {
+            case 'SIGN':
+              $('td', row).eq(8).html('<span class="text-aqua">签到</span>');
+              break;
+            case 'AUTHAPP':
+              $('td', row).eq(8).html('<span class="text-aqua">授权申请</span>');
+              break;
+            case 'AUTHCFM':
+              $('td', row).eq(8).html('<span class="text-aqua">授权确认</span>');
+              break;
+            default:
+              $('td', row).eq(8).html('<span class="text-red">异常类型（'+data.transType+'）</span>');
+              break;
+          }
+
+        },
+        "drawCallback": function (settings, json) {
+
+        }
+      };
+      netTable = $('#example').DataTable(settings);
+
+    }
+    //  查询
+    $("#btnSearch").click(function() {
+      search();
+    })
+    function search() {
+      netTable.clear();
+      netTable.ajax.url("/detail/queryGateline2?" +"&stationCode="+$("#stationcode").val()+"&roadCode="+$("#roadcode").val()+"&gateLane="+$("#gateLane").val()+"&target="+$("#target").val()+"&queryMonth="+$("#queryMonth").val()).load();
+    }
+    // 导出excel
+    $("#btnExcel").click(function() {
+      var form = $("<form>");   //定义一个form表单
+      form.attr('style', 'display:none');   //在form表单中添加查询参数
+      form.attr('target', '');
+      form.attr('method', 'post');
+      form.attr('action', "/line/downGateline2?_csrf={{ ctx.csrf }}&stationCode=" +$("#stationcode").val()+"&roadCode="+$("#roadcode").val()+"&gateLane="+$("#gateLane").val()+"&target="+$("#target").val()+"&queryMonth="+$("#queryMonth").val());
+
+      $('body').append(form);  //将表单放置在web中
+      form.submit();
+    })
+
+
+  })
+</script>

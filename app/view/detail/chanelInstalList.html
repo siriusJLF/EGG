@@ -1,0 +1,307 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+    .child-row{
+        text-align: left !important;background-color:#f4f4f4  !important;
+    }
+    .shown{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white;
+    }
+    .shown td{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white !important;
+    }
+    .child-span{
+        display: inline-block;
+        padding: 0 10px;margin-right: 50px;
+    }
+</style>
+<section class="content-header">
+    <h1>车道升级安装情况</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 报表明细</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>车道ID：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <input type="text" class="form-control" style="width: 100%;float: left" name="chanelId" autocomplete="off" id="chanelId" placeholder="请输入车道ID查询" >
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>路段：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="roadcode"></select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>站点：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="stationcode"></select>
+                </div>
+            </div>
+            <div class="col-md-3 form-group " >
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label style="padding-right: 6px">时间：</label>
+                </div>
+                <div class="col-md-7 form-group" style="padding: 0">
+                    <div class="input-group date col-md-12" style="float: left;">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" style="width: 100%;float: left" name="timeStart" autocomplete="off" id="queryMonth" placeholder="请选择年月查询" >
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <button id="btnExcel" style="width: 180px; height: 42px;margin-left: 20px" class="btn btn-warning pull-right">导出为Excel</button>
+                <button id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary ">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+        </div>
+        <!-- 记录-->
+        <div class="table-cont" style="padding: 0">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+<script>
+  $(function() {
+    $('#queryMonth').datepicker({
+      format: 'yyyymm',
+      autoclose: true,
+      language:'zh',
+      startDate:new Date("2019-11-01"),
+      endDate: '0d',
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2
+    })
+    //下拉框
+    selectInit()
+    function selectInit(){
+      //  road
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_2',
+          parentId:$('#companycode').val(),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#roadcode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择路段</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#roadcode').html(html);
+          $('#roadcode').select2({
+            placeholder:'请选择路段',
+            allowClear : true,
+          });
+        }
+      });
+      //  station
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_3',
+          parentId:$('#roadcode').val(),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#stationcode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择站点</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#stationcode').html(html);
+          $('#stationcode').select2({
+            placeholder:'请选择站点',
+            allowClear : true,
+          });
+        }
+      });
+      $("#roadcode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#roadcode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#stationcode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#stationcode').html(html);
+            $('#stationcode').select2({
+              placeholder:'请选择站点',
+              allowClear : true,
+            });
+          }
+        });
+      })
+    }
+
+
+    //表格
+    if ($('#example2')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/detail/queryChanelSetUp',
+          data: {},
+        },
+        // "columnDefs": [
+        //   { "width": "2%", "targets": 0 }
+        // ],
+        "columns": [
+          {"data": "companyName", "title": "公司"},
+          {"data": "roadName", "title": "路段"},
+          {"data": "roadCode", "title": "路段代码"},
+          {"data": "stationName", "title": "收费站"},
+          {"data": "stationCode", "title": "收费站代码"},
+          {"data": "chanelId", "title": "车道ID"},
+          {"data": "chanelIp", "title": "车道IP"},
+          {"data": "trace", "title": "心跳"},
+          {"data": "status", "title": "车道状态"},
+          {"data": "substatus", "title": "应用状态"}],
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sLengthMenu" : "显示 _MENU_ 项结果",
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          switch (data.status) {
+            case 'NEW':
+              $('td', row).eq(8).html('<span class="text-aqua">新建</span>');
+              break;
+            case 'RUN':
+              $('td', row).eq(8).html('<span class="text-green">应用中</span>');
+              break;
+            case 'STOP':
+              $('td', row).eq(8).html('<span class="text-yellow">停用</span>');
+              break;
+            default:
+              $('td', row).eq(8).html('<span class="text-red">状态未知，请联系管理员</span>');
+              break;
+          }
+          switch (data.substatus) {
+            case 'NORMAL':
+              $('td', row).eq(9).html('<span class="text-green">正常</span>');
+              break;
+            case 'STOPPED':
+              $('td', row).eq(9).html('<span class="text-yellow">停用</span>');
+              break;
+            case 'SLEEP':
+              $('td', row).eq(9).html('<span class="text-aqua">休眠</span>');
+              break;
+            case 'ERRSAM':
+              $('td', row).eq(9).html('<span class="text-red">psam异常</span>');
+              break;
+            case 'ERRBIND':
+              $('td', row).eq(9).html('<span class="text-red">绑定异常</span>');
+              break;
+            case 'ERRMAC':
+              $('td', row).eq(9).html('<span class="text-red">MAC错误</span>');
+              break;
+            default:
+              $('td', row).eq(9).html('<span class="text-red">状态未知，请联系管理员</span>');
+              break;
+          }
+        },
+        "drawCallback": function (settings, json) {
+
+        }
+      };
+      netTable = $('#example2').DataTable(settings);
+    }
+
+    // 导出excel
+    $("#btnExcel").click(function() {
+      var form = $("<form>");   //定义一个form表单
+      form.attr('style', 'display:none');   //在form表单中添加查询参数
+      form.attr('target', '');
+      form.attr('method', 'post');
+      form.attr('action', "/line/downChanelSetUp?_csrf={{ ctx.csrf }}&chanelId="+$("#chanelId").val()+"&roadCode="+$("#roadcode").val()+"&stationCode="+$("#stationcode").val()
+        +"&queryMonth="+$("#queryMonth").val());
+
+      $('body').append(form);  //将表单放置在web中
+      form.submit();
+    })
+    //  查询
+    $("#btnSearch").click(function() {
+      netTable.ajax.url("/detail/queryChanelSetUp?" +"&chanelId="+$("#chanelId").val()+"&roadCode="+$("#roadcode").val()+"&stationCode="+$("#stationcode").val()
+        +"&queryMonth="+$("#queryMonth").val()).load();
+    })
+
+  })
+</script>

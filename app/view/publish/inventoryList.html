@@ -1,0 +1,225 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+</style>
+<section class="content-header">
+    <h1>订单管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 订单管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-3 form-group " >
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>合同号：</label>
+                </div>
+                <div class="col-md-8" style="padding: 0">
+                    <input type="text" class="form-control" autocomplete="off" name="batchNo" id="batchNo" placeholder="请输入合同号进行查询" >
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-4" style="text-align: right;line-height: 34px">
+                    <label>类型：</label>
+                </div>
+                <div class="col-md-8" style="padding: 0">
+                    <select class="form-control" name="wareType" id="wareType"></select>
+                </div>
+            </div>
+            <div class="col-md-6 form-group " >
+                <div class="col-md-3" style="text-align: right;line-height: 34px;padding-left: 0">
+                    <label>入库时间：</label>
+                </div>
+                <div class="col-md-9 form-group" style="padding: 0">
+                    <div class="input-group date col-md-3" style="float: left;">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control" style="width: 120px;float: left" name="timeStart" autocomplete="off" id="dateStart" placeholder="起始时间" >
+                    </div>
+                    <span style="float: left;line-height: 34px;padding: 0 10px;">至</span>
+                    <div class="input-group date col-md-3" style="float: left;">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" style="width: 120px;float: left" class="form-control"  name="timeEnd" autocomplete="off" id="dateEnd" placeholder="截止时间" >
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12 text-center">
+                <button id="btnSearch" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+        </div>
+        <!-- 记录-->
+        <div class="table-cont">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="importRecord" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      $.ajax({
+        type: 'POST',
+        url: "/publish/wareSearchType",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#wareType').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.wareId + '"  ' + '>' + comment.wareName + '</option>';
+          });
+          $('#wareType').html(html);
+          $('#wareType').select2({
+            placeholder:'请选择物料类型',
+            allowClear : true,
+          })
+        }
+      });
+    }
+
+      if ($('#importRecord')) {
+        var pagesize = 10;
+        var settings = {
+          "destroy": true,
+          "serverSide": true,
+          "ajax": {
+            url: '/ware/materialList',
+            data: {
+              status:''
+            },
+          },
+          "columns": [
+            {"data": "id", "title": "批次号"},
+            {"data": "title", "title": "标题"},
+            {"data": "cardProvid", "title": "供应商"},
+            {"data": "count", "title": "采购数量"},
+            {"data": "remain", "title": "已入库数量"},
+            {"data": "wareName", "title": "物料"},
+            {"data": "applyDate", "title": "提交时间"},
+            {"data": "importDate", "title": "最近入仓时间"},
+            {"data": "status", "title": "状态"}],
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "processing": true,
+          "pageLength": pagesize,
+          "oLanguage": {
+            "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+            "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+            "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+            "sProcessing": "正在加载中...",
+            "oPaginate": {
+              "sFirst": "第一页",
+              "sPrevious": " 上一页 ",
+              "sNext": " 下一页 ",
+              "sLast": " 最后一页 "
+            }
+          },
+          "createdRow": function (row, data, index) {
+            if(data.count>data.remain){
+              $('td', row).eq(0).css({'color':'#f39c12 !important','font-weight':'bold'});
+              // $('td', row).css({'color':'#f39c12 !important'});
+              $('td', row).eq(4).html('<span class="text-yellow">'+data.remain+'</span>');
+            }else {
+              $('td', row).eq(4).html('<span class="text-green">'+data.remain+'</span>');
+            }
+            if(data.applyDate){
+              $('td', row).eq(6).html(''+data.applyDate.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+            }else {
+              $('td', row).eq(6).html('');
+            }
+            if(data.importDate){
+              $('td', row).eq(7).html(''+data.importDate.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+            }else {
+              $('td', row).eq(7).html('');
+            }
+            switch (data.status) {
+              case 'NEW':
+                $('td', row).eq(8).html('<span class="text-light-blue">待入库</span>');
+                break;
+              case 'FSH':
+                $('td', row).eq(8).html('<span class="text-aqua">已入库</span>');
+                break;
+              case 'PARTIMP':
+                $('td', row).eq(8).html('<span class="text-yellow">部分入库</span>');
+                break;
+              case 'ING':
+                $('td', row).eq(8).html('<span class="text-yellow">发行中</span>');
+                break;
+              case 'FSH':
+                $('td', row).eq(8).html('<span class="text-green">发行完成</span>');
+                break;
+            }
+          },
+          "drawCallback": function (settings, json) {
+
+          }
+        };
+        importTable = $('#importRecord').DataTable(settings);
+      }
+
+    //Date picker
+    $('#dateStart').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      language:'zh',
+      endDate: '0d',
+      todayHighlight:true
+    })
+    $('#dateEnd').datepicker({
+      format: 'yyyy-mm-dd',
+      autoclose: true,
+      endDate: '0d',
+      language:'zh',
+      todayHighlight:true
+    })
+
+    //
+    $("button[name='receive']").click(function() {
+      $("#presonApp").val('');
+      $("#approveRemark").val('');
+      layer.open({
+        type:0,
+        title:'领用确认',
+        content:'请您确认交给领用人',
+        btn:['确认','取消'],
+        isOutAnim: false,
+        yes:function() {
+          layer.closeAll();
+        },btn2:function(index,layero) {
+          console.log("取消");
+          layer.close(index);
+        }
+      })
+    })
+    //  查询
+    $("#btnSearch").click(function() {
+      importTable.ajax.url("/ware/materialList?" +"&id="+$("#batchNo").val()+"&wareId="+$("#wareType").val()+"&importBeginTime="+$("#dateStart").val()+"&importEndTime="+$("#dateEnd").val()).load();
+    })
+
+  })
+</script>

@@ -1,0 +1,274 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+    .child-row{
+        text-align: left !important;background-color:#f4f4f4  !important;
+    }
+    .shown{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white;
+    }
+    .shown td{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white !important;
+    }
+    .child-span{
+        display: inline-block;
+        padding: 0 10px;margin-right: 50px;
+    }
+</style>
+<section class="content-header">
+    <h1>授权前置安装情况</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 报表明细</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>路段：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="roadcode"></select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <div class="col-md-5" style="text-align: right;line-height: 34px">
+                    <label>站点：</label>
+                </div>
+                <div class="col-md-7" style="padding: 0">
+                    <select class="form-control select2" style="width: 100%;" name="comp" id="stationcode"></select>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <button id="btnExcel" style="width: 100px; height: 34px;margin-left: 20px" class="btn btn-warning pull-right">导出为Excel</button>
+                <button id="btnSearch" style="width: 100px; height: 34px;" class="btn btn-primary pull-left">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+            </div>
+        </div>
+        <!-- 记录-->
+        <div class="table-cont" style="padding: 0">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+<script>
+  $(function() {
+    //下拉框
+    selectInit()
+    function selectInit(){
+      //  road
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_2',
+          parentId:$('#companycode').val(),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#roadcode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择路段</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#roadcode').html(html);
+          $('#roadcode').select2({
+            placeholder:'请选择路段',
+            allowClear : true,
+          });
+        }
+      });
+      //  station
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_3',
+          parentId:$('#roadcode').val(),
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#stationcode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择站点</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#stationcode').html(html);
+          $('#stationcode').select2({
+            placeholder:'请选择站点',
+            allowClear : true,
+          });
+        }
+      });
+      $("#roadcode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#roadcode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#stationcode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#stationcode').html(html);
+            $('#stationcode').select2({
+              placeholder:'请选择站点',
+              allowClear : true,
+            });
+          }
+        });
+      })
+    }
+
+    //表格
+    if ($('#example2')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/detail/queryAuthFrontInfo',
+          data: {},
+        },
+        // "columnDefs": [
+        //   { "width": "2%", "targets": 0 }
+        // ],
+        "columns": [
+          {"data": "companyName", "title": "公司"},
+          {"data": "roadName", "title": "路段"},
+          {"data": "roadCode", "title": "路段代码"},
+          {"data": "stationName", "title": "收费站"},
+          {"data": "stationCode", "title": "收费站代码"},
+          {"data": "status", "title": "安装状态"},
+          {"data": "timeout", "title": "代理状态"},
+          {"data": "trace", "title": "最近签到时间"}],
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sLengthMenu" : "显示 _MENU_ 项结果",
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          if(data.status=='GOOD'){
+            $('td', row).eq(5).html('<span class="text-green">已安装</span>');
+          }else {
+            $('td', row).eq(5).html('<span class="text-red">未安装</span>');
+          }
+          switch (data.timeout) {
+            case 1:
+              $('td', row).eq(6).html('<span class="text-red">超时</span>');
+              break;
+            case 0:
+              $('td', row).eq(6).html('<span class="text-green">正常</span>');
+              break;
+            case '':
+              $('td', row).eq(6).html('<span class="text-aqua">--</span>');
+              break;
+            default:
+              $('td', row).eq(6).html('<span class="text-red">未知状态（'+data.timeout+'）</span>');
+              break;
+          }
+          if(data.trace!=''){
+            $('td', row).eq(7).html(''+data.trace.substring(0,14).replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          }
+        },
+        "drawCallback": function (settings, json) {
+          $('input[name="taskAll"]').click(checkAll);
+        }
+      };
+      netTable = $('#example2').DataTable(settings);
+
+    }
+
+    function checkAll(){
+      var this_ = $(this);
+      var taskArr = [];
+      this_.toggleClass("checked");
+      if(this_.hasClass("checked")){
+        $(this).parents('table').find('input[name="task"]').prop('checked',true)
+
+        $('input[name="task"]:checked').each(function() {
+          taskArr.push($(this).val());
+        })
+        console.log(taskArr);
+      }else {
+        $(this).parents('table').find('input[name="task"]').prop('checked',false);
+        taskArr = [];
+      }
+
+    }
+
+    // 导出excel
+    $("#btnExcel").click(function() {
+      var form = $("<form>");   //定义一个form表单
+      form.attr('style', 'display:none');   //在form表单中添加查询参数
+      form.attr('target', '');
+      form.attr('method', 'post');
+      form.attr('action', "/line/downAuthFrontInfo?_csrf={{ ctx.csrf }}" +"&roadCode="+$("#roadcode").val()+"&stationCode="+$("#stationcode").val());
+
+      $('body').append(form);  //将表单放置在web中
+      form.submit();
+    })
+    //  查询
+    $("#btnSearch").click(function() {
+      netTable.ajax.url("/detail/queryAuthFrontInfo?" +"&roadCode="+$("#roadcode").val()+"&stationCode="+$("#stationcode").val()).load();
+    })
+
+  })
+</script>

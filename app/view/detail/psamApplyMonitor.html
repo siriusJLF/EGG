@@ -1,0 +1,491 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+    .child-row{
+        text-align: left !important;background-color:#f4f4f4  !important;
+    }
+    .shown{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white;
+    }
+    .shown td{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white !important;
+    }
+    .child-span{
+        display: inline-block;
+        padding: 0 10px;margin-right: 50px;
+    }
+    .chart-p{
+        /*border: solid 1px #f2f2f2;*/
+        padding: 20px;
+        padding-top: 0;
+    }
+    .chart-p h5{
+        height: 30px;
+        line-height: 30px;
+        /*text-align: center;*/
+    }
+    .psamApply-cont{
+        padding:0;
+    }
+    .apply-num{
+        padding: 0;
+    }
+    .apply-num li{
+        width: 20%;
+        display: block;
+        float: left;
+        text-align: center;
+    }
+    .apply-num li span{
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        font-size: 24px;
+    }
+    .apply-num li label{
+        color: #999999;
+        line-height: 30px;
+    }
+    .download-a{
+        /*float: right;*/
+        cursor: pointer;
+        color: #008ee2;
+        padding-left: 20px;
+        background: url("../../public/dist/img/download.png") no-repeat left center;
+    }
+    .download-a:hover{
+        color: #008ee2;
+        opacity: 0.8;
+        text-decoration: underline;
+    }
+    .download-p{
+        height: 30px;
+        line-height: 30px;
+    }
+</style>
+<section class="content-header">
+    <h1>PSAM应用信息</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统监控</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+            <div class="col-md-6 chart-p">
+                <h5>PSAM发行情况</h5>
+                <div class="chart-cont" style="height: 240px;width: 100%;border-right: solid 1px #d2d6de" id="psamPieIssue"></div>
+            </div>
+            <div class="col-md-6 chart-p">
+                <h5>PSAM应用情况</h5>
+                <div class="chart-cont" style="height: 240px;width: 100%" id="psamPie"></div>
+            </div>
+            <div class="col-md-12 chart-p" style="border-top: solid 1px #d2d6de">
+                <div class="col-md-6" style="padding-right: 20px">
+                    <h5 style="text-align: left">路公司PSAM应用情况</h5>
+                    <div class="psamApply-cont" style="border-right: solid 1px #d2d6de">
+                        <ul class="apply-num clearfix">
+                            <li><span id="psamAppTotal" style="color: #008ee2">--</span><label>应用数量</label></li>
+                            <li><span id="inUsedCnt" style="color: #00d55f">--</span><label>使用量</label></li>
+                            <li><span id="lockCnt" style="color: #ff6600">--</span><label>锁定</label></li>
+                            <li><span id="todaySignTotal" style="color: #008ee2">--</span><label>今日签到</label></li>
+                            <li><span id="todayAuthTotal" style="color: #6e6ee3">--</span><label>今日授权</label></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-md-6" style="padding-right: 20px">
+                    <h5 style="text-align: left">EXCEL下载</h5>
+                    <div class="psamApply-cont" >
+                        <p class="download-p"><a class="download-a" id="downloadCompanyExcel">下载路公司应用情况表</a></p>
+                        <p class="download-p"><a class="download-a" id="downloadPsamDetailExcel">下载PSAM应用明细表</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+</section>
+
+<!--echarts-->
+<script src="../../public/plugins/echarts/echarts.min.js"></script>
+<script>
+  $(function() {
+    $.ajax({
+      type: 'GET',
+      url: "/detail/psamAppMonitor4Excel",
+      data: {},
+      dataType: "json",
+      success: function (data) {
+        if (!data.result)
+          return;
+        let result = data.data;
+        $("#psamAppTotal").html(result.summary.psamAppTotal);
+        $("#inUsedCnt").html(result.summary.inUsedCnt);
+        $("#lockCnt").html(result.summary.lockCnt);
+        $("#todaySignTotal").html(result.summary.todaySignTotal);
+        $("#todayAuthTotal").html(result.summary.todayAuthTotal);
+      }
+    });
+    psamOption = {
+      tooltip: {
+        trigger: 'none'
+      },
+      legend:{
+        // show:false,
+        textStyle:{
+          color:'#999999',
+          fontSize:12
+        },
+        // orient:'vertical',
+        orient:'horizontal',
+        bottom:4,
+        left:'center',
+        itemWidth:10,
+        itemHeight:10,
+        // data:['正常','超时','异常']
+      },
+      color: ['#008ee2', '#00d55f', '#6e6ee3','#ddcd43', '#eb426d', '#ff6600', '#d52d00'],
+      // color:['#008ee2','#f04f4b','#cfc133','#62c45c'],
+      // color:['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],//'#50b1a8','#008ee2',
+      series: [
+        {
+          name:'PSAM',
+          type:'pie',
+          center:['50%','45%'],
+          radius: ['50%', '60%'],
+          // avoidLabelOverlap: false,
+          hoverAnimation:false,
+          avoidLabelOverlap: true,
+          selectedOffset:4,
+          animationDelay:0,
+          minAngle:6,
+          selectedMode:false,
+          itemStyle:{
+            normal:{
+              borderWidth:3,
+              borderColor:'rgba(255,255,255,1)'
+            }
+          },
+          label: {
+            normal: {
+              show: true,
+              formatter: '{b}\n{ta|{c}}{tb|({d}%)}',//{tc|{b}}
+              // position: 'center',
+              rich: {
+                ta: {
+                  fontSize: 18,
+                  align: 'center',
+                  height: 20
+                },
+                tb: {
+                  fontSize: 14,
+                  align: 'center',
+                  height: 20
+                }
+              }
+            },
+            emphasis: {
+              show: false,
+            }
+          },
+          labelLine: {
+            normal: {
+              show: true,
+              // length:30,
+              // length2:20,
+            }
+          },
+          data:[]
+        },{
+          name:'已启用',
+          type:'pie',
+          center:['50%','45%'],
+          radius: ['65.5%', '66%'],
+          hoverAnimation:false,
+          selectedOffset:1,
+          animationDelay:500,
+          label: {
+            normal: {
+              show: true,
+              position: 'center',
+              formatter:'{tc|{c}} \n {tb|{b}}',
+              rich:{
+                tc:{
+                  fontSize:30,
+                  align:'center',
+                  color: '#008ee2'
+                },
+                tb:{
+                  fontSize:16,
+                  align:'center'
+                }
+              }
+            },emphasis: {
+              show: true
+            }
+
+          },
+          itemStyle:{
+            normal:{
+              color:'#50b1a8'
+            }
+          },
+          data:[
+            {value:1000, name:'已启用'}
+          ]
+        }
+      ]
+    };
+    psamIssueOption = {
+      tooltip: {
+        trigger: 'none'
+      },
+      legend:{
+        // show:false,
+        textStyle:{
+          color:'#999999',
+          fontSize:12
+        },
+        // orient:'vertical',
+        orient:'horizontal',
+        bottom:4,
+        left:'center',
+        itemWidth:10,
+        itemHeight:10,
+        // data:['正常','超时','异常']
+      },
+      color: ['#008ee2','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],
+      // color:['#01e3f5','#ffaa01', '#eb426d', '#ff6600', '#d52d00'],//'#50b1a8','#008ee2',
+      series: [
+        {
+          name:'PSAM',
+          type:'pie',
+          center:['50%','45%'],
+          radius: ['50%', '60%'],
+          // avoidLabelOverlap: false,
+          hoverAnimation:false,
+          avoidLabelOverlap: true,
+          selectedOffset:4,
+          animationDelay:0,
+          minAngle:4,
+          selectedMode:false,
+          itemStyle:{
+            normal:{
+              borderWidth:3,
+              borderColor:'rgba(255,255,255,1)'
+            }
+          },
+          label: {
+            normal: {
+              show: true,
+              formatter: '{b}\n{ta|{c}}{tb|({d}%)}',//{tc|{b}}
+              // position: 'center',
+              rich: {
+                ta: {
+                  fontSize: 18,
+                  align: 'center',
+                  height: 20
+                },
+                tb: {
+                  fontSize: 14,
+                  align: 'center',
+                  height: 20
+                }
+              }
+            },
+            emphasis: {
+              show: false,
+            }
+          },
+          labelLine: {
+            normal: {
+              show: true,
+              // length:30,
+              // length2:10,
+            }
+          },
+          data:[{value: 1500,name: '已发行',},
+            {value: 500,name: '未发行'},]
+        },{
+          name:'发行总量',
+          type:'pie',
+          center:['50%','45%'],
+          radius: ['65.5%', '66%'],
+          hoverAnimation:false,
+          selectedOffset:1,
+          animationDelay:500,
+          silent:true,
+          label: {
+            normal: {
+              show: true,
+              position: 'center',
+              formatter:'{tc|{c}} \n {tb|{b}}',
+              rich:{
+                tc:{
+                  fontSize:30,
+                  align:'center',
+                  color: '#008ee2'
+                },
+                tb:{
+                  fontSize:16,
+                  align:'center'
+                }
+              }
+            },emphasis: {
+              show: true
+            }
+
+          },
+          itemStyle:{
+            normal:{
+              color:'#50b1a8'
+            }
+          },
+          data:[
+            {value:1000, name:'发行总量'}
+          ]
+        }]
+    };
+
+    $.ajax({
+      type: 'GET',
+      url: "/monitor/queryPsamIssuedOrNotCount",
+      data: {},
+      dataType: "json",
+      success: function (data) {
+        if (!data.result)
+          return;
+        let result = data.data;
+        let dataProo = [
+          {value: result.issuedCnt,name: '已发行'},
+          {value: result.notIssueCnt,name: '未发行'},
+        ];
+        let dataAll = [
+          {value: parseInt(result.notIssueCnt)+parseInt(result.issuedCnt),name: 'PSAM总量'},
+        ];
+        var psamIssuePie = echarts.init(document.getElementById("psamPieIssue"));
+        psamIssuePie.clear();
+        psamIssueOption.series[0].data = dataProo;
+        psamIssueOption.series[1].data = dataAll;
+        psamIssuePie.setOption(psamIssueOption);
+        // 点击显示PSAM列表
+        psamIssuePie.on('click', function (params) {
+          const title = params.name;
+          var status ;
+          switch (title) {
+            case '未发行':
+              status = 'PSAM_COUNT_STATUS_NOTISSUED';
+              break;
+            case '已发行':
+              status = 'PSAM_COUNT_STATUS_ISSUED';
+              break;
+            default:
+              break;
+          }
+          $("#psamDialog").show();
+          $("#dialogTitle").html(title);
+          var url = '/monitor/queryPsamIssueOrNotCountDetail'
+          getTable(status,url);
+        });
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: "/monitor/queryPsamCount",
+      data: {},
+      dataType: "json",
+      success: function (data) {
+        if (!data.result)
+          return;
+        let result = data.data.data;
+        let dataProo = [
+          // {value: result.inUsedCnt,name: '使用中'},
+          {value: result.notUsedCnt,name: '未使用'},
+          {value: parseInt(result.inUsedDtl.normalCnt1)+parseInt(result.inUsedDtl.normalCnt2),name: '正常'},
+          {value: result.inUsedDtl.authFailCnt,name: '授权失败'},
+          {value: result.inUsedDtl.signFailCnt,name: '签到失败'},
+          {value: result.inUsedDtl.ortherCnt,name: '其他'},
+        ];
+        let dataAll = [
+          {value: result.inUsedCnt,name: '使用中'},
+        ];
+        var psamPie = echarts.init(document.getElementById("psamPie"));
+        psamPie.clear();
+        psamOption.series[0].data = dataProo;
+        psamOption.series[1].data = dataAll;
+        psamPie.setOption(psamOption);
+        // 点击显示PSAM列表
+      }
+    });
+
+    //柱状图
+    //库存top10
+
+    // 导出excel
+    $("#downloadCompanyExcel").click(function() {
+      var form = $("<form>");   //定义一个form表单
+      form.attr('style', 'display:none');   //在form表单中添加查询参数
+      form.attr('target', '');
+      form.attr('method', 'post');
+      form.attr('action', "/detail/downloadAppMonitor4Excel?_csrf={{ ctx.csrf }}");
+
+      $('body').append(form);  //将表单放置在web中
+      form.submit();
+    })
+    $("#downloadPsamDetailExcel").click(function() {
+      window.open('http://test.vfjtech.com.cn:9888/api/report/psamApplicationDtlFile','_self');
+      // var form = $("<form>");   //定义一个form表单
+      // form.attr('style', 'display:none');   //在form表单中添加查询参数
+      // form.attr('target', '');
+      // form.attr('method', 'post');
+      // form.attr('action', "/detail/downloadAppMonitorDtl4Excel?_csrf={{ ctx.csrf }}");
+      //
+      // $('body').append(form);  //将表单放置在web中
+      // form.submit();
+      // request ();
+    })
+    function request () {
+      const req = new XMLHttpRequest();
+      req.open('GET', '/detail/downloadAppMonitorDtl4Excel', true);
+      req.responseType = 'blob';
+      req.setRequestHeader('Content-Type', 'application/json');
+      req.onload = function() {
+        const data = req.response;
+        const a = document.createElement('a');
+        const blob = new Blob([data]);
+        const blobUrl = window.URL.createObjectURL(blob);
+        download(blobUrl) ;
+      };
+      req.send('');
+    };
+
+    function download(blobUrl) {
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.download = 'PSAM应用明细表.xlsx';
+      a.href = blobUrl;
+      a.click();
+      // document.body.removeChild(a);
+    }
+
+
+
+
+  })
+</script>

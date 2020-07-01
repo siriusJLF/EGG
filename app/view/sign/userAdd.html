@@ -1,0 +1,279 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+    .checkbox label input{
+        vertical-align: middle;
+        margin-top: -2px !important;
+        margin-right: 5px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        添加用户
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 系统管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;padding-bottom: 50px">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>账号：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="userId" autocomplete="off" id="userId" placeholder="请输入账号，推荐使用姓名全拼">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>姓名：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="userName" autocomplete="off" id="userName" placeholder="请输入姓名">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>归属网点：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control select2" data-live-search ="true" name="netNodeCode" id="netNodeCode"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>联系电话：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="tel" autocomplete="off" id="tel" placeholder="请输入联系电话">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>邮箱：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="email" autocomplete="off" id="email" placeholder="请输入邮箱地址">
+                    </div>
+                </div>
+                <div class="form-group col-md-12" style="margin-bottom: 0">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>角色：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0;margin-top: 6px">
+                        <span class="text-orange" style="line-height: 20px">请根据工作职能，为用户配置角色</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4 " id="powerGroup" style="padding: 0;">
+<!--                        <div class="checkbox" style="margin-top: 0">-->
+<!--                            <label> <input name="power" type="checkbox" value="0">发行管理</label>-->
+<!--                        </div>-->
+<!--                        <div class="checkbox">-->
+<!--                            <label> <input name="power" type="checkbox" value="1">合同管理</label>-->
+<!--                        </div>-->
+<!--                        <div class="checkbox">-->
+<!--                            <label> <input name="power" type="checkbox" value="2">授权终端管理</label>-->
+<!--                        </div>-->
+<!--                        <div class="checkbox">-->
+<!--                            <label> <input name="power" type="checkbox" value="3">系统维护</label>-->
+<!--                        </div>-->
+                        <span class="text-red" style="font-size: 12px" id="powerTip" hidden>请为用户配置角色!</span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2" style="line-height: 34px">
+                        <span class="text-orange">注：初始密码默认为123456</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" >
+                    <button id="btnInventory" type="button" style="width: 180px; height: 42px; margin: 20px 0;" class="btn btn-primary">添&nbsp;&nbsp;&nbsp;&nbsp;加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      // 网点
+      $('#netNodeCode').select2({
+        placeholder: "请输入网点关键字进行搜索",
+        language : {
+          inputTooShort: function () {
+            return "请至少输入两个中文关键字";
+          }
+        },
+        allowClear: true,
+        ajax: {
+          type: 'POST',
+          delay : 800,// 延迟显示
+          url: '/systeam/netQueryName',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              page: params.page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            // Transforms the top-level key of the response object from 'items' to 'results'
+            const results = [];
+            $.each(data.data.data, function (commentIndex, comment) {
+              results.push({id:comment.netNodeCode,text:comment.nodeName})
+            });
+            return {
+              results: results
+            };
+          }
+        },
+        minimumInputLength : 1,// 最少输入一个字符才开始检索
+      });
+    //  权限
+      $.ajax({
+        type: 'GET',
+        url: "/systeam/sysRoleQuery",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+         $.each(data.data,function(index,element) {
+           html = '<div class="checkbox"> <label> <input name="power" type="radio" value="'+element.roleId+'">'+element.roleName+'('+element.remark+')</label></div>';
+           $("#powerGroup").prepend(html);
+         }) ;
+
+        }
+      });
+    }
+    // 添加
+    $("#btnInventory").click(function() {
+      var power = $("input[name='power']:checked").val();
+      $('form').bootstrapValidator('validate');
+      if ($("input[name='power']:checked").length<1||power==''){
+        $("#powerTip").show();
+        return;
+      }else {
+        $("#powerTip").hide();
+      };
+      if($('form').data('bootstrapValidator').isValid()){
+        const data = {
+          userId: $("#userId").val(),
+          userName: $("#userName").val(),
+          netNodeCode: $("#netNodeCode").val(),
+          roleIds: power,
+          phoneCall:$("#tel").val(),
+          email: $("#email").val()
+        }
+        console.log(data)
+        $("#btnInventory").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/systeam/sysUserAdd",
+          data: data,
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'用户添加失败',
+                text:data.errMsg?data.errMsg:' ',
+                icon:'error',
+                button:false
+              });
+              $("#btnInventory").removeAttr('disabled');
+            }else {
+              swal({
+                title:'用户添加成功',
+                text:data.msg?data.msg:' ',
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $('input[type="text"]').val('');
+              $("#btnInventory").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+            }
+          }
+        });
+      }
+
+    })
+    //校验
+    $('form').bootstrapValidator({
+      // 默认的提示消息
+      message: 'This value is not valid',
+      // 表单框里右侧的icon
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        userId: {
+          validators: {
+            notEmpty: {
+              message: '请输入账号'
+            }
+          }
+        },
+        userName: {
+          validators: {
+            notEmpty: {
+              message: '请输入姓名'
+            }
+          }
+        },
+        netNodeCode:{
+          validators: {
+            notEmpty: {
+              message: '请选择归属网点'
+            }
+          }
+        },
+        tel: {
+          validators: {
+            notEmpty: {
+              message: '请输入联系电话'
+            },
+            regexp: {
+              regexp: /^1\d{10}$/,
+              message: '电话格式错误'
+            }
+          }
+        },
+        email: {
+          validators: {
+            notEmpty: {
+              message: '请输入邮箱地址'
+            },
+            emailAddress:{
+              message: '邮箱格式错误'
+            }
+          }
+        }
+      }
+    });
+  })
+</script>

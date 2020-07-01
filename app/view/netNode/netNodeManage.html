@@ -1,0 +1,1137 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .mgl-20{
+        margin-left: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>组织结构</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 组织结构</a></li>
+<!--        <li class="active">{{title}}</li>-->
+    </ol>
+</section>
+<section class="content">
+    <div class="box clearfix" style="padding: 20px">
+        <!-- 申请-->
+        <div class="tab-pane clearfix col-md-2" style="background: #ecf0f5;padding: 20px">
+            <h4 style="line-height: 30px">
+                组织结构
+                <button id="getchecknode" style="height: 30px;" class="btn btn-warning pull-right" data-level="0">发布消息</button></h4>
+            <div class="treeCont">
+                <ul class="ztree" id="treeList"></ul>
+            </div>
+        </div>
+        <!-- 记录-->
+        <div class="table-cont col-md-10" style="padding-top: 0">
+            <!--            <h4>申请记录</h4>-->
+            <div class="box-body" style="background: #ecf0f5;padding: 20px">
+                <div class="clearfix">
+                    <h5 class="clearfix" style="font-size: 18px;" >
+                        <span class="col-md-6" id="nodeTitle">{{rootName}}</span>
+                        <div class="col-md-6 text-center">
+                            <button id="btnAddNet" style="height: 30px;" class="btn btn-primary pull-right" data-level="0">添加公司</button>
+<!--                            <button id="btnMsgSend" style="height: 30px;display: none;margin-right: 20px" class="btn btn-warning pull-right" data-level="0">消息发布</button>-->
+                            <input type="hidden" value="" id="hideCmpValue">
+                            <input type="hidden" value="" id="hideRoadValue">
+                            <input type="hidden" value="0" id="addLevel">
+                        </div>
+                    </h5>
+                </div>
+                <div class="contNetnodes">
+                    <table id="tableNet" class="table table-bordered table-hover" style="background: white;" cellspacing="0" cellpadding="0" border="0">
+                        <thead>
+                        <tr>
+                            <th>代码</th>
+                            <th>公司</th>
+                            <th>联系人</th>
+                            <th>电话号码</th>
+                            <th>邮箱</th>
+                            <th>创建时间</th>
+                            <th width="140">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="contChanel" hidden>
+                    <table id="tableChanle" class="table table-bordered table-hover" style="background: white;" cellspacing="0" cellpadding="0" border="0"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Modal 网点添加-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加网点</h4>
+            </div>
+            <form>
+            <div class="modal-body">
+                <div class="clearfix" style="background: white;padding: 20px;">
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label><font style="color: red">*</font><span class="netNodeCode">公司代码：</span></label>
+                        </div>
+                        <!-- radio -->
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="cmpCode" autocomplete="off" id="cmpCode" >
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label><font style="color: red">*</font><span class="netNodeName">公司名称：</span></label>
+                        </div>
+                        <!-- radio -->
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="cmpName" autocomplete="off" id="cmpName" >
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label><font style="color: red">*</font>联系人：</label>
+                        </div>
+                        <!-- radio -->
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="linkMan" autocomplete="off" id="linkMan" >
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label><font style="color: red">*</font>电话号码：</label>
+                        </div>
+                        <!-- radio -->
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="tel" autocomplete="off" id="tel" >
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label><font style="color: red">*</font>邮箱：</label>
+                        </div>
+                        <!-- radio -->
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="email" autocomplete="off" id="email" >
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>坐标：</label>
+                        </div>
+                        <!-- radio -->
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="getMan" autocomplete="off" id="getMan" >
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12" style="line-height: 32px;margin-bottom: 0">
+                        <div class="col-md-4" style="text-align: right;line-height: 34px">
+                            <label>网点说明：</label>
+                        </div>
+                        <div class="col-md-6">
+                            <textarea class="form-control" rows="4" id="approveRemark"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button type="button" class="btn btn-primary" id="addSubmit">确 定</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 网点修改-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="editModalLabel">网点信息修改</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span class="netNodeCode">公司代码：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="cmpCode" autocomplete="off" id="editcmpCode" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><span class="">上级网点：</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="editParentNode" disabled autocomplete="off" id="editParentNode" >
+                            </div>
+                            <div class="col-md-2" style="padding: 0"><a id="btnChangeNet" style="line-height: 34px;text-decoration: underline;cursor: pointer">更改</a></div>
+                        </div>
+                        <div class="form-group col-md-12 hideChangeNet" style="line-height: 32px;color: red" hidden>
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>目标上级网点：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <select class="form-control select2" data-live-search ="true" style="width: 100%;" name="editNetChange" id="editNetChange"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span class="netNodeName">公司名称：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="cmpName" autocomplete="off" id="editcmpName" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>联系人：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="linkMan" autocomplete="off" id="editlinkMan" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>电话号码：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="ttel" autocomplete="off" id="edittel" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>邮箱：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="email" autocomplete="off" id="editemail" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label>坐标：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="getMan" autocomplete="off" id="editgetMan" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="editSubmit">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 车道-->
+<div class="modal fade" id="chanelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="chanelModalLabel">车道信息</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span >车道代码：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="chanelCode" autocomplete="off" id="chanelCode" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span>车道类型：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="chanelType" autocomplete="off" id="chanelType" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span class="netNodeName">车道IP：</span></label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="chanelIp" autocomplete="off" id="chanelIp" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>车道MAC：</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="chanelMac" autocomplete="off" id="chanelMac" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>主授权终端UR：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="authUrlPri" autocomplete="off" id="authUrlPri" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font>备用授权终端URL：</label>
+                            </div>
+                            <!-- radio -->
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="authUrlBak" autocomplete="off" id="authUrlBak" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="chanelSubmit">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal 车道消息同步-->
+<div class="modal fade" id="chanelMsgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="chanelMsgModalLabel">车道信息消息同步</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span>消息类型：</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control select2" style="width: 100%;" name="msgType" id="msgType">
+                                    <option value="">请选择消息类型</option>
+                                    <option value="CHANEL_SYNC_BACKURL">备用授权URL变更</option>
+                                    <option value="CHANEL_SYNC_SOFTWARE">软件版本升级</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" style="line-height: 32px">
+                            <div class="col-md-4" style="text-align: right;line-height: 34px">
+                                <label><font style="color: red">*</font><span>消息内容：</span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea class="form-control" rows="4" id="msgCont"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" id="msgSend">确 定</button>
+                    <button type="button" style="display: none" class="btn btn-primary" id="msgSendAll">全部发布</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+  $(function() {
+  //  ztree
+    getTree();
+    var ztree;
+    function getTree() {
+      var setting = {
+        view:{
+          dblClickExpand: false//屏蔽掉双击事件
+        },
+        check:{
+          enable: true,
+          autoCheckTrigger: true,
+          chkStyle: "checkbox",
+          chkboxType: { "Y": "ps", "N": "ps" }
+        },
+        data:{
+          simpleData:{
+            enable:true
+          }
+        },
+        callback:{
+          onClick: nodeClick,
+          beforeClick:checkCan,
+        },
+      };
+      $.ajax({
+        type: 'POST',
+        url: "/netnode/netList",
+        data: {
+          page:0,
+          pageSize:1000
+        },
+        dataType: "json",
+        success: function (data) {
+          ztree = $.fn.zTree.init($("#treeList"),setting,data.data);
+        }
+      })
+    }
+    $("#getchecknode").click(function() {
+        var nodes = ztree.getCheckedNodes(true);
+        var stationArr = [];
+        for(let i = 0;i<nodes.length;i++){
+          if(nodes[i].level>=3){
+            stationArr.push(nodes[i].id);
+          }
+        }
+      function unique(arr){
+        for(var i=0; i<arr.length; i++){
+          for(var j=i+1; j<arr.length; j++){
+            if(arr[i]==arr[j]){         //第一个等同于第二个，splice方法删除第二个
+              arr.splice(j,1);
+              j--;
+            }
+          }
+        }
+        return arr;
+      }
+        var setArr = unique(stationArr);
+        var stationData = setArr.join(',');
+      if(stationArr.length<=0){
+        swal({
+          title:'系统提示',
+          text:'请选择网点',
+          icon:'info',
+          button:true
+        })
+        return;
+      }
+      $("#chanelMsgModal").off("click","#msgSendAll");
+      $("#chanelMsgModal").modal('show');
+      $("#chanelMsgModal").find("#msgSend").hide();
+      $("#chanelMsgModal").find("#msgSendAll").show();
+      $("#chanelMsgModal").on("click","#msgSendAll",function() {
+        const messageType = $("#msgType").val();
+        const content = $("#msgCont").val();
+        const datajson = {
+          level:1,
+          stationCodeList:stationData,
+          messageType: messageType,
+          content: content,
+        }
+        if(messageType==''||content==''){
+          swal({
+            title:'系统提示',
+            text:'请确认信息填写完整',
+            icon:'info',
+            button:true
+          })
+          return;
+        }
+        $("#msgSendAll").attr('disabled','disabled');
+        swal({
+          title:'消息发布中.....',
+          text:'请勿重复操作!',
+          icon:'info',
+          button:false
+        });
+        $.ajax({
+          type: 'POST',
+          url: "/netnode/chanelNotice",
+          data: datajson,
+          dataType: "json",
+          success: function (data) {
+            // swal.close();
+            $("#msgSendAll").removeAttr('disabled');
+            $("#chanelMsgModal").modal('hide');
+            if (!data.result){
+              swal({
+                title:'消息发布失败',
+                text:data.errMsg,
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'消息发布成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 1000
+              })
+            }
+          }
+        })
+      })
+    })
+  //  树事件
+    function nodeClick(e,treeId,treeNode) {
+      //展开节点
+      // var zTree = $.fn.zTree.getZTreeObj("treeList");
+      // zTree.expandNode(treeNode);
+      //查询节点信息
+      switch (treeNode.level) {
+        case 0:
+          $("#nodeTitle").html(treeNode.name);
+          $("#btnAddNet").attr("data-level","0")
+          $("#addLevel").val(0);
+          $("#btnAddNet").html('添加公司');
+          break;
+        case 1:
+          $("#nodeTitle").html(treeNode.name);
+          $("#btnAddNet").attr("data-level","1")
+          $("#addLevel").val(1);
+          $("#btnAddNet").html('添加路段');
+          $("#hideCmpValue").val(treeNode.id);
+          break;
+        case 2:
+          $("#nodeTitle").html(treeNode.name)
+          $("#btnAddNet").attr("data-level","2")
+          $("#btnAddNet").html('添加站点');
+          $("#hideRoadValue").val(treeNode.id);
+          $("#addLevel").val(2);
+          break;
+        case 3:
+          $("#nodeTitle").html(treeNode.name)
+          $("#btnAddNet").attr("data-level","3")
+          $("#btnAddNet").html('添加车道');
+          $("#hideRoadValue").val(treeNode.id);
+          $("#addLevel").val(2);
+          break;
+        default:
+          $("#nodeTitle").html(treeNode.name)
+          break;
+      }
+      if(treeNode.level==3){
+        chanelTable("/netnode/chanelTable?" + "&stationCode="+treeNode.id)
+        return;
+      }else{
+        const pid = treeNode.id;
+        const level = treeNode.level;
+        netTable.ajax.url("/netnode/netTable?" + "&parentId="+pid+"&level="+level+"").load();
+      }
+    }
+    function checkCan(treeId, treeNode, clickFlag) {
+      if (treeNode.level>2){
+        $(".contChanel").show();
+        $(".contNetnodes").hide();
+        // $("#btnMsgSend").show();
+      }else {
+        $(".contNetnodes").show();
+        $(".contChanel").hide();
+        // $("#btnMsgSend").hide();
+      };
+    }
+  //  表格
+    if ($('#tableNet')) {
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/netnode/netTable',
+          data: {
+            level:'0'
+          },
+        },
+        "columns": [
+          {"data": "netNodeCode", "title": "网点代码"},
+          {"data": "nodeName", "title": "网点名称"},
+          {"data": "contractPerson", "title": "联系人"},
+          {"data": "tel", "title": "电话"},
+          {"data": "email", "title": "邮箱"},
+          {"data": "createTime", "title": "创建时间"},
+          {"data": "netNodeCode", "title": "操作"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          $('td', row).eq(6).html('' +
+            '<a name="edit" class="btn btn-sm btn-info" data-code="'+data.netNodeCode+'" data-pid="'+data.parentId+'" data-name="'+data.nodeName+'" data-tel="'+data.tel+'" data-email="'+data.email+'" data-linkman="'+data.contractPerson+'" data-getman="'+data.coordinate+'">修改</a>' +
+            '<a name="stop" class="btn btn-sm btn-danger  mgl-20" data-code="'+data.netNodeCode+'">停用</a>');
+        },
+        "drawCallback": function (settings, json) {
+          // $('a[name="stop"]').click(consolCode);
+          $('a[name="edit"]').click(editNode);
+          $('a[name="stop"]').click(stopDo);
+        }
+      };
+      netTable = $('#tableNet').DataTable(settings);
+
+    }
+    function chanelTable(url){
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": url,
+        "columns": [
+          {"data": "chanelCode", "title": "车道代码"},
+          {"data": "chanelIp", "title": "车道IP"},
+          {"data": "chanelMac", "title": "车道Mac"},
+          {"data": "chanelType", "title": "车道类型"},
+          {"data": "authUrlPri", "title": "主授权终端URL"},
+          {"data": "status", "title": "状态"},
+          {"data": "subSatus", "title": "子状态"},
+          {"data": "ftyCode", "title": "厂家代码"},
+          {"data": "softVer", "title": "软件版本号"},
+          {"data": "id", "title": "操作"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          switch (data.chanelType) {
+            case '00':
+              $('td', row).eq(3).html('<span class="text-aqua">保留</span>');
+              break;
+            case '01':
+              $('td', row).eq(3).html('<span class="text-aqua">MTC入口</span>');
+              break;
+            case '02':
+              $('td', row).eq(3).html('<span class="text-aqua">MTC出口</span>');
+              break;
+            case '03':
+              $('td', row).eq(3).html('<span class="text-aqua">ETC入口</span>');
+              break;
+            case '04':
+              $('td', row).eq(3).html('<span class="text-aqua">ETC出口</span>');
+              break;
+            case '05':
+              $('td', row).eq(3).html('<span class="text-aqua">MTC开放式</span>');
+              break;
+            case '06':
+              $('td', row).eq(3).html('<span class="text-aqua">ETC开放式</span>');
+              break;
+            case '07':
+              $('td', row).eq(3).html('<span class="text-aqua">自定义</span>');
+              break;
+            case '0F':
+              $('td', row).eq(3).html('<span class="text-aqua">自定义</span>');
+              break;
+            case '10':
+              $('td', row).eq(3).html('<span class="text-aqua">标识点</span>');
+              break;
+            default:
+              $('td', row).eq(3).html('<span class="text-red">自定义('+data.chanelType+')</span>');
+              break;
+          }
+          switch (data.status) {
+            case 'RUN':
+              $('td', row).eq(5).html('<span class="text-green">应用中</span>');
+              break;
+            case 'NEW':
+              $('td', row).eq(5).html('<span class="text-aqua">新建</span>');
+              break;
+            case 'STOP':
+              $('td', row).eq(5).html('<span class="text-red">停用</span>');
+              break;
+            default:
+              $('td', row).eq(5).html('<span class="text-red">未知状态('+data.status+')</span>');
+              break;
+          }
+          switch (data.subSatus) {
+            case 'STOPPED':
+              $('td', row).eq(6).html('<span class="text-red">停用</span>');
+              break;
+            case 'NORMAL':
+              $('td', row).eq(6).html('<span class="text-green">正常</span>');
+              break;
+            case 'SLEEP':
+              $('td', row).eq(6).html('<span class="text-yellow">休眠</span>');
+              break;
+            case 'ERRSAM':
+              $('td', row).eq(6).html('<span class="text-yellow">PSAM异常</span>');
+              break;
+            case 'ERRBIND':
+              $('td', row).eq(6).html('<span class="text-yellow">绑定异常</span>');
+              break;
+            case 'ERRMAC':
+              $('td', row).eq(6).html('<span class="text-yellow">MAC错误</span>');
+              break;
+            default:
+              $('td', row).eq(6).html('<span class="text-red">未知状态('+data.status+')</span>');
+              break;
+          }
+          $('td', row).eq(9).html('<a name="edit" class="btn btn-sm btn-info" style="margin-right: 10px" data-id="'+data.id+'" >修改</a>' +
+            '<a name="stop" class="btn btn-sm btn-danger" style="margin-right: 10px" data-id="'+data.id+'">停用</a>'+
+            '<a name="message" class="btn btn-sm btn-warning" data-chanelcode="'+data.id+'" data-roadcode="'+data.rodeCode+'" data-stationcode="'+data.stationCode+'">发布</a>')
+        },
+        "drawCallback": function (settings, json) {
+          // $('a[name="stop"]').click(consolCode);
+          $('a[name="edit"]').click(stopDo);
+          $('a[name="stop"]').click(stopDo);
+          $('a[name="message"]').click(sendMessage);
+        }
+      };
+      // if(tableChanles){
+      //   console.log(tableChanles);
+      //   tableChanles.clear();
+      // }
+      tableChanles = $('#tableChanle').DataTable(settings);
+    }
+    function consolCode(e) {
+      const nodecode = e.currentTarget.dataset.code;
+      console.log(nodecode);
+    }
+    $('#msgType').select2({
+      placeholder:'请选择消息类型'
+    });
+    function sendMessage(e) {
+      $("#chanelMsgModal").off("click","#msgSend");
+      const chanelCode = e.currentTarget.dataset.chanelcode;
+      const datajson = {
+        level:2,
+        chanelCodeList:chanelCode,
+      }
+      $("#chanelMsgModal").modal('show');
+      $("#chanelMsgModal").find("#msgSend").show();
+      $("#chanelMsgModal").find("#msgSendAll").hide();
+      $("#chanelMsgModal").on("click","#msgSend",function() {
+        const messageType = $("#msgType").val();
+        const content = $("#msgCont").val();
+        datajson.messageType = messageType;
+        datajson.content = content;
+        if(messageType==''||content==''){
+          swal({
+            title:'系统提示',
+            text:'请确认信息填写完整',
+            icon:'info',
+            button:true
+          })
+          return;
+        }
+        $("#msgSend").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/netnode/chanelNotice",
+          data: datajson,
+          dataType: "json",
+          success: function (data) {
+            $("#msgSend").removeAttr('disabled');
+            $("#chanelMsgModal").modal('hide');
+            if (!data.result){
+              swal({
+                title:'消息发布失败',
+                text:data.errMsg,
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'消息发布成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 1000
+              })
+            }
+          }
+        })
+      })
+    }
+    function stopDo(){
+      swal({
+        title:'系统提示',
+        text:'敬请期待',
+        icon:'info',
+        button:false,
+        timer: 3000
+      })
+    }
+    $("#btnAddNet").click(function(e) {
+      var level = e.currentTarget.dataset.level;
+      switch (level) {
+        case '0':
+          $(".netNodeCode").html('公司代码');
+          $(".netNodeName").html('公司名称');
+          break;
+        case '1':
+          $(".netNodeCode").html('路段代码');
+          $(".netNodeName").html('路段名称');
+          break;
+        case '2':
+          $(".netNodeCode").html('站点代码');
+          $(".netNodeName").html('站点名称');
+          break;
+      }
+      if(level=='3'){
+        $("#chanelModal").modal('show');
+        $("#chanelSubmit").click(function() {
+          $("#chanelModal").modal('hide');
+          swal({
+            title:'系统提示',
+            text:'敬请期待',
+            icon:'info',
+            button:false,
+            timer: 3000
+          })
+        })
+        return
+      }
+      $('#myModal').modal('show');
+      $('form').data('bootstrapValidator').destroy();
+      check();
+    })
+    check();
+    function check(){
+      $('form').bootstrapValidator({
+        // 默认的提示消息
+        message: 'This value is not valid',
+        // 表单框里右侧的icon
+        feedbackIcons: {
+          valid: 'glyphicon glyphicon-ok',
+          invalid: 'glyphicon glyphicon-remove',
+          validating: 'glyphicon glyphicon-refresh'
+        },
+        submitHandler: function (validator, form, submitButton) {
+          // 表单提交成功时会调用此方法
+          // validator: 表单验证实例对象
+          // form  jq对象  指定表单对象
+          // submitButton  jq对象  指定提交按钮的对象
+          // applySubmit();
+        },
+        fields: {
+          cmpCode: {
+            validators: {
+              notEmpty: {
+                message: '请输入公司代码'
+              }
+            }
+          },
+          cmpName: {
+            validators: {
+              notEmpty: {
+                message: '请输入公司名称'
+              }
+            }
+          },
+          linkMan: {
+            validators: {
+              notEmpty: {
+                message: '请输入联系人'
+              }
+            }
+          },
+          tel: {
+            validators: {
+              notEmpty: {
+                message: '请输入联系电话'
+              }
+            }
+          },
+          email: {
+            validators: {
+              notEmpty: {
+                message: '请输入邮箱地址'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    $("#addSubmit").click(function() {
+      $('form').bootstrapValidator('validate');
+      if($('form').data('bootstrapValidator').isValid()){
+        var url;
+        var tableParentId;
+        switch ($("#addLevel").val()) {
+          case '0':
+            url = '/netnode/addCompany'
+            break;
+          case '1':
+            url = '/netnode/addRoad';
+            tableParentId = $("#hideCmpValue").val();
+            break;
+          case '2':
+            url = '/netnode/addStation'
+            tableParentId = $("#hideRoadValue").val();
+            break;
+        }
+        $('#myModal').modal('hide');
+        var data = {
+          gpid: $("#hideCmpValue").val(),
+          pid: $("#hideRoadValue").val(),
+          companyCode: $("#cmpCode").val(),
+          companyName: $("#cmpName").val(),
+          linkMan: $("#linkMan").val(),
+          tel: $("#tel").val(),
+          email: $("#email").val(),
+          getMan: $("#getMan").val(),
+          remark:$("#approveRemark").val()
+        }
+        $("#addSubmit").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: data,
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'添加失败',
+                text:data.errMsg,
+                icon:'error',
+                button:false
+              });
+              $("#addSubmit").removeAttr('disabled');
+            }else {
+              swal({
+                title:'添加成功',
+                text:data.msg,
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $("#addSubmit").removeAttr('disabled');
+              if($("#addLevel").val()==0){
+                netTable.ajax.url("/netnode/netTable?" +"&level="+$("#addLevel").val()+"").load();
+              }else if ($("#addLevel").val()==1){
+                netTable.ajax.url("/netnode/netTable?" + "&parentId="+$("#hideCmpValue").val()+"&level="+$("#addLevel").val()+"").load();
+              }else if ($("#addLevel").val()==2){
+                netTable.ajax.url("/netnode/netTable?" + "&parentId="+$("#hideRoadValue").val()+"&level="+$("#addLevel").val()+"").load();
+              }
+              $.ajax({
+                type: 'POST',
+                url: "/netnode/netList",
+                data: {
+                  page:0,
+                  pageSize:1000
+                },
+                dataType: "json",
+                success: function (data) {
+                  $.fn.zTree.init($("#treeList"),setting,data.data);
+                }
+              })
+              // $('#stationcode').empty()
+            }
+          }
+        });
+      }
+    })
+  //  修改
+    function editNode(e) {
+      $("#editModal").modal('show');
+      $("#editModal").off("click","#editSubmit");
+      $("#btnChangeNet").html('更改');
+      $("#btnChangeNet").removeClass("checkNewNet");
+      $('#editNetChange').empty();
+      $(".hideChangeNet").hide();
+      editNetCode()
+      const nodecode = e.currentTarget.dataset.code;
+      var pid ;
+      const name = e.currentTarget.dataset.name;
+      const tel = e.currentTarget.dataset.tel;
+      const email = e.currentTarget.dataset.email;
+      const linkman = e.currentTarget.dataset.linkman;
+      const getman = e.currentTarget.dataset.getman;
+
+      $("#editcmpCode").val(nodecode);
+      $("#editcmpName").val(name);
+      $("#editlinkMan").val(linkman);
+      $("#edittel").val(tel);
+      $("#editemail").val(email);
+      $("#editgetMan").val(getman);
+      $("#editParentNode").val($("#nodeTitle").text())
+
+      $("#editModal").on("click","#editSubmit",function() {
+        $("#editSubmit").attr('disabled','disabled');
+        if ($("#btnChangeNet").hasClass("checkNewNet")){
+          const oldpid = e.currentTarget.dataset.pid;
+          if($("#editNetChange").val()==''||$("#editNetChange").val()==null){
+            swal({
+              title:'系统提示',
+              text:'请选择新的上级网点',
+              icon:'info',
+              button:true
+            })
+            $("#editSubmit").removeAttr('disabled');
+            return ;
+          }else {
+            pid = $("#editNetChange").val();
+            const data ={
+              pid:pid,
+              nodecode:$("#editcmpCode").val(),
+              name:$("#editcmpName").val(),
+              tel:$("#edittel").val(),
+              email:$("#editemail").val(),
+              linkman:$("#editlinkMan").val(),
+              getman:$("#editgetMan").val(),
+            }
+            $.ajax({
+              type: 'POST',
+              url: "/netnode/editNetNode",
+              data: data,
+              dataType: "json",
+              success: function (data) {
+                $("#editModal").modal('hide');
+                if (!data.result){
+                  swal({
+                    title:'修改失败',
+                    text:data.errMsg,
+                    icon:'error',
+                    button:false
+                  });
+                  $("#editSubmit").removeAttr('disabled');
+                }else {
+                  swal({
+                    title:'修改成功',
+                    text:data.msg,
+                    icon:'success',
+                    button:false,
+                    timer: 3000
+                  })
+                  $("#editSubmit").removeAttr('disabled');
+                  getTree()
+                  netTable.ajax.url("/netnode/netTable?" + "&parentId="+oldpid+"&level="+$("#addLevel").val()+"").load();
+                }
+              }
+            })
+          }
+        }else {
+          pid = e.currentTarget.dataset.pid;
+          const data ={
+            pid:pid,
+            nodecode:$("#editcmpCode").val(),
+            name:$("#editcmpName").val(),
+            tel:$("#edittel").val(),
+            email:$("#editemail").val(),
+            linkman:$("#editlinkMan").val(),
+            getman:$("#editgetMan").val(),
+          }
+          $.ajax({
+            type: 'POST',
+            url: "/netnode/editNetNode",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+              $("#editModal").modal('hide');
+              if (!data.result){
+                swal({
+                  title:'修改失败',
+                  text:data.errMsg,
+                  icon:'error',
+                  button:false
+                });
+                $("#editSubmit").removeAttr('disabled');
+              }else {
+                swal({
+                  title:'修改成功',
+                  text:data.msg,
+                  icon:'success',
+                  button:false,
+                  timer: 3000
+                })
+                $("#editSubmit").removeAttr('disabled');
+                netTable.ajax.url("/netnode/netTable?" + "&parentId="+pid+"&level="+$("#addLevel").val()+"").load();
+              }
+            }
+          })
+        }
+
+
+      })
+    }
+    $("#btnChangeNet").click(function() {
+      $(this).toggleClass("checkNewNet");
+      if($(this).hasClass("checkNewNet")){
+        $(this).html('取消')
+      }else {
+        $(this).html('更改')
+      }
+      $(".hideChangeNet").slideToggle();
+    })
+    function editNetCode(){
+      $('#editNetChange').select2({
+        placeholder: "请输入关键字",
+        language : {
+          inputTooShort: function () {
+            return "请至少输入两个中文关键字";
+          }
+        },
+        allowClear: true,
+        ajax: {
+          type: 'POST',
+          delay : 800,// 延迟显示
+          url: '/systeam/netQueryName',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              page: params.page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            // Transforms the top-level key of the response object from 'items' to 'results'
+            const results = [];
+            $.each(data.data.data, function (commentIndex, comment) {
+              results.push({id:comment.netNodeCode,text:comment.nodeName})
+            });
+            return {
+              results: results
+            };
+          }
+        },
+        minimumInputLength : 1,// 最少输入一个字符才开始检索
+      });
+    }
+  })
+</script>

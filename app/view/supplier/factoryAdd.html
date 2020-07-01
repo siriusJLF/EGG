@@ -1,0 +1,174 @@
+
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        添加厂家
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 物料管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;padding-bottom: 50px">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>厂家名称：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="factoryName" autocomplete="off" id="factoryName" placeholder="请输入要添加的厂家名称">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>联系人：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="factoryPrs" autocomplete="off" id="factoryPrs" placeholder="请输入厂家联系人">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>联系电话：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="factoryTel" autocomplete="off" id="factoryTel" placeholder="请输入厂家联系电话">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>备注：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="remark" autocomplete="off" id="remark" placeholder="请输入备注">
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" >
+                    <button id="btnInventory" type="submit" style="width: 180px; height: 42px; margin: 20px 0;" class="btn btn-primary">添&nbsp;&nbsp;&nbsp;&nbsp;加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      $.ajax({
+        type: 'POST',
+        url: "/publish/queryUsage",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#useAge').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择场景</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.usageId + '"  ' + '>' + comment.usegeInfo + '</option>';
+          });
+          $('#useAge').html(html);
+        }
+      });
+      $.ajax({
+        type: 'POST',
+        url: "/publish/queryFactory",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#factoryCode').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择供应商</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.factoryCode + '"  ' + '>' + comment.factoryName + '</option>';
+          });
+          $('#factoryCode').html(html);
+        }
+      });
+    }
+    // 添加
+    $("#btnInventory").click(function() {
+      $('form').bootstrapValidator('validate');
+      if($('form').data('bootstrapValidator').isValid()){
+        const data = {
+          factoryName: $("#factoryName").val(),
+          contracrTel: $("#factoryTel").val(),
+          contractPerson: $("#factoryPrs").val(),
+          remark:$("#remark").val()
+        }
+        $("#btnInventory").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/ware/wareFactoryAdd",
+          data: data,
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'厂家添加失败',
+                text:data.errMsg?data.errMsg:' ',
+                icon:'error',
+                button:false
+              });
+              $("#btnInventory").removeAttr('disabled');
+            }else {
+              swal({
+                title:'厂家添加成功',
+                text:data.msg?data.msg:' ',
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $('input').val('');
+              $("#btnInventory").removeAttr('disabled');
+              $('form').data('bootstrapValidator').resetForm();
+            }
+          }
+        });
+      }
+
+    })
+    //校验
+    $('form').bootstrapValidator({
+      // 默认的提示消息
+      message: 'This value is not valid',
+      // 表单框里右侧的icon
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        factoryName: {
+          validators: {
+            notEmpty: {
+              message: '请输入供应商名称'
+            }
+          }
+        }
+      }
+    });
+  })
+</script>

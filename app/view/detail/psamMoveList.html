@@ -1,0 +1,535 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .more{
+        cursor: pointer;
+        color: #0aa0ff;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+    .child-row{
+        text-align: left !important;background-color:#f4f4f4  !important;
+    }
+    .shown{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white;
+    }
+    .shown td{
+        background-color: #f4f4f4  !important;
+        border-top: solid 2px white !important;
+    }
+    .child-span{
+        display: inline-block;
+        padding: 0 10px;margin-right: 50px;
+    }
+    .list-psam{
+        padding: 0;
+        max-height: 550px;
+        overflow: auto;
+    }
+    .list-psam li{
+        display: inline-block;
+        width: 48%;
+        line-height: 40px;
+        text-align: center;
+        padding: 5px;
+     }
+    .list-psam li span{
+        display: inline-block;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        border: solid 1px #00c0ef;
+        color: #00a7d0;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+<section class="content-header">
+    <h1>PSAM转移管理</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 报表明细</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+    <input type="hidden" value="{{user}}" id="hideUserId">
+    <input type="hidden" id="hideSelectedPsam" value="">
+    <input type="hidden" id="hideSelectedLength" value="0">
+    <input type="hidden" value="{{type}}" id="hideType">
+    <input type="hidden" value="{{lever}}" id="hideLevel">
+    <input type="hidden" value="{{netnode}}" id="hideNetNode">
+</section>
+<section class="content">
+    <div class="box">
+        <!-- Custom Tabs -->
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">我的接收</a></li>
+                <li><a href="#tab_2" data-toggle="tab">我的发起</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <!-- 申请-->
+                    <div class="tab-pane clearfix" id="resetPwd2" style="padding-top: 50px;">
+                        <div class="col-md-3 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>转移批次：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" name="moveid" id="moveidIN" placeholder="输入批次号查询" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>发起网点：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="applyNodeCode" id="applyNodeCode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>状态：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="status" id="statusIN">
+                                    <option value="">请选择状态</option>
+                                    <option value="PSAM_ResponsChangeSTATUS_WAITCFM">待确认</option>
+                                    <option value="PSAM_ResponsChangeSTATUS_FNH">已完成</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button id="btnSearchIN" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+                        </div>
+                    </div>
+                    <!-- 记录-->
+                    <div class="table-cont" style="padding: 0">
+                        <!--            <h4>申请记录</h4>-->
+                        <div class="box-body">
+                            <table id="exampleIN" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_2">
+                    <!-- 申请-->
+                    <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+                        <div class="col-md-3 form-group " >
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>转移批次：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <input type="text" class="form-control" autocomplete="off" name="moveid" id="moveidOUT" placeholder="输入批次号查询" >
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>目标网点：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="approveNodeCode" id="approveNodeCode"></select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="col-md-5" style="text-align: right;line-height: 34px">
+                                <label>状态：</label>
+                            </div>
+                            <div class="col-md-7" style="padding: 0">
+                                <select class="form-control select2" style="width: 100%;" name="status" id="statusOUT">
+                                    <option value="">请选择状态</option>
+                                    <option value="PSAM_ResponsChangeSTATUS_WAITCFM">待确认</option>
+                                    <option value="PSAM_ResponsChangeSTATUS_FNH">已完成</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button id="btnSearchOUT" style="width: 180px; height: 42px;" class="btn btn-primary">查&nbsp;&nbsp;&nbsp;&nbsp;询</button>
+                        </div>
+                    </div>
+                    <!-- 记录-->
+                    <div class="table-cont" style="padding: 0">
+                        <!--            <h4>申请记录</h4>-->
+                        <div class="box-body">
+                            <table id="exampleOUT" class="table table-bordered table-hover" cellspacing="0" cellpadding="0" border="0"></table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- nav-tabs-custom -->
+
+    </div>
+    </div>
+</section>
+<!-- Modal 移交确认-->
+<div class="modal fade" id="moveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 670px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="moveModallLabel">转移信息</h4>
+            </div>
+            <form>
+                <div class="modal-body">
+                    <div class="clearfix" style="background: white;padding: 20px;">
+                        <div class="form-group col-md-12">
+                            <div class="col-md-6" style="text-align: left;line-height: 34px">
+                                <label>本批次PSAM卡列表：</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <div class="col-md-12">
+                                <ul class="list-psam" id="psamList">
+                                    <li><span>52221455522566652255412</span></li>
+                                    <li><span>52221455522566652255412</span></li>
+                                    <li><span>52221455522566652255412</span></li>
+                                    <li><span>52221455522566652255412</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确 定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(function() {
+    $('#status').select2({
+      placeholder:'请选择状态',
+      allowClear : true,
+    });
+    //下拉框
+    selectInit()
+    function selectInit(){
+      $('#applyNodeCode').select2({
+        placeholder: "请输入网点关键字进行搜索",
+        language : {
+          inputTooShort: function () {
+            return "请至少输入两个中文关键字";
+          }
+        },
+        allowClear: true,
+        ajax: {
+          type: 'POST',
+          delay : 800,// 延迟显示
+          url: '/systeam/netQueryName',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              page: params.page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            // Transforms the top-level key of the response object from 'items' to 'results'
+            const results = [];
+            $.each(data.data.data, function (commentIndex, comment) {
+              results.push({id:comment.netNodeCode,text:comment.nodeName})
+            });
+            return {
+              results: results
+            };
+          }
+        },
+        minimumInputLength : 1,// 最少输入一个字符才开始检索
+      });
+      $('#approveNodeCode').select2({
+        placeholder: "请输入网点关键字进行搜索",
+        language : {
+          inputTooShort: function () {
+            return "请至少输入两个中文关键字";
+          }
+        },
+        allowClear: true,
+        ajax: {
+          type: 'POST',
+          delay : 800,// 延迟显示
+          url: '/systeam/netQueryName',
+          data: function (params) {
+            var query = {
+              search: params.term,
+              page: params.page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            // Transforms the top-level key of the response object from 'items' to 'results'
+            const results = [];
+            $.each(data.data.data, function (commentIndex, comment) {
+              results.push({id:comment.netNodeCode,text:comment.nodeName})
+            });
+            return {
+              results: results
+            };
+          }
+        },
+        minimumInputLength : 1,// 最少输入一个字符才开始检索
+      });
+    }
+
+    //表格
+    if ($('#exampleIN')) {
+      const hideNetNode = $("#hideNetNode").val();
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/detail/queryResponsChangeIn',
+          data: {
+            // applyuser: 1, //0查询当前用户的记录，1查询所有人
+            // level:'NETNODE_LEVEL_1'
+            // status: $("#status").val(),
+          },
+        },
+        "columns": [
+          {"data": "id", "title": "转移批次"},
+          // {"data": "samTerminalNo", "title": "终端号"},
+          {"data": "applyNetNodeName", "title": "发起网点"},
+          {"data": "recvNetNodeName", "title": "接收网点"},
+          {"data": "count", "title": "数量"},
+          {"data": "applyTime", "title": "发起时间"},
+          {"data": "confirmTime", "title": "接收时间"},
+          {"data": "status", "title": "状态"},
+          {"data": "samSerialNoList", "title": "操作"}],
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sLengthMenu" : "显示 _MENU_ 项结果",
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          if(data.applyTime!=''){
+            $('td', row).eq(4).html(''+data.applyTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          }
+          if (data.confirmTime!=''){
+            $('td', row).eq(5).html(''+data.confirmTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          }else {
+            $('td', row).eq(5).html('<span class="text-red">未接收</span>');
+          }
+          var welldata = JSON.stringify(data);
+          $('td', row).eq(9).html("<a class='btn btn-sm btn-warning' style='margin-left: 10px' name='moveInform'>确认</a><input type='hidden' value='"+welldata+"' >");
+          switch (data.status) {
+            case 'WAITCFM':
+              $('td', row).eq(6).html('<span class="text-aqua">待确认</span>');
+              if(hideNetNode==data.recvNetNodeCode){
+                $('td', row).eq(7).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-warning' style='margin-left: 10px' name='moveInform'>确认</a>" +
+                  "<a class='btn btn-sm btn-info' style='margin-left: 10px' name='detail'>查看</a>");
+              }else {
+                $('td', row).eq(7).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-info' style='margin-left: 10px' name='detail'>查看</a>");
+              }
+              break;
+            case 'FNH':
+              $('td', row).eq(6).html('<span class="text-green">已完成</span>');
+              $('td', row).eq(7).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-success' style='margin-left: 10px' name='detail'>详情</a>");
+              break;
+            default:
+              $('td', row).eq(6).html('<span class="text-red">状态异常，请联系管理员</span>');
+              break;
+          }
+
+        },
+        "drawCallback": function (settings, json) {
+          $('a[name="moveInform"]').click(moveInform);
+          $('a[name="detail"]').click(showDetail);
+        }
+      };
+      netTableIn = $('#exampleIN').DataTable(settings);
+
+    }
+    if ($('#exampleOUT')) {
+      const hideNetNode = $("#hideNetNode").val();
+      var pagesize = 10;
+      var settings = {
+        "destroy": true,
+        "serverSide": true,
+        "ajax": {
+          url: '/detail/queryResponsChangeOut',
+          data: {
+            // applyuser: 1, //0查询当前用户的记录，1查询所有人
+            // level:'NETNODE_LEVEL_1'
+            // status: $("#status").val(),
+          },
+        },
+        "columns": [
+          {"data": "id", "title": "转移批次"},
+          // {"data": "samTerminalNo", "title": "终端号"},
+          {"data": "applyNetNodeName", "title": "发起网点"},
+          {"data": "recvNetNodeName", "title": "接收网点"},
+          {"data": "count", "title": "数量"},
+          {"data": "applyTime", "title": "发起时间"},
+          {"data": "confirmTime", "title": "接收时间"},
+          {"data": "status", "title": "状态"},
+          {"data": "samSerialNoList", "title": "操作"}],
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": false,
+        "info": true,
+        "autoWidth": false,
+        "processing": true,
+        "pageLength": pagesize,
+        "oLanguage": {
+          "sZeroRecords": "没有符合条件的数据,请尝试其他搜索条件",
+          "sInfoEmpty": "当前显示 0 到 0 条，共 0 条记录",
+          "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_ 条记录",
+          "sProcessing": "正在加载中...",
+          "oPaginate": {
+            "sFirst": "第一页",
+            "sPrevious": " 上一页 ",
+            "sNext": " 下一页 ",
+            "sLast": " 最后一页 "
+          }
+        },
+        "createdRow": function (row, data, index) {
+          if(data.applyTime!=''){
+            $('td', row).eq(4).html(''+data.applyTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          }
+          if (data.confirmTime!=''){
+            $('td', row).eq(5).html(''+data.confirmTime.replace(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1-$2-$3 $4:$5:$6")+'');
+          }else {
+            $('td', row).eq(5).html('<span class="text-red">未接收</span>');
+          }
+          var welldata = JSON.stringify(data);
+          $('td', row).eq(9).html("<a class='btn btn-sm btn-warning' style='margin-left: 10px' name='moveInform'>确认</a><input type='hidden' value='"+welldata+"' >");
+          switch (data.status) {
+            case 'WAITCFM':
+              $('td', row).eq(6).html('<span class="text-aqua">待确认</span>');
+              if(hideNetNode==data.recvNetNodeCode){
+                $('td', row).eq(7).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-warning' style='margin-left: 10px' name='moveInform'>确认</a>" +
+                  "<a class='btn btn-sm btn-info' style='margin-left: 10px' name='detail'>查看</a>");
+              }else {
+                $('td', row).eq(7).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-info' style='margin-left: 10px' name='detail'>查看</a>");
+              }
+              break;
+            case 'FNH':
+              $('td', row).eq(6).html('<span class="text-green">已完成</span>');
+              $('td', row).eq(7).html("<input type='hidden' value='"+welldata+"' ><a class='btn btn-sm btn-success' style='margin-left: 10px' name='detail'>详情</a>");
+              break;
+            default:
+              $('td', row).eq(6).html('<span class="text-red">状态异常，请联系管理员</span>');
+              break;
+          }
+
+        },
+        "drawCallback": function (settings, json) {
+          $('a[name="moveInform"]').click(moveInform);
+          $('a[name="detail"]').click(showDetail);
+        }
+      };
+      netTableOut = $('#exampleOUT').DataTable(settings);
+
+    }
+
+    //  查询
+    $("#btnSearchIN").click(function() {
+      searchIn();
+    })
+    function searchIn() {
+      var applyNetNodeCode = $("#applyNodeCode").val();
+      if (applyNetNodeCode==null||applyNetNodeCode==''){
+        applyNetNodeCode = '';
+      }
+      netTableIn.clear();
+      netTableIn.ajax.url("/detail/queryResponsChangeIn?" +"&id="+$("#moveidIN").val()+"&applyNetNodeCode="+applyNetNodeCode+"&status="+$("#statusIN").val()).load();
+    }
+    //  查询
+    $("#btnSearchOUT").click(function() {
+      searchOut();
+    })
+    function searchOut() {
+      var recvNetNodeCode = $("#approveNodeCode").val();
+      if (recvNetNodeCode==null||recvNetNodeCode==''){
+        recvNetNodeCode = '';
+      } ;
+      netTableOut.clear();
+      netTableOut.ajax.url("/detail/queryResponsChangeOut?" +"&id="+$("#moveidOUT").val()+"&recvNetNodeCode="+recvNetNodeCode+"&status="+$("#statusOUT").val()).load();
+    }
+
+    function moveInform(e) {
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      const dataJson = {
+        id: data.id
+      }
+      swal({
+        title:'转移确认',
+        text:data.samSerialNoList,
+        buttons:{
+          cancel:'取消',
+          defeat:'确定',
+        },
+      }).then((vaule)=>{
+        switch (vaule) {
+          case 'defeat':
+            inform();
+            break;
+        }
+      })
+      function inform() {
+        $.ajax({
+          type: 'POST',
+          url: "/detail/cfmResponsChange",
+          data: dataJson,
+          dataType: "json",
+          success: function (data) {
+            if (!data.result){
+              swal({
+                title:'操作失败',
+                text:data.errMsg?data.errMsg:'',
+                icon:'error',
+                button:true
+              });
+            }else {
+              swal({
+                title:'操作成功',
+                text:data.msg?data.msg:'',
+                icon:'success',
+                button:false,
+                timer: 3000
+              });
+              searchIn();
+            }
+          }
+        });
+      }
+    }
+    function showDetail(e) {
+      $("#moveModal").modal('show');
+      var string = $(this).siblings('input').val();
+      var data = JSON.parse(string);
+      var psamlist = data.samSerialNoList.split(',');
+      $("#psamList").html('');
+      $.each(psamlist, function (commentIndex, comment) {
+        $("#psamList").append('<li><span>'+comment+'</span></li>')
+      });
+
+    }
+
+  })
+</script>

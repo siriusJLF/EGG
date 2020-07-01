@@ -1,0 +1,366 @@
+<style>
+    .table-cont{
+        padding: 20px;
+    }
+    .form-control-feedback{
+        right: -35px;
+    }
+</style>
+<section class="content-header">
+    <h1>终端添加</h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> 终端管理</a></li>
+        <li class="active">{{title}}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box">
+        <!-- 申请-->
+        <form class="clearfix">
+            <div class="tab-pane clearfix" id="resetPwd" style="padding-top: 50px;">
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>设备序列号：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="deviceSerialNo" autocomplete="off" id="deviceSerialNo" placeholder="请输入设备序列号">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>设备型号：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="deviceModel" autocomplete="off" id="deviceModel" placeholder="请输入设备型号">
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>物料：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control" name="wareId" id="wareId"> </select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>公司：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="companyCode" id="companyCode"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>路段：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="roadCode" id="roadCode"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label><font style="color: red">*</font>站点：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <select class="form-control select2" style="width: 100%;" name="stationCode" id="stationCode"></select>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>维护人：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="mantPerson" autocomplete="off" id="mantPerson" placeholder="请输入维护人姓名">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>维护电话：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="mantTel" autocomplete="off" id="mantTel" placeholder="请输入维护电话">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>工作URL：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="workUrl" autocomplete="off" id="workUrl" placeholder="请输入工作URL">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>备份URL(1)：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="backUrl1" autocomplete="off" id="backUrl1" placeholder="请输入备份URL">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>备份URL(2)：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="backUrl2" autocomplete="off" id="backUrl2" placeholder="请输入备份URL">
+                    </div>
+                </div>
+                <div class="col-md-12 form-group " >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2" style="text-align: right;line-height: 34px">
+                        <label>备注：</label>
+                    </div>
+                    <div class="col-md-4" style="padding: 0">
+                        <input type="text" class="form-control" name="remark" autocomplete="off" id="remark" placeholder="请输入备注">
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center" >
+                    <button id="btnAdd" type="button" style="width: 180px; height: 42px; margin-bottom: 15px" class="btn btn-primary">添&nbsp;&nbsp;&nbsp;&nbsp;加</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+
+<script>
+  $(function() {
+    getWare();
+    function getWare(){
+      //物料
+      $.ajax({
+        type: 'POST',
+        url: "/publish/wareSearchType",
+        data: {},
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#wareId').empty();   //清空resText里面的所有内容
+
+          var html = '';
+          html += '<option value="">请选择物料</option>';
+          $.each(data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.wareId + '"  ' + '>' + comment.wareName + '</option>';
+          });
+          $('#wareId').html(html);
+          $('#wareId').select2({
+            placeholder:'请选择物料'
+          })
+        }
+      });
+      $('#roadCode').select2({
+        placeholder:'请先选择路段'
+      });
+      $('#stationCode').select2({
+        placeholder:'请先选择路段'
+      });
+      //公司
+      $.ajax({
+        type: 'POST',
+        url: "/publish/netListCompany",
+        data: {
+          page:0,
+          pageSize:1000,
+          level:'NETNODE_LEVEL_1'
+        },
+        dataType: "json",
+        success: function (data) {
+          if (!data.result)
+            return;
+          $('#companyCode').empty();   //清空resText里面的所有内容
+          var html = '';
+          html += '<option value="">请选择公司</option>';
+          $.each(data.data.data, function (commentIndex, comment) {
+            html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+          });
+          $('#companyCode').html(html);
+          $('#companyCode').select2({
+            placeholder:'请选择公司'
+          });
+        }
+      });
+      $("#companyCode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#companyCode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#roadCode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择路段</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#roadCode').html(html);
+            $('#roadCode').select2({
+              placeholder:'请选择路段'
+            });
+          }
+        });
+      })
+      $("#roadCode").change(function() {
+        $.ajax({
+          type: 'POST',
+          url: "/publish/netListCompany",
+          data: {
+            page:0,
+            pageSize:1000,
+            parentId:$('#roadCode').val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            if (!data.result)
+              return;
+            $('#stationCode').empty();   //清空resText里面的所有内容
+
+            var html = '';
+            html += '<option value="">请选择站点</option>';
+            $.each(data.data.data, function (commentIndex, comment) {
+              html += '<option   value="' + comment.netNodeCode + '"  ' + '>' + comment.nodeName + '</option>';
+            });
+            $('#stationCode').html(html);
+            $('#stationCode').select2({
+              placeholder:'请选择站点'
+            });
+          }
+        });
+      })
+    }
+
+    // 添加
+    $("#btnAdd").click(function() {
+      $('form').bootstrapValidator('validate');
+      if(!$('form').data('bootstrapValidator').isValid()){
+        return
+      } else {
+        $("#btnAdd").attr('disabled','disabled');
+        $.ajax({
+          type: 'POST',
+          url: "/terminal/addAuthModel",
+          data: {
+            deviceSerialNo: $("#deviceSerialNo").val(),
+            deviceModel: $("#deviceModel").val(),
+            wareId: $("#wareId").val(),
+            companyCode: $("#companyCode").val(),
+            roadCode: $("#roadCode").val(),
+            stationCode: $("#stationCode").val(),
+            mantPerson: $("#mantPerson").val(),
+            mantTel: $("#mantTel").val(),
+            workUrl: $("#workUrl").val(),
+            lastShakeHane: $("#lastShakeHane").val(),
+            remark: $("#remark").val(),
+            backUrl1: $("#backUrl1").val(),
+            backUrl2: $("#backUrl2").val(),
+          },
+          dataType: "json",
+          success: function (data) {
+            $("#btnAdd").removeAttr('disabled');
+            if (!data.result){
+              swal({
+                title:'添加失败',
+                text:data.errMsg?data.errMsg:' ',
+                icon:'error',
+                button:false
+              });
+            }else {
+              swal({
+                title:'添加成功',
+                text:data.msg?data.msg:' ',
+                icon:'success',
+                button:false,
+                timer: 3000
+              })
+              $('input').val('');
+              $('form').data('bootstrapValidator').resetForm();
+            }
+          }
+        });
+      }
+    });
+    $('form').bootstrapValidator({
+      // 默认的提示消息
+      message: 'This value is not valid',
+      // 表单框里右侧的icon
+      feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+      },
+      submitHandler: function (validator, form, submitButton) {
+        // 表单提交成功时会调用此方法
+        // validator: 表单验证实例对象
+        // form  jq对象  指定表单对象
+        // submitButton  jq对象  指定提交按钮的对象
+        // applySubmit();
+      },
+      fields: {
+        deviceSerialNo: {
+          validators: {
+            notEmpty: {
+              message: '请输入设备序列号'
+            }
+          }
+        },
+        deviceModel:{
+          validators: {
+            notEmpty: {
+              message: '请输入设备型号'
+            }
+          }
+        },
+        wareId: {
+          validators: {
+            notEmpty: {
+              message: '请选择物料'
+            }
+          }
+        },
+        companyCode: {
+          validators: {
+            notEmpty: {
+              message: '请选择公司'
+            }
+          }
+        },
+        roadCode: {
+          validators: {
+            notEmpty: {
+              message: '请选择路段'
+            }
+          }
+        },
+        stationCode: {
+          validators: {
+            notEmpty: {
+              message: '请选择收费站'
+            }
+          }
+        }
+      }
+    });
+
+
+  })
+</script>
