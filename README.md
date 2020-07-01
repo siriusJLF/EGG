@@ -1,6 +1,6 @@
 # newEgg
 
-ceshi
+基于egg的后台管理系统
 
 ## QuickStart
 
